@@ -1,0 +1,67 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &6387289754935667329
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 455742609594732240, guid: 209625327ebcd4444a0b7bf4c46ef8af, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 455742609594732240, guid: 209625327ebcd4444a0b7bf4c46ef8af, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 455742609594732240, guid: 209625327ebcd4444a0b7bf4c46ef8af, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 455742609594732240, guid: 209625327ebcd4444a0b7bf4c46ef8af, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 455742609594732240, guid: 209625327ebcd4444a0b7bf4c46ef8af, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 455742609594732240, guid: 209625327ebcd4444a0b7bf4c46ef8af, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 455742609594732240, guid: 209625327ebcd4444a0b7bf4c46ef8af, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 455742609594732240, guid: 209625327ebcd4444a0b7bf4c46ef8af, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 455742609594732240, guid: 209625327ebcd4444a0b7bf4c46ef8af, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 455742609594732240, guid: 209625327ebcd4444a0b7bf4c46ef8af, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 455742609594732240, guid: 209625327ebcd4444a0b7bf4c46ef8af, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2351084833520751661, guid: 209625327ebcd4444a0b7bf4c46ef8af, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: -1453370108866334923, guid: 25487138ed0df1e4f9f6060ea9b7424d, type: 3}
+    - target: {fileID: 7072630157966951768, guid: 209625327ebcd4444a0b7bf4c46ef8af, type: 3}
+      propertyPath: m_Name
+      value: GrassSteepSlopeLeft
+      objectReference: {fileID: 0}
+    - target: {fileID: 8054349896976912392, guid: 209625327ebcd4444a0b7bf4c46ef8af, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 209625327ebcd4444a0b7bf4c46ef8af, type: 3}
