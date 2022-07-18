@@ -96,6 +96,7 @@ TextureImporter:
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
+  ignoreMasterTextureLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -676,6 +677,31 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
+    nameFileIdTable:
+      Tobias_walk_22: -7652698152252540615
+      Tobias_walk_10: 2240083050743347334
+      Tobias_walk_7: -5025664465471872040
+      Tobias_walk_15: 661471921781741390
+      Tobias_walk_17: -6502041550353536845
+      Tobias_walk_8: -8468362399255024503
+      Tobias_walk_1: -171826709738013318
+      Tobias_walk_11: -2680427898372084221
+      Tobias_walk_14: -5206888345693721196
+      Tobias_walk_13: -2655280920493304084
+      Tobias_walk_0: -7720861629058364751
+      Tobias_walk_23: 860041623142820094
+      Tobias_walk_2: -6062679793737342574
+      Tobias_walk_4: -2177175314036099821
+      Tobias_walk_19: -5402367247573943351
+      Tobias_walk_16: 6885735553985196134
+      Tobias_walk_6: 6643666978751374574
+      Tobias_walk_12: -8567037555142764720
+      Tobias_walk_3: 872789568691661385
+      Tobias_walk_5: 3958839566434904061
+      Tobias_walk_20: 1178073230014239313
+      Tobias_walk_18: 8558868158764045529
+      Tobias_walk_21: 4037706105910441062
+      Tobias_walk_9: 6863732824465950145
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

@@ -96,6 +96,7 @@ TextureImporter:
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
+  ignoreMasterTextureLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -676,6 +677,31 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
+    nameFileIdTable:
+      borders_set_full_14: 181587730276796996
+      borders_set_full_17: -6606518450746623755
+      borders_set_full_19: -6529842939719522647
+      borders_set_full_1: 2910599681992043708
+      borders_set_full_12: -5063631526685448525
+      borders_set_full_3: 6397232016405409423
+      borders_set_full_5: 4947233850947251798
+      borders_set_full_16: -1738517434397096588
+      borders_set_full_20: 983285173727571509
+      borders_set_full_22: 6619933544485224004
+      borders_set_full_23: 3991419367626939823
+      borders_set_full_6: 6188950565609828544
+      borders_set_full_13: 3840520367708628288
+      borders_set_full_21: 971422855750543672
+      borders_set_full_0: -1453370108866334923
+      borders_set_full_7: -1602318249459826738
+      borders_set_full_4: -2234968581147430144
+      borders_set_full_2: -6731615047493409189
+      borders_set_full_9: -2916658912055344684
+      borders_set_full_10: -3802987895053138104
+      borders_set_full_8: -652195054039012278
+      borders_set_full_11: 7954547806497367848
+      borders_set_full_18: 7039155335409191961
+      borders_set_full_15: -1315580293777314403
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

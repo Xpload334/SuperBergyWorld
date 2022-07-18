@@ -231,6 +231,7 @@ TextureImporter:
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
+  ignoreMasterTextureLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -1756,6 +1757,76 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
+    nameFileIdTable:
+      decorations_w1_51: 1341950554432135788
+      decorations_w1_56: -578572433348701719
+      decorations_w1_33: -7082002658099239362
+      decorations_w1_41: 6070499447776806408
+      decorations_w1_4: -833646597223652863
+      decorations_w1_19: 7268510845596974118
+      decorations_w1_55: 6479764592764561162
+      decorations_w1_2: 2960050646286821088
+      decorations_w1_64: -8554784187565661972
+      decorations_w1_35: -3857621934330900189
+      decorations_w1_17: 2977946893739548509
+      decorations_w1_29: -3826049802123692754
+      decorations_w1_31: 7073068795811090462
+      decorations_w1_50: 7732695896834130297
+      decorations_w1_16: -8824394069150168562
+      decorations_w1_9: -746607476467310308
+      decorations_w1_57: 1073011047794770900
+      decorations_w1_26: -2929105662726607205
+      decorations_w1_68: -8007129667355185341
+      decorations_w1_27: 6615598641382153107
+      decorations_w1_66: -5103622361952731767
+      decorations_w1_46: -4322127566442609798
+      decorations_w1_63: -2183567050376969116
+      decorations_w1_47: 9062957047443891183
+      decorations_w1_5: -1655361347549305136
+      decorations_w1_58: 4399472521467409114
+      decorations_w1_13: 5191478651160798021
+      decorations_w1_65: 5740777059887938497
+      decorations_w1_44: 9155509647361934052
+      decorations_w1_22: -4311624886315087979
+      decorations_w1_30: 2256893214935989714
+      decorations_w1_8: -2147591037964886090
+      decorations_w1_37: -2701076359160922867
+      decorations_w1_6: -5176416788907041967
+      decorations_w1_15: 3723925145932872535
+      decorations_w1_0: 5764760428297047881
+      decorations_w1_38: 2735468692055918554
+      decorations_w1_39: 5291174925510879611
+      decorations_w1_23: -4312949159656095292
+      decorations_w1_43: 5221807414341853954
+      decorations_w1_40: -5208928937043696444
+      decorations_w1_59: 7365625003716962465
+      decorations_w1_32: -1046562145310981716
+      decorations_w1_45: 528939715397000154
+      decorations_w1_52: 8732873604375780563
+      decorations_w1_62: -373289419210748984
+      decorations_w1_7: -6728643871507510323
+      decorations_w1_54: -9143681248628809265
+      decorations_w1_60: 6112744028955362322
+      decorations_w1_25: -9204467164061307057
+      decorations_w1_11: -7813582287012505494
+      decorations_w1_67: 789471519322118835
+      decorations_w1_48: 341351815779096425
+      decorations_w1_10: 1154414861547642087
+      decorations_w1_18: 3753540611464910714
+      decorations_w1_42: -7346364730054292915
+      decorations_w1_28: 8551438597047341536
+      decorations_w1_49: -9147794814748831753
+      decorations_w1_53: 9195417753013818921
+      decorations_w1_12: -3539142350483014501
+      decorations_w1_61: -3990512605044136359
+      decorations_w1_34: -1329963571411246618
+      decorations_w1_21: 515004784363625416
+      decorations_w1_3: -15101516401022870
+      decorations_w1_1: 6686060431254276600
+      decorations_w1_14: 2179203253217444556
+      decorations_w1_24: -2046551600501837171
+      decorations_w1_20: 932497597812474677
+      decorations_w1_36: 8683957041403295505
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

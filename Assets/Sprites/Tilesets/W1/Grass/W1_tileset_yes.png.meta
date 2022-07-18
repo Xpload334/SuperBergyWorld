@@ -96,6 +96,7 @@ TextureImporter:
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
+  ignoreMasterTextureLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -676,6 +677,31 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
+    nameFileIdTable:
+      W1_tileset_yes_0: 438118018172716923
+      W1_tileset_yes_7: 9100809751648878983
+      W1_tileset_yes_3: 405217796208509118
+      W1_tileset_yes_11: -3835494285082458645
+      W1_tileset_yes_10: -6523438626826085848
+      W1_tileset_yes_12: -2149187905435219310
+      W1_tileset_yes_9: -7919201270688631178
+      W1_tileset_yes_5: 2786919107535976304
+      W1_tileset_yes_14: -2454012499165213059
+      W1_tileset_yes_19: -4593594895059716453
+      W1_tileset_yes_20: -4715201238968896943
+      W1_tileset_yes_21: 8950649823307260278
+      W1_tileset_yes_1: 1676191069388074006
+      W1_tileset_yes_8: -6799469696003996445
+      W1_tileset_yes_22: -3644380877031203541
+      W1_tileset_yes_4: 673081147826206128
+      W1_tileset_yes_2: -1631967848210525824
+      W1_tileset_yes_17: 2019184851512456027
+      W1_tileset_yes_15: -8565446041589151573
+      W1_tileset_yes_23: -1845321508073861408
+      W1_tileset_yes_13: 6588948565874577089
+      W1_tileset_yes_6: -8292859497337557223
+      W1_tileset_yes_16: -7312858966985929429
+      W1_tileset_yes_18: -2270859392380079710
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
