@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dialogueStore>
+    <typers><!-- Storing the path of typers, don't edit -->
+        <typerFolderPath>Assets/Dialogue Data/Typers</typerFolderPath><!-- Folder to store all the typers -->
+        <typer>
+            <typerName>TobiasBasic</typerName><!-- Name of a typer, typerName in dialogue objects will check against this -->
+            <typerPath>Tobias/TobiasBasic.asset</typerPath><!-- Path of typer in the folder -->
+        </typer>
+        <typer>
+            <name>TobiasAngry</name>
+            <typerPath>Tobias/TobiasAngry.asset</typerPath>
+        </typer>
+        <typer>
+            <typerName>XploadBasic</typerName>
+            <typerPath>Xpload/XploadBasic.asset</typerPath>
+        </typer>
+    </typers>
+
+
+    <dialogueObjects>
+        <dialogueObject><!-- Opening and closing tags for each dialogue object -->
+            <dialogueName>Test1</dialogueName><!-- Name of the dialogue object -->
+            <line><!-- Use a new line tag for each line of dialogue -->
+                <typerName>TobiasBasic</typerName><!-- Specify the typer of who is speaking -->
+                <text>Example text!</text><!-- Here is where the text goes -->
+                <autoSkipSeconds>1</autoSkipSeconds><!-- (Optional) Take away player input, and show how long to wait before continuing to next line -->
+            </line>
+            <line><!-- Next line in the object should play once the previous is done -->
+                <typerName>XploadBasic</typerName>
+                <text>Example text on another line!</text>
+            </line>
+        </dialogueObject>
+
+        <dialogueObject><!-- A different dialogue object -->
+            <dialogueName>Test2</dialogueName>
+            <line>
+                <typerName>XploadBasic</typerName>
+                <text>XBOX LIVE !!</text>
+            </line>
+        </dialogueObject>
+    </dialogueObjects>
+    
+
+
+</dialogueStore>

@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6253485757613595058}
   - component: {fileID: 6253485757613595057}
   - component: {fileID: 3668585922749515450}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Animator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -29,6 +29,7 @@ Transform:
   m_LocalRotation: {x: 0.38268343, y: 0, z: 0, w: 0.92387956}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6253485759189866281}
   m_RootOrder: 0
@@ -87,7 +88,7 @@ SpriteRenderer:
   m_SpriteSortPoint: 0
 --- !u!95 &6253485757613595057
 Animator:
-  serializedVersion: 3
+  serializedVersion: 4
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -100,6 +101,7 @@ Animator:
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
@@ -128,7 +130,7 @@ GameObject:
   - component: {fileID: 6253485757900449895}
   - component: {fileID: 6253485757900449894}
   - component: {fileID: 6253485757900449893}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Capsule
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -145,6 +147,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0.6, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6253485759189866281}
   m_RootOrder: 1
@@ -222,10 +225,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6253485759189866281}
-  - component: {fileID: 3675057543889516064}
-  - component: {fileID: 6253485759189866295}
   - component: {fileID: 489208867}
-  m_Layer: 0
+  - component: {fileID: 6253485759189866295}
+  m_Layer: 3
   m_Name: Tobias
   m_TagString: Player
   m_Icon: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000, type: 0}
@@ -242,45 +244,13 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -1.83, y: 0.085, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6253485757613595056}
   - {fileID: 6253485757900449892}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3675057543889516064
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6253485759189866292}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f6147ee2b9791c246b92372fa28f3de3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  currentPlayerState: 0
-  currentPlayerMovementState: 0
-  currentPlayerInactiveState: 0
---- !u!143 &6253485759189866295
-CharacterController:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6253485759189866292}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Height: 1.2
-  m_Radius: 0.5
-  m_SlopeLimit: 50
-  m_StepOffset: 0.25
-  m_SkinWidth: 0.0001
-  m_MinMoveDistance: 0.001
-  m_Center: {x: 0, y: 0.5, z: 0.3}
 --- !u!114 &489208867
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -294,6 +264,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shouldMove: 1
+  _isMovementPressed: 0
   speed: 5
   hasGravity: 1
   gravityValue: -10
@@ -301,7 +272,34 @@ MonoBehaviour:
   shouldAdjustJump: 1
   initialJumpVelocity: 0
   maxJumpHeight: 1
-  maxJumpTime: 0.75
+  maxJumpTime: 0.6
+  maxFallVelocity: -20
+  shouldInteract: 0
+  shouldAction: 0
+  shouldFollow: 0
   animator: {fileID: 6253485757613595057}
+  roundedMovement: {x: 0, y: 0}
   shouldAnimate: 1
   shouldControl: 1
+  _currentMovementInput: {x: 0, y: 0}
+  _currentMovement: {x: 0, y: 0, z: 0}
+  currentStateName: 
+  currentSubStateName: 
+--- !u!143 &6253485759189866295
+CharacterController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6253485759189866292}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Height: 1.2
+  m_Radius: 0.45
+  m_SlopeLimit: 60
+  m_StepOffset: 0.25
+  m_SkinWidth: 0.0001
+  m_MinMoveDistance: 0.001
+  m_Center: {x: 0, y: 0.5, z: 0.3}

@@ -1,0 +1,49 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d9f81816703c1f44bcd04255c48e9a8, type: 3}
+  m_Name: IntroArgument2
+  m_EditorClassIdentifier: 
+  dialogue:
+  - '* Hey, everyone! '
+  - '* Welcome to the reveal of a huge project update!'
+  - '* Super Bergy World has always held a special place in my fart-'
+  - "* er\u2026 heart! ...and seeing it all come together gives me a feeling of great
+    accomplishment!"
+  - '* The great lengths this small SMM2 collab has reached, really warms my fart.
+    I mean heart-'
+  responses: []
+  typer:
+  - {fileID: 11400000, guid: 38e7da62ea6026943858f23dd535354f, type: 2}
+  - {fileID: 11400000, guid: 38e7da62ea6026943858f23dd535354f, type: 2}
+  - {fileID: 11400000, guid: ef06d474cc97e314b9084007d062f208, type: 2}
+  - {fileID: 11400000, guid: c454e8f2feecb534bac16be7e6181180, type: 2}
+  - {fileID: 11400000, guid: ef06d474cc97e314b9084007d062f208, type: 2}
+  timelineTrigger:
+    name: 
+    onDialogueFinished:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 11400000, guid: 961335fea3d20fe48afc88f56439e34b, type: 2}
+          m_TargetAssemblyTypeName: Signals, Assembly-CSharp
+          m_MethodName: Raise
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  typingSpeed: 20
+  autoSkip: 1
+  timeForAutoSkip: 1

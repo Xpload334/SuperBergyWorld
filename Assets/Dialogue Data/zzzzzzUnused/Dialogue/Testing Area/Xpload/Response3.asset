@@ -1,0 +1,43 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d9f81816703c1f44bcd04255c48e9a8, type: 3}
+  m_Name: Response3
+  m_EditorClassIdentifier: 
+  dialogue:
+  - '* ...'
+  - '* You can''t just say close when you want to ignore someone.'
+  responses: []
+  spriteOpen:
+  - {fileID: -9198917817349598296, guid: 4060ad16a532d5847a20810145797bba, type: 3}
+  - {fileID: -9198917817349598296, guid: 4060ad16a532d5847a20810145797bba, type: 3}
+  spriteClosed:
+  - {fileID: -2827351651746883608, guid: 4060ad16a532d5847a20810145797bba, type: 3}
+  - {fileID: -2827351651746883608, guid: 4060ad16a532d5847a20810145797bba, type: 3}
+  audioClip:
+  - {fileID: 8300000, guid: d612ef5c608edec4aa458b61c7c51f79, type: 3}
+  - {fileID: 8300000, guid: d612ef5c608edec4aa458b61c7c51f79, type: 3}
+  timelineTrigger:
+    name: 
+    onDialogueFinished:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 11400000, guid: d28db5512a9f3ca4ab250ff2bf7d0e64, type: 2}
+          m_MethodName: Raise
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2

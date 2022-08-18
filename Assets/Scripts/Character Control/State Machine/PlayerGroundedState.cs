@@ -14,11 +14,11 @@ public class PlayerGroundedState : PlayerBaseState, IRootState
     {
         InitializeSubState();
         HandleGravity();
+        
     }
 
     public override void UpdateState()
     {
-        
         //If falling without jumping
         CheckSwitchStates();
     }
@@ -30,15 +30,18 @@ public class PlayerGroundedState : PlayerBaseState, IRootState
 
     public override void CheckSwitchStates()
     {
-        //If player is grounded and jump pressed, switch to jump state
+        //If jump pressed and does not require new jump press, switch to jump state
         if (Ctx.IsJumpPressed && !Ctx.RequireNewJumpPress)
         {
             SwitchState(Factory.Jump());
         }
+        //If player not grounded and not jump pressed, switch to fall state
         else if (!Ctx.CharacterController.isGrounded && !Ctx.IsJumpPressed)
         {
             SwitchState(Factory.Fall());
         }
+        
+        //If interact key pressed and has interactable object, switch to interact state
     }
 
     public override void InitializeSubState()
@@ -51,6 +54,7 @@ public class PlayerGroundedState : PlayerBaseState, IRootState
         {
             SetSubState(Factory.Walk());
         }
+
     }
 
     public void HandleGravity()

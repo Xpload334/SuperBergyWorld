@@ -23,17 +23,31 @@ public class PlayerStateMachine : MonoBehaviour
     [Header("Jumping")]
     public bool shouldJump = true;
     public bool shouldAdjustJump = true;
-    private bool _isJumping;
+    private bool _isJumping; //bool is true when airborne
     bool _isJumpPressed;
     public float initialJumpVelocity;
     public float maxJumpHeight = 1.0f;
     public float maxJumpTime = 0.75f;
-    public float maxFallVelocity = -20.0f;
+    public float maxFallVelocity = -10.0f;
     private float _fallMultiplier = 2.0f;
+    
+    //Interaction variables
+    [Header("Interactions")] 
+    public bool shouldInteract;
+
+    //Action variables
+    [Header("Action")]
+    public bool shouldAction;
+    
+    //Party variables
+    [Header("Party and Swapping")] 
+    public bool shouldFollow;
     
     //Animator
     [Header("Animation")]
     public Animator animator;
+
+    public Vector2 roundedMovement;
     public bool shouldAnimate = true;
     //Variables to store animation parameter IDs
     private int _isMovingHash;
@@ -43,8 +57,6 @@ public class PlayerStateMachine : MonoBehaviour
     private int _moveYHash;
     private int _isFallingHash;
     
-    //public Collider collider;
-    //public CharacterMove3D characterMove;
     [Header("Components")] 
     private CharacterController _characterController;
     
@@ -55,15 +67,17 @@ public class PlayerStateMachine : MonoBehaviour
 
     //Storing player input values
     [Header("Input Vectors")]
-    Vector2 _currentMovementInput; 
+    public Vector2 _currentMovementInput; 
     public Vector3 _currentMovement;
     Vector3 _appliedMovement;
     Vector3 _lastMovement;
-
-
+    
     //State variables
     [Header("State Variables")] 
-    private PlayerBaseState _currentState;
+    public PlayerBaseState _currentState;
+
+    public String currentStateName;
+    public String currentSubStateName;
     private PlayerStateFactory _states;
     
     //Setters and getters
@@ -88,9 +102,9 @@ public class PlayerStateMachine : MonoBehaviour
     }
     public bool RequireNewJumpPress { get { return _requireNewJumpPress; } set { _requireNewJumpPress = value; }
     }
-    public bool IsJumping { set { _isJumping = value; }
+    public bool IsJumping { get { return _isJumping; } set { _isJumping = value; }
     }
-    public bool IsJumpPressed { get { return _isJumpPressed; }
+    public bool IsJumpPressed { get { return _isJumpPressed; } set => _isJumpPressed = value;
     }
     public float Gravity { get { return gravityValue; }
     }
@@ -114,32 +128,21 @@ public class PlayerStateMachine : MonoBehaviour
     }
     public float LastMovementY { get { return _lastMovement.z; } set { _lastMovement.z = value; }
     }
-    /*
-    public Vector3 CurrentMovement
-    {
-        get { return _currentMovement; }
-        set { _currentMovement = value; }
+    public Vector3 CurrentMovement { get { return _currentMovement; } set { _currentMovement = value; }
+    } 
+    public Vector3 AppliedMovement { get { return _appliedMovement; } set { _appliedMovement = value; }
     }
-    public Vector3 AppliedMovement
-    {
-        get { return _appliedMovement; }
-        set { _appliedMovement = value; }
+    public Vector3 LastMovement { get { return _lastMovement; } set { _lastMovement = value; }
     }
-    public Vector3 LastMovement
-    {
-        get { return _lastMovement; }
-        set { _lastMovement = value; }
-    }
-    */
     public float GroundedGravity { get { return _groundedGravity; }
     }
     public float FallMultiplier { get { return _fallMultiplier; }
     }
     public float Speed { get { return speed; }
     }
-    public Vector2 CurrentMovementInput { get { return _currentMovementInput; }
+    public Vector2 CurrentMovementInput { get { return _currentMovementInput; } set => _currentMovementInput = value;
     }
-    
+
     private void Awake()
     {
         //Animator
@@ -173,7 +176,6 @@ public class PlayerStateMachine : MonoBehaviour
         _playerInput.CharacterControls.Jump.started += OnJump;
         _playerInput.CharacterControls.Jump.canceled += OnJump;
         SetupJumpVariables();
-        //SetupPlayerStates();
     }
 
     void SetupJumpVariables()
@@ -192,7 +194,11 @@ public class PlayerStateMachine : MonoBehaviour
     void Update()
     {
         _currentState.UpdateStates();
-        if (shouldMove)
+        updateStateName();
+        //If should move and not following
+        //or
+        //following and jumping
+        if ((shouldMove && !shouldFollow) || (shouldFollow && _isJumping))
         {
             _characterController.Move(_appliedMovement * Time.deltaTime);
             //HandleMovement();
@@ -204,38 +210,95 @@ public class PlayerStateMachine : MonoBehaviour
         if (shouldControl)
         {
             _currentMovementInput = ctx.ReadValue<Vector2>();
-        }
-        else
-        {
-            _currentMovementInput = Vector2.zero;
+            
+            _currentMovement.x = _currentMovementInput.x * speed;
+            _currentMovement.z = _currentMovementInput.y * speed;
+            
         }
         
-        _currentMovement.x = _currentMovementInput.x * speed;
-        _currentMovement.z = _currentMovementInput.y * speed;
-            
         //Store last non-zero movement
-        if (!_currentMovementInput.Equals(Vector2.zero)) 
+        if (!_currentMovementInput.Equals(Vector2.zero))
         {
-            _lastMovement = _currentMovement;
+            _lastMovement.x = _currentMovementInput.x;
+            _lastMovement.z = _currentMovementInput.y;
+            //_lastMovement = _currentMovementInput;
         }
-            
-        //Debug.Log(currentMovement);
+        
         _isMovementPressed = (_currentMovementInput.x != 0 || _currentMovementInput.y != 0); //Set true if x or y greater than 0
+        
+        roundedMovement.x = Mathf.Round(_currentMovementInput.x);
+        roundedMovement.y = Mathf.Round(_currentMovementInput.y);
     }
 
     void OnJump(InputAction.CallbackContext ctx)
     {
-        _isJumpPressed = ctx.ReadValueAsButton();
-        _requireNewJumpPress = false;
+        if (shouldControl)
+        {
+            _isJumpPressed = ctx.ReadValueAsButton();
+            _requireNewJumpPress = false;
+        }
     }
 
+    //When this character is made active
+    public void Activate()
+    {
+        //EnableControls();
+        shouldControl = true;
+        shouldFollow = false;
+        
+        //ResetMovement();
+    }
+
+    //When this character is made inactive
+    public void Deactivate()
+    {
+        //DisableControls();
+        shouldControl = false;
+        shouldFollow = true;
+        
+        //Here, maybe do logic about following
+        ResetMovement();
+        
+    }
+
+    public void ResetMovement()
+    {
+        _currentMovementInput = Vector2.zero;
+        _isMovementPressed = false;
+        Debug.Log(name+" movement reset");
+    }
+    
+    
     private void OnEnable()
     {
-        _playerInput.CharacterControls.Enable();
+        EnableControls();
     }
 
     private void OnDisable()
     {
+        DisableControls();
+    }
+
+    public void EnableControls()
+    {
+        _playerInput.CharacterControls.Enable();
+    }
+
+    public void DisableControls()
+    {
         _playerInput.CharacterControls.Disable();
+    }
+
+    private void updateStateName()
+    {
+        currentStateName = _currentState.ToString();
+        if (_currentState.HasSubState())
+        {
+            currentSubStateName = _currentState.CurrentSubState.ToString();
+        }
+        else
+        {
+            currentSubStateName = "None";
+        }
     }
 }

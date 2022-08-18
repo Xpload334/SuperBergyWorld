@@ -11,9 +11,33 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: -4311624886315087979, guid: 9886279ddeaefc149876824bbfa09f9f, type: 3}
+    - target: {fileID: 6349874979194310457, guid: d29d053b00c06ee4395d8368f1b9489a, type: 3}
+      propertyPath: m_NavMeshLayer
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6349874979194310457, guid: d29d053b00c06ee4395d8368f1b9489a, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 6349874979356687302, guid: d29d053b00c06ee4395d8368f1b9489a, type: 3}
+      propertyPath: m_NavMeshLayer
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6349874979356687302, guid: d29d053b00c06ee4395d8368f1b9489a, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 6349874980984755354, guid: d29d053b00c06ee4395d8368f1b9489a, type: 3}
       propertyPath: m_Name
-      value: Tree8
+      value: Tree8 Variant
+      objectReference: {fileID: 0}
+    - target: {fileID: 6349874980984755354, guid: d29d053b00c06ee4395d8368f1b9489a, type: 3}
+      propertyPath: m_NavMeshLayer
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6349874980984755354, guid: d29d053b00c06ee4395d8368f1b9489a, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 6349874980984755355, guid: d29d053b00c06ee4395d8368f1b9489a, type: 3}
       propertyPath: m_RootOrder
@@ -21,15 +45,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6349874980984755355, guid: d29d053b00c06ee4395d8368f1b9489a, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 23.5
       objectReference: {fileID: 0}
     - target: {fileID: 6349874980984755355, guid: d29d053b00c06ee4395d8368f1b9489a, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 6349874980984755355, guid: d29d053b00c06ee4395d8368f1b9489a, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -14.5
       objectReference: {fileID: 0}
     - target: {fileID: 6349874980984755355, guid: d29d053b00c06ee4395d8368f1b9489a, type: 3}
       propertyPath: m_LocalRotation.w
@@ -58,6 +82,14 @@ PrefabInstance:
     - target: {fileID: 6349874980984755355, guid: d29d053b00c06ee4395d8368f1b9489a, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6349874981005546208, guid: d29d053b00c06ee4395d8368f1b9489a, type: 3}
+      propertyPath: m_NavMeshLayer
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6349874981005546208, guid: d29d053b00c06ee4395d8368f1b9489a, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 6349874981005546238, guid: d29d053b00c06ee4395d8368f1b9489a, type: 3}
       propertyPath: m_Sprite

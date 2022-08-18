@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<SoundRoot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <SoundFolderPath>Assets/Dialogue Data/Dialogue Sounds/</SoundFolderPath>
+    <TyperSounds>
+        <TyperSound id="0">
+            <SoundPath>neutralBleep</SoundPath>
+        </TyperSound>
+        <TyperSound id="1">
+            <SoundPath>Tobias</SoundPath>
+        </TyperSound>
+        <TyperSound id="2">
+            <SoundPath>xploadTalk</SoundPath>
+        </TyperSound>
+    </TyperSounds>
+</SoundRoot>

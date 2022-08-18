@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public abstract class PlayerBaseState
@@ -12,6 +13,10 @@ public abstract class PlayerBaseState
     //Setters and getters
     protected bool IsRootState { set { _isRootState = value; }
     }
+    public PlayerBaseState CurrentSubState
+    {
+        get { return _currentSubState; }
+    }
     protected PlayerStateMachine Ctx { get { return _ctx; }
     }
     protected PlayerStateFactory Factory { get { return _factory; }
@@ -21,7 +26,7 @@ public abstract class PlayerBaseState
         _ctx = currentContext;
         _factory = playerStateFactory;
     }
-    
+
     public abstract void EnterState();
     public abstract void UpdateState();
     public abstract void ExitState();
@@ -66,5 +71,15 @@ public abstract class PlayerBaseState
     {
         _currentSubState = newSubState;
         newSubState.SetSuperState(this);
+    }
+
+    public bool HasSubState()
+    {
+        return _currentSubState != null;
+    }
+
+    public String ToString()
+    {
+        return this.GetType().ToString();
     }
 }

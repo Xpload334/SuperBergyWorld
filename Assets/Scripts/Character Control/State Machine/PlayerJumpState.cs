@@ -7,11 +7,12 @@ public class PlayerJumpState : PlayerBaseState, IRootState
     public PlayerJumpState(PlayerStateMachine currentContext, PlayerStateFactory playerStateFactory) : base (currentContext, playerStateFactory)
     {
         IsRootState = true;
-        
     }
     
     public override void EnterState()
     {
+        Ctx.IsJumping = true;
+
         InitializeSubState();
         HandleJump();
     }
@@ -24,6 +25,8 @@ public class PlayerJumpState : PlayerBaseState, IRootState
 
     public override void ExitState()
     {
+        Ctx.IsJumping = false;
+        
         Ctx.Animator.SetBool(Ctx.IsJumpingHash, false);
         if (Ctx.IsJumpPressed)
         {

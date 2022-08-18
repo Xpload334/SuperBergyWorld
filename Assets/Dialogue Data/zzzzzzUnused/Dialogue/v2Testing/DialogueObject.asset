@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d9f81816703c1f44bcd04255c48e9a8, type: 3}
+  m_Name: DialogueObject
+  m_EditorClassIdentifier: 
+  dialogue:
+  - Test 1
+  - Test 2 with some extra characters, to check punctuation and stuff like that.
+  - WWWWWWWWWWWWWWWWWWWWWWWWW
+  typer:
+  - {fileID: 11400000, guid: e4f2d39bd53abac42b57f0867c1450b5, type: 2}
+  - {fileID: 11400000, guid: e4f2d39bd53abac42b57f0867c1450b5, type: 2}
+  - {fileID: 11400000, guid: aab4ccddbec201d4e95cfaacf7ce2170, type: 2}
+  responses: []
+  timelineTrigger:
+    name: 
+    onDialogueFinished:
+      m_PersistentCalls:
+        m_Calls: []
+  typingSpeed: 20
+  autoSkip: 0
+  timeForAutoSkip: 0

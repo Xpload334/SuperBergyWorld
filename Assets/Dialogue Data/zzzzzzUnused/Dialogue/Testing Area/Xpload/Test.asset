@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d9f81816703c1f44bcd04255c48e9a8, type: 3}
+  m_Name: Test
+  m_EditorClassIdentifier: 
+  dialogue:
+  - '* Tobias! What are you doing here?'
+  - '* I mean, good to see you anyways.'
+  responses:
+  - responseText: Where am I?
+    dialogueObject: {fileID: 11400000, guid: c292917f004234d47ad333acffe87b20, type: 2}
+  - responseText: Who are you?
+    dialogueObject: {fileID: 11400000, guid: adf1db03936b23045a458b9d4589101e, type: 2}
+  - responseText: (Close)
+    dialogueObject: {fileID: 11400000, guid: 90a8551c431f109459107a6e57c93bdb, type: 2}
+  spriteOpen:
+  - {fileID: -9198917817349598296, guid: 4060ad16a532d5847a20810145797bba, type: 3}
+  - {fileID: -9198917817349598296, guid: 4060ad16a532d5847a20810145797bba, type: 3}
+  spriteClosed:
+  - {fileID: -2827351651746883608, guid: 4060ad16a532d5847a20810145797bba, type: 3}
+  - {fileID: -2827351651746883608, guid: 4060ad16a532d5847a20810145797bba, type: 3}
+  audioClip:
+  - {fileID: 8300000, guid: d612ef5c608edec4aa458b61c7c51f79, type: 3}
+  - {fileID: 8300000, guid: d612ef5c608edec4aa458b61c7c51f79, type: 3}

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Storing the path of typers, DO NOT EDIT -->
+<typers>
+    <typerFolderPath>Assets/Dialogue Data/Typers</typerFolderPath><!-- Folder to store all the typers -->
+    <typer>
+        <typerName>Neutral</typerName><!-- Name of a typer, typerName in dialogue objects will check against this -->
+        <typerPath>Neutral.asset</typerPath><!-- Path of typer in the folder -->
+    </typer>
+
+    <typer>
+        <typerName>TobiasBasic</typerName>
+        <typerPath>Tobias/TobiasBasic.asset</typerPath>
+    </typer>
+    <typer>
+        <name>TobiasAngry</name>
+        <typerPath>Tobias/TobiasAngry.asset</typerPath>
+    </typer>
+
+    <typer>
+        <typerName>XploadBasic</typerName>
+        <typerPath>Xpload/XploadBasic.asset</typerPath>
+    </typer>
+</typers>
+<!-- Storing the path of typers, DO NOT EDIT -->

@@ -44,6 +44,42 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Interact"",
+                    ""type"": ""Button"",
+                    ""id"": ""af6f79f5-15fb-4c5b-a70a-bc0ea821090b"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Action"",
+                    ""type"": ""Button"",
+                    ""id"": ""f9026771-a9e0-4577-a321-5c4a95077576"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""SwapPrevious"",
+                    ""type"": ""Button"",
+                    ""id"": ""52957607-7a7a-4bc3-b20b-4bf9dc0cf484"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""SwapNext"",
+                    ""type"": ""Button"",
+                    ""id"": ""755e559b-8110-40a4-b8df-da6f2b51a371"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -103,6 +139,61 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": true
                 },
                 {
+                    ""name"": ""WASD"",
+                    ""id"": ""f2b1a96b-5ca4-4665-af6d-4ece2a531619"",
+                    ""path"": ""2DVector"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Movement"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""up"",
+                    ""id"": ""464b7dfd-3a50-4ab8-b6ff-27a7a7c402ad"",
+                    ""path"": ""<Keyboard>/w"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Movement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""down"",
+                    ""id"": ""a790ebeb-2cb7-4537-83fd-c684a5f57a35"",
+                    ""path"": ""<Keyboard>/s"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Movement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""left"",
+                    ""id"": ""c3671b6a-4165-47e3-a0e3-0b4cca57cca1"",
+                    ""path"": ""<Keyboard>/a"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Movement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""right"",
+                    ""id"": ""6a5247af-2ddb-4813-bc26-d25c9362bee3"",
+                    ""path"": ""<Keyboard>/d"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Movement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
                     ""name"": """",
                     ""id"": ""cf5243ac-05d8-4d03-9a6d-5acfb4c32720"",
                     ""path"": ""<Keyboard>/z"",
@@ -110,6 +201,98 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Jump"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""10c9f920-c967-47c5-977e-a9c158e19e49"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SwapNext"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""3277d244-88b7-4e2d-abad-a1060e47debd"",
+                    ""path"": ""<Keyboard>/x"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Action"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""babbae2c-f876-402a-8dcc-edb08b790ffe"",
+                    ""path"": ""<Keyboard>/z"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Interact"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f3de4faa-ebf4-4c3b-a07f-18e4960173c0"",
+                    ""path"": ""<Keyboard>/q"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SwapPrevious"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
+        },
+        {
+            ""name"": ""DialogueControls"",
+            ""id"": ""01df8a3c-1e14-4b9c-a7d3-0dd40d3da9dc"",
+            ""actions"": [
+                {
+                    ""name"": ""Confirm"",
+                    ""type"": ""Button"",
+                    ""id"": ""988806aa-e9ca-4603-b62f-6ed4c89e5d6b"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Skip"",
+                    ""type"": ""Button"",
+                    ""id"": ""bf11042f-c36f-40db-a7c7-21f1373b4b0b"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""54ee0cef-2516-4a83-93a3-65737627a560"",
+                    ""path"": ""<Keyboard>/z"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Confirm"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""7f6a91d0-2671-4971-a3d0-9050eb928e7a"",
+                    ""path"": ""<Keyboard>/x"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Skip"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -122,6 +305,14 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
         m_CharacterControls = asset.FindActionMap("CharacterControls", throwIfNotFound: true);
         m_CharacterControls_Movement = m_CharacterControls.FindAction("Movement", throwIfNotFound: true);
         m_CharacterControls_Jump = m_CharacterControls.FindAction("Jump", throwIfNotFound: true);
+        m_CharacterControls_Interact = m_CharacterControls.FindAction("Interact", throwIfNotFound: true);
+        m_CharacterControls_Action = m_CharacterControls.FindAction("Action", throwIfNotFound: true);
+        m_CharacterControls_SwapPrevious = m_CharacterControls.FindAction("SwapPrevious", throwIfNotFound: true);
+        m_CharacterControls_SwapNext = m_CharacterControls.FindAction("SwapNext", throwIfNotFound: true);
+        // DialogueControls
+        m_DialogueControls = asset.FindActionMap("DialogueControls", throwIfNotFound: true);
+        m_DialogueControls_Confirm = m_DialogueControls.FindAction("Confirm", throwIfNotFound: true);
+        m_DialogueControls_Skip = m_DialogueControls.FindAction("Skip", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -183,12 +374,20 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
     private ICharacterControlsActions m_CharacterControlsActionsCallbackInterface;
     private readonly InputAction m_CharacterControls_Movement;
     private readonly InputAction m_CharacterControls_Jump;
+    private readonly InputAction m_CharacterControls_Interact;
+    private readonly InputAction m_CharacterControls_Action;
+    private readonly InputAction m_CharacterControls_SwapPrevious;
+    private readonly InputAction m_CharacterControls_SwapNext;
     public struct CharacterControlsActions
     {
         private @PlayerInput m_Wrapper;
         public CharacterControlsActions(@PlayerInput wrapper) { m_Wrapper = wrapper; }
         public InputAction @Movement => m_Wrapper.m_CharacterControls_Movement;
         public InputAction @Jump => m_Wrapper.m_CharacterControls_Jump;
+        public InputAction @Interact => m_Wrapper.m_CharacterControls_Interact;
+        public InputAction @Action => m_Wrapper.m_CharacterControls_Action;
+        public InputAction @SwapPrevious => m_Wrapper.m_CharacterControls_SwapPrevious;
+        public InputAction @SwapNext => m_Wrapper.m_CharacterControls_SwapNext;
         public InputActionMap Get() { return m_Wrapper.m_CharacterControls; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -204,6 +403,18 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                 @Jump.started -= m_Wrapper.m_CharacterControlsActionsCallbackInterface.OnJump;
                 @Jump.performed -= m_Wrapper.m_CharacterControlsActionsCallbackInterface.OnJump;
                 @Jump.canceled -= m_Wrapper.m_CharacterControlsActionsCallbackInterface.OnJump;
+                @Interact.started -= m_Wrapper.m_CharacterControlsActionsCallbackInterface.OnInteract;
+                @Interact.performed -= m_Wrapper.m_CharacterControlsActionsCallbackInterface.OnInteract;
+                @Interact.canceled -= m_Wrapper.m_CharacterControlsActionsCallbackInterface.OnInteract;
+                @Action.started -= m_Wrapper.m_CharacterControlsActionsCallbackInterface.OnAction;
+                @Action.performed -= m_Wrapper.m_CharacterControlsActionsCallbackInterface.OnAction;
+                @Action.canceled -= m_Wrapper.m_CharacterControlsActionsCallbackInterface.OnAction;
+                @SwapPrevious.started -= m_Wrapper.m_CharacterControlsActionsCallbackInterface.OnSwapPrevious;
+                @SwapPrevious.performed -= m_Wrapper.m_CharacterControlsActionsCallbackInterface.OnSwapPrevious;
+                @SwapPrevious.canceled -= m_Wrapper.m_CharacterControlsActionsCallbackInterface.OnSwapPrevious;
+                @SwapNext.started -= m_Wrapper.m_CharacterControlsActionsCallbackInterface.OnSwapNext;
+                @SwapNext.performed -= m_Wrapper.m_CharacterControlsActionsCallbackInterface.OnSwapNext;
+                @SwapNext.canceled -= m_Wrapper.m_CharacterControlsActionsCallbackInterface.OnSwapNext;
             }
             m_Wrapper.m_CharacterControlsActionsCallbackInterface = instance;
             if (instance != null)
@@ -214,13 +425,75 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                 @Jump.started += instance.OnJump;
                 @Jump.performed += instance.OnJump;
                 @Jump.canceled += instance.OnJump;
+                @Interact.started += instance.OnInteract;
+                @Interact.performed += instance.OnInteract;
+                @Interact.canceled += instance.OnInteract;
+                @Action.started += instance.OnAction;
+                @Action.performed += instance.OnAction;
+                @Action.canceled += instance.OnAction;
+                @SwapPrevious.started += instance.OnSwapPrevious;
+                @SwapPrevious.performed += instance.OnSwapPrevious;
+                @SwapPrevious.canceled += instance.OnSwapPrevious;
+                @SwapNext.started += instance.OnSwapNext;
+                @SwapNext.performed += instance.OnSwapNext;
+                @SwapNext.canceled += instance.OnSwapNext;
             }
         }
     }
     public CharacterControlsActions @CharacterControls => new CharacterControlsActions(this);
+
+    // DialogueControls
+    private readonly InputActionMap m_DialogueControls;
+    private IDialogueControlsActions m_DialogueControlsActionsCallbackInterface;
+    private readonly InputAction m_DialogueControls_Confirm;
+    private readonly InputAction m_DialogueControls_Skip;
+    public struct DialogueControlsActions
+    {
+        private @PlayerInput m_Wrapper;
+        public DialogueControlsActions(@PlayerInput wrapper) { m_Wrapper = wrapper; }
+        public InputAction @Confirm => m_Wrapper.m_DialogueControls_Confirm;
+        public InputAction @Skip => m_Wrapper.m_DialogueControls_Skip;
+        public InputActionMap Get() { return m_Wrapper.m_DialogueControls; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(DialogueControlsActions set) { return set.Get(); }
+        public void SetCallbacks(IDialogueControlsActions instance)
+        {
+            if (m_Wrapper.m_DialogueControlsActionsCallbackInterface != null)
+            {
+                @Confirm.started -= m_Wrapper.m_DialogueControlsActionsCallbackInterface.OnConfirm;
+                @Confirm.performed -= m_Wrapper.m_DialogueControlsActionsCallbackInterface.OnConfirm;
+                @Confirm.canceled -= m_Wrapper.m_DialogueControlsActionsCallbackInterface.OnConfirm;
+                @Skip.started -= m_Wrapper.m_DialogueControlsActionsCallbackInterface.OnSkip;
+                @Skip.performed -= m_Wrapper.m_DialogueControlsActionsCallbackInterface.OnSkip;
+                @Skip.canceled -= m_Wrapper.m_DialogueControlsActionsCallbackInterface.OnSkip;
+            }
+            m_Wrapper.m_DialogueControlsActionsCallbackInterface = instance;
+            if (instance != null)
+            {
+                @Confirm.started += instance.OnConfirm;
+                @Confirm.performed += instance.OnConfirm;
+                @Confirm.canceled += instance.OnConfirm;
+                @Skip.started += instance.OnSkip;
+                @Skip.performed += instance.OnSkip;
+                @Skip.canceled += instance.OnSkip;
+            }
+        }
+    }
+    public DialogueControlsActions @DialogueControls => new DialogueControlsActions(this);
     public interface ICharacterControlsActions
     {
         void OnMovement(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
+        void OnInteract(InputAction.CallbackContext context);
+        void OnAction(InputAction.CallbackContext context);
+        void OnSwapPrevious(InputAction.CallbackContext context);
+        void OnSwapNext(InputAction.CallbackContext context);
+    }
+    public interface IDialogueControlsActions
+    {
+        void OnConfirm(InputAction.CallbackContext context);
+        void OnSkip(InputAction.CallbackContext context);
     }
 }

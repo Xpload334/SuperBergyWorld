@@ -6,11 +6,13 @@ TagManager:
   tags:
   - Object
   - CameraBorder
+  - CameraTarget
+  - JumpTrigger
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Player
   - Water
   - UI
   - 

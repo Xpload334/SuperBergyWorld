@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TypersRoot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <SpriteFolderPath>Assets/Dialogue Data/Dialogue Sprites/Faces</SpriteFolderPath>
+    <!-- Folder to store all the dialogue face sprites -->
+    <Typers>
+        <Typer id="0">
+            <Name>Neutral</Name>
+            <Sprites>
+                <Sprite>blank</Sprite>
+            </Sprites>
+            <SoundID>0</SoundID>
+            <SpriteInterval>1</SpriteInterval>
+            <SoundInterval>4</SoundInterval>
+        </Typer>
+
+        <Typer id="1">
+            <Name>TobiasBasic</Name>
+            <Sprites>
+                <Sprite>Tobias\basic\closed</Sprite>
+                <Sprite>Tobias\basic\open</Sprite>
+            </Sprites>
+            <SoundID>1</SoundID>
+            <SpriteInterval>4</SpriteInterval>
+            <SoundInterval>3</SoundInterval>
+        </Typer>
+
+        <Typer id="2">
+            <Name>TobiasAngry</Name>
+            <Sprites>
+                <Sprite>Tobias\angry\closed</Sprite>
+                <Sprite>Tobias\angry\open</Sprite>
+            </Sprites>
+            <SoundID>1</SoundID>
+            <SpriteInterval>4</SpriteInterval>
+            <SoundInterval>3</SoundInterval>
+        </Typer>
+
+        <Typer id="20">
+            <Name>XploadBasic</Name>
+            <Sprites>
+                <Sprite>Xpload\basic\closed</Sprite>
+                <Sprite>Xpload\basic\open</Sprite>
+            </Sprites>
+            <SoundID>2</SoundID>
+            <SpriteInterval>1</SpriteInterval>
+            <SoundInterval>4</SoundInterval>
+        </Typer>
+    </Typers>
+</TypersRoot>

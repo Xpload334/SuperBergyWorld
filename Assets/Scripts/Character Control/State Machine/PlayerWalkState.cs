@@ -16,6 +16,7 @@ public class PlayerWalkState : PlayerBaseState
     public override void UpdateState()
     {
         HandleMovement();
+        HandleAnimations();
         CheckSwitchStates();
     }
 
@@ -41,8 +42,17 @@ public class PlayerWalkState : PlayerBaseState
     {
         Ctx.AppliedMovementX = Ctx.CurrentMovementInput.x * Ctx.speed;
         Ctx.AppliedMovementZ = Ctx.CurrentMovementInput.y * Ctx.speed;
+        
+    }
 
+    void HandleAnimations()
+    {
+        Ctx.animator.SetFloat(Ctx.MoveXHash, Mathf.Round(Ctx.CurrentMovementInput.x));
+        Ctx.animator.SetFloat(Ctx.MoveYHash, Mathf.Round(Ctx.CurrentMovementInput.y));
+
+        /*
         Ctx.animator.SetFloat(Ctx.MoveXHash, Ctx.CurrentMovementX);
         Ctx.animator.SetFloat(Ctx.MoveYHash, Ctx.CurrentMovementZ);
+        */
     }
 }

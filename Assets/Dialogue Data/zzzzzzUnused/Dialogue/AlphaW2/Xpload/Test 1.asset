@@ -1,0 +1,43 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d9f81816703c1f44bcd04255c48e9a8, type: 3}
+  m_Name: Test 1
+  m_EditorClassIdentifier: 
+  dialogue:
+  - '* Keep safe when going through this canyon, dudes.'
+  - '* There''s a LOT of broken code stuff out there, it''s a real tripping hazard.'
+  - '* Someone should complain to the guy in charge of it all.'
+  responses: []
+  typer:
+  - {fileID: 11400000, guid: 8d86c7d597e111549b9f92ad4b0320ea, type: 2}
+  - {fileID: 11400000, guid: 8d86c7d597e111549b9f92ad4b0320ea, type: 2}
+  - {fileID: 11400000, guid: 8d86c7d597e111549b9f92ad4b0320ea, type: 2}
+  timelineTrigger:
+    name: 
+    onDialogueFinished:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 11400000, guid: d28db5512a9f3ca4ab250ff2bf7d0e64, type: 2}
+          m_TargetAssemblyTypeName: Signals, Assembly-CSharp
+          m_MethodName: Raise
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  typingSpeed: 18
+  autoSkip: 0
+  timeForAutoSkip: 0

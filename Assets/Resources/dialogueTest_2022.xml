@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DialogueRoot xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <DialogueObjects>
+        <DialogueObject id="1"><!-- Opening and closing tags for each dialogue object -->
+            <Name>Test1</Name>
+            <Lines>
+                <Line><!-- Use a new line tag for each line of dialogue -->
+                    <TyperID>1</TyperID><!-- Specify the typerID of who is speaking -->
+                    <Text>Example text! Example text!</Text><!-- Here is where the text goes -->
+                    <autoSkipSeconds>1</autoSkipSeconds><!-- (Optional) Take away player input, and show how long to wait before continuing to next line -->
+                </Line>
+                <Line><!-- Next line in the object should play once the previous is done -->
+                    <TyperID>20</TyperID>
+                    <Text>Example text on another line! Here is some more cool text on this line.</Text>
+                </Line>
+            </Lines>
+        </DialogueObject>
+    
+        <DialogueObject id="2"><!-- A different dialogue object -->
+            <Name>Test2</Name>
+            <Lines>
+                <Line>
+                    <TyperID>20</TyperID>
+                    <Text>XBOX LIVE !!</Text>
+                </Line>
+            </Lines>
+        </DialogueObject>
+    
+        <DialogueObject id="3">
+            <Name>TestNeutral</Name>
+            <Lines>
+                <Line>
+                    <TyperID>0</TyperID>
+                    <Text>Test with no face</Text>
+                </Line>
+            </Lines>
+        </DialogueObject>
+    </DialogueObjects>
+</DialogueRoot>

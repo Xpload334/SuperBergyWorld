@@ -28,6 +28,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 13.5, y: 0, z: -11}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8710894901664911499}
   m_Father: {fileID: 0}
@@ -58,6 +59,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81a7c3bc8fb461c40b610ca0778640ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  PartyCharacterManager: {fileID: 0}
   camera: {fileID: 8710894901664911497}
   collider: {fileID: 0}
   cameraTarget: {fileID: 0}
@@ -68,6 +70,34 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 8710894901445039470}
     m_Modifications:
+    - target: {fileID: 963656133343771606, guid: 45550aa0e75979a4eaf4f77e3555fd03, type: 3}
+      propertyPath: m_XDamping
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 963656133343771606, guid: 45550aa0e75979a4eaf4f77e3555fd03, type: 3}
+      propertyPath: m_YDamping
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 963656133343771606, guid: 45550aa0e75979a4eaf4f77e3555fd03, type: 3}
+      propertyPath: m_ZDamping
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 963656133343771606, guid: 45550aa0e75979a4eaf4f77e3555fd03, type: 3}
+      propertyPath: m_DeadZoneWidth
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 963656133343771606, guid: 45550aa0e75979a4eaf4f77e3555fd03, type: 3}
+      propertyPath: m_SoftZoneWidth
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 963656133343771606, guid: 45550aa0e75979a4eaf4f77e3555fd03, type: 3}
+      propertyPath: m_DeadZoneHeight
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 963656133343771606, guid: 45550aa0e75979a4eaf4f77e3555fd03, type: 3}
+      propertyPath: m_SoftZoneHeight
+      value: 0.3
+      objectReference: {fileID: 0}
     - target: {fileID: 963656133343771606, guid: 45550aa0e75979a4eaf4f77e3555fd03, type: 3}
       propertyPath: m_TrackedObjectOffset.y
       value: 2

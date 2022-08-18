@@ -12,8 +12,8 @@ public class PlayerIdleState : PlayerBaseState
     {
         Ctx.Animator.SetBool(Ctx.IsMovingHash, false);
         
-        Ctx.animator.SetFloat(Ctx.MoveXHash, Ctx.LastMovementX);
-        Ctx.animator.SetFloat(Ctx.MoveYHash, Ctx.LastMovementY);
+        Ctx.animator.SetFloat(Ctx.MoveXHash, Mathf.Round(Ctx.LastMovementX));
+        Ctx.animator.SetFloat(Ctx.MoveYHash, Mathf.Round(Ctx.LastMovementY));
         Ctx.AppliedMovementX = 0;
         Ctx.AppliedMovementZ = 0;
     }

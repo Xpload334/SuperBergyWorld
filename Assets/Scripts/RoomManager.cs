@@ -7,12 +7,16 @@ using UnityEngine;
 
 public class RoomManager : MonoBehaviour
 {
+    public PartyCharacterManager PartyCharacterManager;
+    
     public GameObject camera;
     public Collider collider;
     public Transform cameraTarget;
 
     private void Awake()
     {
+        PartyCharacterManager = FindObjectOfType<PartyCharacterManager>();
+        
         //Can I apply the camera to this object?
         //If set to null, camera is the first child of this object
         if (camera == null)
@@ -25,6 +29,9 @@ public class RoomManager : MonoBehaviour
         {
             collider = GetComponent<Collider>();
         }
+        
+        
+        changeCameraTarget(FindObjectOfType<CameraTarget>().transform);
     }
 
     private void OnTriggerEnter(Collider other)
@@ -47,15 +54,16 @@ public class RoomManager : MonoBehaviour
         }
     }
 
-    public void changeCameraTarget(GameObject gameObject)
+    //Change camera target to another Transform
+    public void changeCameraTarget(Transform transform)
     {
-        if (cameraTarget == gameObject.transform)
+        if (cameraTarget == transform)
         {
-            Debug.Log("Target of "+camera.name+" is already "+gameObject.name);
+            Debug.Log("Target of "+camera.name+" is already "+transform);
             return;
         }
 
-        camera.GetComponent<CinemachineVirtualCamera>().m_Follow = gameObject.transform;
-        Debug.Log("Changed target of "+camera.name+" to "+gameObject.name);
+        camera.GetComponent<CinemachineVirtualCamera>().m_Follow = transform;
+        Debug.Log("Changed target of "+camera.name+" to "+transform);
     }
 }

@@ -13,6 +13,8 @@ public class PlayerFallState : PlayerBaseState, IRootState
 
     public override void EnterState()
     {
+        Ctx.IsJumping = true;
+        
         InitializeSubState();
         Ctx.Animator.SetBool(Ctx.IsFallingHash, true);
     }
@@ -25,6 +27,8 @@ public class PlayerFallState : PlayerBaseState, IRootState
 
     public override void ExitState()
     {
+        Ctx.IsJumping = false;
+        
         Ctx.Animator.SetBool(Ctx.IsFallingHash, false);
     }
 

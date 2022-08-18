@@ -1,0 +1,68 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d9f81816703c1f44bcd04255c48e9a8, type: 3}
+  m_Name: IntroArgument8
+  m_EditorClassIdentifier: 
+  dialogue:
+  - "* Hey! This is my speech! I didn\u2019t ask any of you to interfere!"
+  - '* Hey, we''re supposed to be-'
+  - '* Shut up! This is supposed to be professional-'
+  - '* Professional, proschmessional.'
+  - '* As long as I don''t get ridiculed for-'
+  - '* B r i '' i s h'
+  - '* Guys! You ruined my professional speech!!!'
+  - '* Avo, you little-'
+  - '* We''re going for a E10+ rating, remember?!'
+  - '* Get off my STAGE!'
+  - '* Yeah but it''s better up here-'
+  - '*  I vote Nate off.'
+  - '* Wha?! I BUILT the darn stage!'
+  - "* So? Someone has built me, but they don\u2019t have permission to stand on
+    me!"
+  - '* How many levels have you made?'
+  responses: []
+  typer:
+  - {fileID: 11400000, guid: 51111186becf64a4199a29592d9ee666, type: 2}
+  - {fileID: 11400000, guid: 8d86c7d597e111549b9f92ad4b0320ea, type: 2}
+  - {fileID: 11400000, guid: 51111186becf64a4199a29592d9ee666, type: 2}
+  - {fileID: 11400000, guid: 8bf558c029f28b945877d3dfbb15582d, type: 2}
+  - {fileID: 11400000, guid: 8d86c7d597e111549b9f92ad4b0320ea, type: 2}
+  - {fileID: 11400000, guid: 2fd0beddcc2400f4995b4eeed668a817, type: 2}
+  - {fileID: 11400000, guid: 51111186becf64a4199a29592d9ee666, type: 2}
+  - {fileID: 11400000, guid: 8d86c7d597e111549b9f92ad4b0320ea, type: 2}
+  - {fileID: 11400000, guid: bb00f51162993bb418eeaece511c660e, type: 2}
+  - {fileID: 11400000, guid: 51111186becf64a4199a29592d9ee666, type: 2}
+  - {fileID: 11400000, guid: f8c11be0a76bebb4f940c2a8af52b4f8, type: 2}
+  - {fileID: 11400000, guid: 8d86c7d597e111549b9f92ad4b0320ea, type: 2}
+  - {fileID: 11400000, guid: bb00f51162993bb418eeaece511c660e, type: 2}
+  - {fileID: 11400000, guid: 51111186becf64a4199a29592d9ee666, type: 2}
+  - {fileID: 11400000, guid: 8cfbb46ea77aef84dbeb1eea7fb865b5, type: 2}
+  timelineTrigger:
+    name: 
+    onDialogueFinished:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 11400000, guid: 6ae795f0eb2361c40834b407f9d6c206, type: 2}
+          m_TargetAssemblyTypeName: Signals, Assembly-CSharp
+          m_MethodName: Raise
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  typingSpeed: 30
+  autoSkip: 1
+  timeForAutoSkip: 0.1
