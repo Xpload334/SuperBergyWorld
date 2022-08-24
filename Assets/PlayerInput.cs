@@ -297,6 +297,54 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""CombatControls"",
+            ""id"": ""762e8c45-8da3-40a0-905a-dfd7a33e4f68"",
+            ""actions"": [
+                {
+                    ""name"": ""BasicAttack"",
+                    ""type"": ""Button"",
+                    ""id"": ""776bee07-41ac-471f-aadb-f133d991be87"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""SpecialAttack"",
+                    ""type"": ""Button"",
+                    ""id"": ""14445663-c5be-4526-b6b6-f6f672308077"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""010e3f09-cb24-4c95-9702-d4652fd6396a"",
+                    ""path"": ""<Keyboard>/z"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""BasicAttack"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""7d80c0c9-0f66-4d0f-a618-cbf1a4f301d6"",
+                    ""path"": ""<Keyboard>/x"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SpecialAttack"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": []
@@ -313,6 +361,10 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
         m_DialogueControls = asset.FindActionMap("DialogueControls", throwIfNotFound: true);
         m_DialogueControls_Confirm = m_DialogueControls.FindAction("Confirm", throwIfNotFound: true);
         m_DialogueControls_Skip = m_DialogueControls.FindAction("Skip", throwIfNotFound: true);
+        // CombatControls
+        m_CombatControls = asset.FindActionMap("CombatControls", throwIfNotFound: true);
+        m_CombatControls_BasicAttack = m_CombatControls.FindAction("BasicAttack", throwIfNotFound: true);
+        m_CombatControls_SpecialAttack = m_CombatControls.FindAction("SpecialAttack", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -482,6 +534,47 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
         }
     }
     public DialogueControlsActions @DialogueControls => new DialogueControlsActions(this);
+
+    // CombatControls
+    private readonly InputActionMap m_CombatControls;
+    private ICombatControlsActions m_CombatControlsActionsCallbackInterface;
+    private readonly InputAction m_CombatControls_BasicAttack;
+    private readonly InputAction m_CombatControls_SpecialAttack;
+    public struct CombatControlsActions
+    {
+        private @PlayerInput m_Wrapper;
+        public CombatControlsActions(@PlayerInput wrapper) { m_Wrapper = wrapper; }
+        public InputAction @BasicAttack => m_Wrapper.m_CombatControls_BasicAttack;
+        public InputAction @SpecialAttack => m_Wrapper.m_CombatControls_SpecialAttack;
+        public InputActionMap Get() { return m_Wrapper.m_CombatControls; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(CombatControlsActions set) { return set.Get(); }
+        public void SetCallbacks(ICombatControlsActions instance)
+        {
+            if (m_Wrapper.m_CombatControlsActionsCallbackInterface != null)
+            {
+                @BasicAttack.started -= m_Wrapper.m_CombatControlsActionsCallbackInterface.OnBasicAttack;
+                @BasicAttack.performed -= m_Wrapper.m_CombatControlsActionsCallbackInterface.OnBasicAttack;
+                @BasicAttack.canceled -= m_Wrapper.m_CombatControlsActionsCallbackInterface.OnBasicAttack;
+                @SpecialAttack.started -= m_Wrapper.m_CombatControlsActionsCallbackInterface.OnSpecialAttack;
+                @SpecialAttack.performed -= m_Wrapper.m_CombatControlsActionsCallbackInterface.OnSpecialAttack;
+                @SpecialAttack.canceled -= m_Wrapper.m_CombatControlsActionsCallbackInterface.OnSpecialAttack;
+            }
+            m_Wrapper.m_CombatControlsActionsCallbackInterface = instance;
+            if (instance != null)
+            {
+                @BasicAttack.started += instance.OnBasicAttack;
+                @BasicAttack.performed += instance.OnBasicAttack;
+                @BasicAttack.canceled += instance.OnBasicAttack;
+                @SpecialAttack.started += instance.OnSpecialAttack;
+                @SpecialAttack.performed += instance.OnSpecialAttack;
+                @SpecialAttack.canceled += instance.OnSpecialAttack;
+            }
+        }
+    }
+    public CombatControlsActions @CombatControls => new CombatControlsActions(this);
     public interface ICharacterControlsActions
     {
         void OnMovement(InputAction.CallbackContext context);
@@ -495,5 +588,10 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
     {
         void OnConfirm(InputAction.CallbackContext context);
         void OnSkip(InputAction.CallbackContext context);
+    }
+    public interface ICombatControlsActions
+    {
+        void OnBasicAttack(InputAction.CallbackContext context);
+        void OnSpecialAttack(InputAction.CallbackContext context);
     }
 }

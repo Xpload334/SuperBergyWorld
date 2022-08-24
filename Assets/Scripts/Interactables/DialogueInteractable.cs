@@ -1,63 +1,143 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 
 
-public enum DialogueActivationMethod
-{
-    Interact,
-    OnStart,
-    TriggerZone
-}
+
 public class DialogueInteractable : AbstractInteractable
 {
-    public Queue<int> DialogueIDQueue;
-    
+    public List<int> DialogueIDList;
+    private Queue<int> DialogueIDQueue;
     [Header("Dialogue Controls")]
-    public DialogueActivationMethod activationMethod;
+    
     public DialogueManager dialogueManager;
+
+    [Header("Context Clue")] 
+    public GameObject contextClue;
+    /*
+     * If there is 1 object left in the dialogue queue and this bool is true, this dialogue will be replayed
+     * on every subsequent interaction.
+     */
     public bool CanReplayDialogue = true;
+    
+    
     // Start is called before the first frame update
     void Start()
     {
-        
-    }
+        //initialise queue from list
+        DialogueIDQueue = new Queue<int>(DialogueIDList);
+        dialogueManager = FindObjectOfType<DialogueManager>();
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+
+        //If starts on trigger, dialogue cannot replay
+        if (activationMethod == InteractableActivationMethod.TriggerZone)
+        {
+            CanReplayDialogue = false;
+        }
     }
 
     public override void EnterTrigger(PlayerStateMachine player)
     {
         //throw new System.NotImplementedException();
+        Debug.Log("Trigger Entered");
+
+        if (DialogueIDQueue.Count > 0)
+        {
+            //If activates on trigger zone, interact upon entering trigger
+            if (activationMethod == InteractableActivationMethod.TriggerZone)
+            {
+                Interact(player);
+            }
+            else
+            {
+                SetContextClueActive(true);
+            }
+        }
     }
 
     public override void ExitTrigger(PlayerStateMachine player)
     {
         //throw new System.NotImplementedException();
+        Debug.Log("Trigger Exited");
+        
+        if(activationMethod == InteractableActivationMethod.Interact)
+        {
+            SetContextClueActive(false);
+        }
     }
 
     public override void Interact(PlayerStateMachine player)
     {
-        //Find xml loader
-        //Get dialogue object of first string in queue
-        //From object, get queue of dialogue lines (which contain the text string, typer and autoskip settings)
-        //Send lines to dialogue manager's queue
-        //Disable player
-        //Play dialogue
-        //(Dialogue manager will enable player)
+        //If no more dialogue left, do nothing
+        if (DialogueIDQueue.Count == 0)
+        {
+            return;
+        }
+
+        //player.Interactable = null; //Set interactable to null
+        SetContextClueActive(false); //Set context clue to inactive
         
-        /*
-        FindObjectOfType<DialogueLoader>().GetDialogueObject()
-        FindObjectOfType<DialogueManager>()
-        */
+        //If trigger active, trigger dialogue
+        if (triggerActive && canInteract)
+        {
+            canInteract = false;
+            StartCoroutine(TriggerDialogue());
+        }
+        
     }
 
-    public void TriggerDialogue()
+    public IEnumerator TriggerDialogue()
     {
-        dialogueManager.PlayDialogue(DialogueIDQueue.Dequeue());
+        int dialogueID = DialogueIDQueue.Dequeue();
+        dialogueManager.PlayDialogue(dialogueID);
+        
+        //Once dialogue is finished, set canInteract back to true
+        yield return new WaitUntil((() => !dialogueManager.IsOpen));
+        EndInteract(dialogueID);
+        
     }
+
+    /*
+     * Method to play on ending an interaction
+     */
+    public void EndInteract(int dialogueID)
+    {
+        //If no more dialogue and can replay dialogue, put last dialogue ID back in the queue
+        if (DialogueIDQueue.Count == 0 && CanReplayDialogue)
+        {
+            DialogueIDQueue.Enqueue(dialogueID);
+        }
+
+        canInteract = true; //Re-enable interactions
+    }
+
+    public void SetContextClueActive(bool state)
+    {
+        contextClue.SetActive(state);
+    }
+    
+
+    /*
+     * Add a new dialogue ID int to the dialogue queue.
+     * If there is a replayable element in the queue, preserve its position at the end of the queue
+     */
+    public void AddDialogueToQueue(int dialogueID)
+    {
+        //If replayable element left, move to back of the queue and put new dialogue ID in front of it
+        if (DialogueIDQueue.Count == 1 && CanReplayDialogue)
+        {
+            int replayableID = DialogueIDQueue.Dequeue();
+            DialogueIDQueue.Enqueue(dialogueID); //Put new ID into the queue
+            DialogueIDQueue.Enqueue(replayableID); //Put replayable ID at the end of the queue
+        }
+    }
+
+    public void ReplaceReplayableID(int dialogueID)
+    {
+        
+    }
+
+    
 }

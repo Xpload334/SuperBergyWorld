@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3890126195348506608}
   - component: {fileID: 3890126195348506611}
+  - component: {fileID: 676046627785051433}
   m_Layer: 0
   m_Name: PartyManager
   m_TagString: Untagged
@@ -55,6 +56,18 @@ MonoBehaviour:
   partySize: 0
   cameraTarget: {fileID: 0}
   ShouldSwap: 1
+--- !u!114 &676046627785051433
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3890126195348506610}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 43698b8a093efea4fb2deae723d76d5e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &538438853848513216
 PrefabInstance:
   m_ObjectHideFlags: 0

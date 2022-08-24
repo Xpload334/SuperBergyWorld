@@ -21,6 +21,7 @@ public class DialogueManager : MonoBehaviour
     private Typewriter _typewriter;
     public float typeDelay = 0.1f;
     public float waitBeforeDialogueStart = 0.5f;
+    public bool DisableControlOnFinished;
     [Header("Player")]
     public PartyCharacterManager characterManager;
     private PlayerInput _playerInput;
@@ -56,6 +57,7 @@ public class DialogueManager : MonoBehaviour
         _playerInput.DialogueControls.Skip.started += OnSkip;
         _playerInput.DialogueControls.Skip.canceled += OnSkip;
 
+        ClearText();
     }
 
     private void Update()
@@ -99,15 +101,22 @@ public class DialogueManager : MonoBehaviour
         DialogueObject dialogueObject = dialogueLoader.GetDialogueObject(dialogueID);
         DialogueQueue = ConstructDialogue(dialogueObject); // Construct dialogue queue
 
-        //Disable player controls
-        characterManager.currentCharacter.DisableControls();
-        //Disable party controls
-        characterManager.DisableControls();
-        //Enable dialogue controls
+        //If should resume control on end, make sure to set flag for later
+        if (dialogueObject.disableControlOnFinish)
+        {
+            DisableControlOnFinished = true;
+        }
+
+        //If should disable control at start (default), disable player controls
+        if (dialogueObject.disableControlOnStart)
+        {
+            DisablePlayerControls();
+        }
+        
+        //Enable dialogue controls (separate from player controls)
         EnableControls();
         
         StartCoroutine(StepThroughDialogue());
-        //DisplayNextLine();
     }
 
     public IEnumerator StepThroughDialogue()
@@ -152,11 +161,12 @@ public class DialogueManager : MonoBehaviour
         while(_typewriter.IsRunning)
         {
             yield return null;
-            //Press Z again to skip dialogue
-            if (_isSkipPressed)
+            
+            //Press X to skip dialogue
+            //Skip can only happen if dialogue doesn't autoskip
+            if (_isSkipPressed && !dialogue.ShouldAutoSkip)
             {
                 _typewriter.Stop();
-                //DialogueSkipped = false;
             }
         }
         
@@ -174,11 +184,17 @@ public class DialogueManager : MonoBehaviour
         IsOpen = false;
         Debug.Log("End of dialogue");
         
+        //If should resume control when dialogue is finished, do so
+        if (!DisableControlOnFinished)
+        {
+            //Re-enable player controls
+            characterManager.currentCharacter.EnableControls();
+            //Re-enable party controls
+            characterManager.EnableControls();
+            
+            DisableControlOnFinished = false;
+        }
         
-        //Re-enable player controls
-        characterManager.currentCharacter.EnableControls();
-        //Re-enable party controls
-        characterManager.EnableControls();
         //Disable dialogue controls
         DisableControls();
         
@@ -225,6 +241,11 @@ public class DialogueManager : MonoBehaviour
         typerContents.TyperName = typer.typerName;
         return typerContents;
     }
+
+    public void ClearText()
+    {
+        uiText.text = "";
+    }
     
     private void OnEnable()
     {
@@ -244,6 +265,18 @@ public class DialogueManager : MonoBehaviour
     private void DisableControls()
     {
         _playerInput.DialogueControls.Disable();
+    }
+
+    private void DisablePlayerControls()
+    {
+        //Disable player controls
+        characterManager.currentCharacter.DisableControls();
+        
+        //Zero player movement inputs
+        characterManager.currentCharacter.CurrentMovementInput = Vector2.zero;
+        
+        //Disable party controls
+        characterManager.DisableControls();
     }
     
 

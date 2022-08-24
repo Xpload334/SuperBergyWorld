@@ -2,6 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/*
+ * State to enter when a player performs an action
+ * Has a certain duration and may enable certain hitboxes
+ */
 public class PlayerActionState : PlayerBaseState
 {
     public PlayerActionState(PlayerStateMachine currentContext, PlayerStateFactory playerStateFactory) : base (currentContext, playerStateFactory){

@@ -1,8 +1,10 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
+using System.Xml;
 using System.Xml.Serialization;
 using UnityEngine;
 
@@ -19,6 +21,10 @@ public class DialogueObject
 {
     [XmlAttribute(AttributeName = "id")] public int dialogueID;
     [XmlElement(ElementName = "Name")] public string dialogueName;
+    
+    [XmlElement(ElementName = "DisableControlOnFinish")] public bool disableControlOnFinish;
+    [XmlElement(ElementName = "DisableControlOnStart")] public bool disableControlOnStart;
+    
     [XmlArray(ElementName = "Lines"), XmlArrayItem(ElementName = "Line")] 
     public List<DialogueLine> lines = new List<DialogueLine>();
 }

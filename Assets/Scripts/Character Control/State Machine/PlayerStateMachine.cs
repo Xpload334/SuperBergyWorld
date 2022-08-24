@@ -33,7 +33,9 @@ public class PlayerStateMachine : MonoBehaviour
     
     //Interaction variables
     [Header("Interactions")] 
-    public bool shouldInteract;
+    public bool shouldInteract = true;
+
+    public AbstractInteractable Interactable;
 
     //Action variables
     [Header("Action")]
@@ -172,9 +174,10 @@ public class PlayerStateMachine : MonoBehaviour
         _playerInput.CharacterControls.Movement.performed += OnMovementInput;
         _playerInput.CharacterControls.Movement.canceled += OnMovementInput;
         
-        //Callback context for jump
+        //Callback context for jump/interact
         _playerInput.CharacterControls.Jump.started += OnJump;
         _playerInput.CharacterControls.Jump.canceled += OnJump;
+        
         SetupJumpVariables();
     }
 

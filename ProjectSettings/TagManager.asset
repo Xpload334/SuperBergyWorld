@@ -8,6 +8,8 @@ TagManager:
   - CameraBorder
   - CameraTarget
   - JumpTrigger
+  - PlayerUnit
+  - EnemyUnit
   layers:
   - Default
   - TransparentFX
@@ -47,4 +49,7 @@ TagManager:
     locked: 0
   - name: Player
     uniqueID: 4196208753
+    locked: 0
+  - name: UITop
+    uniqueID: 2096655159
     locked: 0

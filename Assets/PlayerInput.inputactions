@@ -275,6 +275,54 @@
                     "isPartOfComposite": false
                 }
             ]
+        },
+        {
+            "name": "CombatControls",
+            "id": "762e8c45-8da3-40a0-905a-dfd7a33e4f68",
+            "actions": [
+                {
+                    "name": "BasicAttack",
+                    "type": "Button",
+                    "id": "776bee07-41ac-471f-aadb-f133d991be87",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "SpecialAttack",
+                    "type": "Button",
+                    "id": "14445663-c5be-4526-b6b6-f6f672308077",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "010e3f09-cb24-4c95-9702-d4652fd6396a",
+                    "path": "<Keyboard>/z",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "BasicAttack",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "7d80c0c9-0f66-4d0f-a618-cbf1a4f301d6",
+                    "path": "<Keyboard>/x",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "SpecialAttack",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": []

@@ -30,8 +30,13 @@ public class PlayerGroundedState : PlayerBaseState, IRootState
 
     public override void CheckSwitchStates()
     {
+        //If interact key pressed and has interactable object, switch to interact state
+        if (Ctx.IsJumpPressed && !Ctx.RequireNewJumpPress && Ctx.Interactable != null)
+        {
+            Ctx.Interactable.Interact(Ctx);
+        }
         //If jump pressed and does not require new jump press, switch to jump state
-        if (Ctx.IsJumpPressed && !Ctx.RequireNewJumpPress)
+        if (Ctx.IsJumpPressed && !Ctx.RequireNewJumpPress && Ctx.Interactable == null)
         {
             SwitchState(Factory.Jump());
         }
@@ -41,7 +46,7 @@ public class PlayerGroundedState : PlayerBaseState, IRootState
             SwitchState(Factory.Fall());
         }
         
-        //If interact key pressed and has interactable object, switch to interact state
+        
     }
 
     public override void InitializeSubState()

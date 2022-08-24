@@ -3,6 +3,7 @@
     <DialogueObjects>
         <DialogueObject id="1"><!-- Opening and closing tags for each dialogue object -->
             <Name>Test1</Name>
+            <DisableControlOnStart>true</DisableControlOnStart>
             <Lines>
                 <Line><!-- Use a new line tag for each line of dialogue -->
                     <TyperID>1</TyperID><!-- Specify the typerID of who is speaking -->
@@ -18,6 +19,7 @@
     
         <DialogueObject id="2"><!-- A different dialogue object -->
             <Name>Test2</Name>
+            <DisableControlOnStart>true</DisableControlOnStart>
             <Lines>
                 <Line>
                     <TyperID>20</TyperID>

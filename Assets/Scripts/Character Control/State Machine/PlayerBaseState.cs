@@ -1,14 +1,17 @@
 using System;
 using UnityEngine;
 
+/*
+ * Abstract class for a base player state
+ */
 public abstract class PlayerBaseState
 {
-    private bool _isRootState = false;
-    private PlayerStateMachine _ctx;
-    private PlayerStateFactory _factory;
+    private bool _isRootState = false; //If the state is the root state or not
+    private PlayerStateMachine _ctx; //State machine this state belongs to
+    private PlayerStateFactory _factory; //State factory for all state classes
 
-    private PlayerBaseState _currentSubState;
-    private PlayerBaseState _currentSuperState;
+    private PlayerBaseState _currentSubState; //This state's current sub-state
+    private PlayerBaseState _currentSuperState; //This state's current super-state
     
     //Setters and getters
     protected bool IsRootState { set { _isRootState = value; }

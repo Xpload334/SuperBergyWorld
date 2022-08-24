@@ -6,33 +6,36 @@ using UnityEngine;
 
 public abstract class AbstractInteractable: MonoBehaviour
 {
-    private PartyCharacterManager _partyManager;
+    public InteractableActivationMethod activationMethod;
+    public PartyCharacterManager partyManager;
     public int timesInteracted;
-    public Collider myCollider;
+    public Collider triggerCollider;
     public bool triggerActive;
 
     public bool canInteract;
 
     void Awake()
     {
-        _partyManager = FindObjectOfType<PartyCharacterManager>();
+        partyManager = FindObjectOfType<PartyCharacterManager>();
     }
 
     public void OnTriggerEnter(Collider other)
     {
         //Check if other is the current character
-        if(canInteract && !triggerActive && other.TryGetComponent(out PlayerStateMachine player) && player == _partyManager.currentCharacter)
+        if(canInteract && !triggerActive && other.TryGetComponent(out PlayerStateMachine player) && player == partyManager.currentCharacter)
         {
             triggerActive = true;
+            player.Interactable = this;
             EnterTrigger(player);
         }
     }
     public void OnTriggerExit(Collider other)
     {
         //Check if other is the current character
-        if(canInteract && triggerActive && other.TryGetComponent(out PlayerStateMachine player) && player == _partyManager.currentCharacter)
+        if(canInteract && triggerActive && other.TryGetComponent(out PlayerStateMachine player) && player == partyManager.currentCharacter)
         {
             triggerActive = false;
+            player.Interactable = null;
             ExitTrigger(player);
         }
     }
