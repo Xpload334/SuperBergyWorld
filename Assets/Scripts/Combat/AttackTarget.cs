@@ -6,8 +6,7 @@ using UnityEngine;
 public class AttackTarget : MonoBehaviour
 {
     public GameObject owner;
-    [SerializeField]
-    private string attackAnimation;
+    //private string attackAnimation;
     [SerializeField]
     private bool specialAttack;
     [SerializeField]
@@ -20,8 +19,10 @@ public class AttackTarget : MonoBehaviour
     [SerializeField] 
     private float defenceMultiplier = 1;
   
+    
     public void hit(GameObject target) 
     {
+        /*
         UnitStats ownerStats = this.owner.GetComponent<UnitStats>();
         UnitStats targetStats = target.GetComponent<UnitStats>();
         if(ownerStats.combatPoints >= this.manaCost) 
@@ -34,10 +35,13 @@ public class AttackTarget : MonoBehaviour
             this.owner.GetComponent<Animator>().Play(this.attackAnimation);
             targetStats.receiveDamage(damage);
             ownerStats.combatPoints -= this.manaCost;
+            
         }
+        */
     }
 
-    private float calculateDamage(UnitStats ownerStats, UnitStats targetStats)
+
+    public float CalculateDamage(UnitStats ownerStats, UnitStats targetStats)
     {
         float damage = attackBaseDamage * (attackLevelMultiplier * ownerStats.level);
         

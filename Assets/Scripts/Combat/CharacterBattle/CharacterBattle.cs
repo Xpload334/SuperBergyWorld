@@ -5,15 +5,21 @@ using UnityEngine;
 
 public class CharacterBattle : MonoBehaviour
 {
+    [Header("Stats")] 
+    public UnitStats UnitStats;
+    public bool isPlayerTeam;
+    
+    [Header("State")]
     private State _state;
+    
+    [Header("Animations")]
     private CharacterBattleAnimations _characterBattleAnimations;
     public SpriteRenderer _characterSpriteRenderer;
     public GameObject selectionCircle;
-    public bool isPlayerTeam;
-
+    
     private Action _onMoveComplete;
     //public Vector3 moveTargetPositionChange; //Local vector3 to add to the position
-    private Vector3 moveTargetPosition; //Actual position to move to
+    private Vector3 _moveTargetPosition; //Actual position to move to
     
     private enum State
     {
@@ -23,6 +29,7 @@ public class CharacterBattle : MonoBehaviour
     }
     
     //Unit stats?
+    [Header("Stats")]
     private HealthSystem _healthSystem;
     public GameObject healthBarGameObject;
     private HealthBar _healthBar;
@@ -49,13 +56,13 @@ public class CharacterBattle : MonoBehaviour
                 
                 //Movement
                 //Maybe replace with different movement method?
-                transform.position += (moveTargetPosition - GetPosition()) * (moveSpeed * Time.deltaTime);
+                transform.position += (_moveTargetPosition - GetPosition()) * (moveSpeed * Time.deltaTime);
 
                 float reachedDistance = 0.1f;
-                if (Vector3.Distance(GetPosition(), moveTargetPosition) < reachedDistance)
+                if (Vector3.Distance(GetPosition(), _moveTargetPosition) < reachedDistance)
                 {
                     //Arrived at position
-                    transform.position = moveTargetPosition;
+                    transform.position = _moveTargetPosition;
                     _onMoveComplete.Invoke();
                 }
                 break;
@@ -90,6 +97,7 @@ public class CharacterBattle : MonoBehaviour
         //Healthbar retrieved from prefab
         _healthBar = healthBarGameObject.GetComponent<HealthBar>();
         _healthBar.Setup(_healthSystem);
+
 
         //Animate facing left or right
         PlayAnimIdle();
@@ -164,16 +172,13 @@ public class CharacterBattle : MonoBehaviour
                 });
             });
             
-            
-            
-            
         });
 
     }
 
     private void MoveToPosition(Vector3 position, Action onMoveComplete)
     {
-        this.moveTargetPosition = position;
+        this._moveTargetPosition = position;
         this._onMoveComplete = onMoveComplete;
         
         _state = State.Moving;

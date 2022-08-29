@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 public class SelectUnit : MonoBehaviour
 {
     private GameObject currentUnit;
-    private IActionsMenu actionsMenu;
+    private ActionsMenu actionsMenu;
     private IEnemyUnitsMenu enemyUnitsMenu;
     void Awake () 
     {
@@ -17,7 +17,7 @@ public class SelectUnit : MonoBehaviour
         if(scene.name == Scenes.BattleScene) 
         {
             //Find menus once battle scene loads
-            this.actionsMenu = FindObjectOfType<IActionsMenu>();
+            this.actionsMenu = FindObjectOfType<ActionsMenu>();
             this.enemyUnitsMenu = FindObjectOfType<IEnemyUnitsMenu>();
         }
     }

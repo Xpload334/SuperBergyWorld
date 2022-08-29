@@ -7,24 +7,35 @@ using Object = UnityEngine.Object;
 
 public class UnitStats : MonoBehaviour, IComparable
 {
+    public bool isPlayerTeam;
+    [Header("Attacks (Player)")] 
+    public GameObject basicAttack;
+    public List<GameObject> specialAttacks; //Replace with attack prefab
+
+    [Header("Attacks (If Enemy)")] 
+    public List<GameObject> attackPatterns;
+    
+    [Header("Effects")]
     public Animator animator;
-    //Damage text prefab
-    public GameObject damageTextPrefab;
-    public Vector3 damageTextPosition;
-    
-    
     public string unitName;
+    
+    [Header("Stats")]
+    //Health system here
     public float maxHealth; //maximum health
     public float health;
+    
     public float level; //level determines attack damage
     public float experience;
+    
+    //Combat points system here
     public float combatPoints;
     public float maxCombatPoints; //maximum amount of combat points
+    
     public float defence;
     public float speed;
 
     public int nextActTurn;
-    private bool dead = false;
+    //private bool dead = false;
     
 
     public void calculateNextActTurn (int currentTurn)
@@ -35,31 +46,38 @@ public class UnitStats : MonoBehaviour, IComparable
     {
         return nextActTurn.CompareTo(((UnitStats)otherStats).nextActTurn);
     }
+    
     public bool isDead ()
     {
-        return this.dead;
+        return false;
     }
     
     /*
      * Make this unit take damage
      *
+     *
+     * (May remove everything except reducing health, as damage text and animations are handled by the CharacterBattle script)
      */
-    public void receiveDamage (float damage) 
+    public void ReceiveDamage (float damage) 
     {
         this.health -= damage;
-        animator.Play("Hit");
-        GameObject HUDCanvas = GameObject.Find("HUDCanvas");
-        GameObject damageText = Instantiate(this.damageTextPrefab, HUDCanvas.transform) as GameObject;
-        damageText.GetComponent<Text>().text = "" + damage;
-        damageText.transform.localPosition = this.damageTextPosition;
-        damageText.transform.localScale = new Vector2(1.0f, 1.0f);
+        //animator.Play("Hit");
+        //GameObject HUDCanvas = GameObject.Find("HUDCanvas");
+        //GameObject damageText = Instantiate(this.damageTextPrefab, HUDCanvas.transform) as GameObject;
+        //damageText.GetComponent<Text>().text = "" + damage;
+        //damageText.transform.localPosition = this.damageTextPosition;
+        //damageText.transform.localScale = new Vector2(1.0f, 1.0f);
         
+        //DamageText.Create(damageTextPosition, damage, false);
+        
+        /*
         if(this.health <= 0)
         {
             this.dead = true;
             this.gameObject.tag = "DeadUnit";
             Destroy(this.gameObject);
         }
+        */
     }
     
     public void ReceiveExperience (float gainedExperience) 
