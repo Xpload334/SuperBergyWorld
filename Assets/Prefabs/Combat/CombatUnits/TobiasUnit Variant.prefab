@@ -7,9 +7,17 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5829656742830126753, guid: ab9dc010ea7125d4782bd06c0f6b9519, type: 3}
+      propertyPath: maxHealth
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 5829656742830126753, guid: ab9dc010ea7125d4782bd06c0f6b9519, type: 3}
+      propertyPath: basicAttack
+      value: 
+      objectReference: {fileID: 51779261716048894, guid: 9ebc2355bf183e447ad269a792454ce7, type: 3}
     - target: {fileID: 5829656742830126754, guid: ab9dc010ea7125d4782bd06c0f6b9519, type: 3}
       propertyPath: m_Name
-      value: TobiasUnit
+      value: TobiasUnit Variant
       objectReference: {fileID: 0}
     - target: {fileID: 5829656742830126759, guid: ab9dc010ea7125d4782bd06c0f6b9519, type: 3}
       propertyPath: m_RootOrder

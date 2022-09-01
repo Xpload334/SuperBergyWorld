@@ -5,10 +5,12 @@ using UnityEngine;
 
 public class CharacterBattleAnimations : MonoBehaviour
 {
+    public RuntimeAnimatorController runtimeAnimatorController;
+    public GameObject spriteObject;
     // Start is called before the first frame update
     void Start()
     {
-        
+        spriteObject.GetComponent<Animator>().runtimeAnimatorController = runtimeAnimatorController;
     }
 
     // Update is called once per frame

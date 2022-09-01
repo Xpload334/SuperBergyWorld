@@ -10,10 +10,15 @@ using Random = UnityEngine.Random;
 
 public class BattleHandler : MonoBehaviour
 {
-    private static BattleHandler instance;
+    [Header("Test Stats")] 
+    public UnitStats playerStats;
+    public UnitStats enemyStats;
+    
+    
+    private static BattleHandler _instance;
     public static BattleHandler GetInstance()
     {
-        return instance;
+        return _instance;
     }
     
     [SerializeField]
@@ -32,20 +37,24 @@ public class BattleHandler : MonoBehaviour
     private PlayerInput _playerInput;
     private bool isAttackPressed;
 
-    [Header("Characters")] 
+    [Header("Player Team")] 
     public List<CharacterBattle> playerCharacterList;
     public List<CharacterBattle> playerCharacterCanActList;
+    private IPlayerParty _playerParty;
+    private Transform _playerPartyTransform;
     
+    [Header("Enemy Team")]
     public List<CharacterBattle> enemyCharacterList;
     public List<CharacterBattle> enemyCharacterCanActList;
+    private Transform _enemyEncounterTransform;
 
-    private IPlayerParty _playerParty;
+    
     private CharacterBattle activeCharacterBattle; //Character active
 
     [Header("UI")]
-    private ActionsMenu _battleActionsMenu; //Menu for battle actions
-    //Menu for selecting an attack
-    //Menu for selecting a target
+    [SerializeField] private ActionsMenu _battleActionsMenu; //Menu for battle actions
+    [SerializeField] private ActionsMenu attackSelectionMenu; //Menu for selecting an attack
+    [SerializeField] private CreateCharacterSelections _targetSelectionMenu; //Menu for selecting a target
     
     [Header("Battle State")]
     private BattleState _state;
@@ -60,36 +69,73 @@ public class BattleHandler : MonoBehaviour
     
     private void Awake()
     {
-        instance = this;
-        
-        //Handle receiving character sprites
-        //Handle receiving character stats
+        _instance = this;
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        _playerParty = FindObjectOfType<IPlayerParty>();
+        _playerPartyTransform = FindObjectOfType<IPlayerParty>().transform;
+        _enemyEncounterTransform = FindObjectOfType<EnemyEncounter>().transform;
 
         //Interpret PlayerParty object and list of unitstats
-        //Construct list of player objects
+        int p = 0;
+        GameObject[] playerUnits = GameObject.FindGameObjectsWithTag("PlayerUnit");
+        foreach(GameObject playerUnit in playerUnits) 
+        {
+            UnitStats currentUnitStats = playerUnit.GetComponent<UnitStats>();
+            CharacterBattle player = SpawnCharacter(true, p, currentUnitStats);
+            playerCharacterList.Add(player);
+            p++;
+        }
         //Interpret EnemyEncounter object and list of unitstats
-        //Construct list of enemy objects
-
+        int e = 0;
+        GameObject[] enemyUnits = GameObject.FindGameObjectsWithTag("EnemyUnit");
+        foreach(GameObject enemyUnit in enemyUnits) 
+        {
+            UnitStats currentUnitStats = enemyUnit.GetComponent<UnitStats>();
+            CharacterBattle enemy = SpawnCharacter(false, e, currentUnitStats);
+            enemyCharacterList.Add(enemy);
+            e++;
+        }
+        /*
+        foreach (Transform character in _playerPartyTransform)
+        {
+            UnitStats unitStats = character.GetComponent<UnitStats>();
+            //Construct player object
+            CharacterBattle player = SpawnCharacter(true, p, unitStats);
+            playerCharacterList.Add(player);
+            p++;
+        }
+        */
+        
+        
+        /*
+        foreach (Transform character in _enemyEncounterTransform)
+        {
+            UnitStats unitStats = character.GetComponent<UnitStats>();
+            //Construct enemy object
+            CharacterBattle enemy = SpawnCharacter(false, e, unitStats);
+            enemyCharacterList.Add(enemy);
+            e++;
+        }
+        */
+        
         /*
          * Testing by adding 3 player characters and 3 enemy characters
          */
+        /*
         for (int i = 0; i < 3; i++)
         {
-            CharacterBattle player = SpawnCharacter(true, i);
+            CharacterBattle player = SpawnCharacter(true, i, playerStats);
             playerCharacterList.Add(player);
         }
-        
         for (int i = 0; i < 3; i++)
         {
-            CharacterBattle enemy = SpawnCharacter(false, i);
+            CharacterBattle enemy = SpawnCharacter(false, i, enemyStats);
             enemyCharacterList.Add(enemy);
         }
+        */
 
         //Set all player act values to true (all players can act)
         SetAllPlayersCanAct();
@@ -106,8 +152,14 @@ public class BattleHandler : MonoBehaviour
         BattleOverWindow.instance.Hide();
 
         //Open battle actions menu
-        _battleActionsMenu = FindObjectOfType<ActionsMenu>();
+        _battleActionsMenu.battleHandler = this;
         _battleActionsMenu.OpenMenu();
+        
+        //Hide attack selection menu
+        
+        //Hide target selection menu
+        _targetSelectionMenu.battleHandler = this;
+        _targetSelectionMenu.CloseMenu();
     }
 
     private void Update()
@@ -115,7 +167,7 @@ public class BattleHandler : MonoBehaviour
         
     }
 
-    private CharacterBattle SpawnCharacter(bool isPlayerTeam, int positionIndex)
+    private CharacterBattle SpawnCharacter(bool isPlayerTeam, int positionIndex, UnitStats unitStats)
     {
         Vector3 position;
         if (isPlayerTeam)
@@ -131,24 +183,36 @@ public class BattleHandler : MonoBehaviour
         Transform characterTransform = Instantiate(combatUnit, position, Quaternion.identity);
         //Call setup function
         CharacterBattle characterBattle = characterTransform.GetComponent<CharacterBattle>();
-        characterBattle.Setup(isPlayerTeam);
+        characterBattle.Setup(isPlayerTeam, unitStats);
 
         return characterBattle;
     }
 
+    /*
+     * On player attack selected:
+     *
+     * Go to attack selection menu
+     */
     public void PlayerAttack()
     {
         //If it's the player's turn and player is able to act
         if (_state == BattleState.PlayerTurn && playerCharacterCanActList.Contains(activeCharacterBattle))
         {
-            _state = BattleState.PlayerActing;
-            Debug.Log("Basic Attack");
-            //Play attack animation
+            Debug.Log("Player Attack Selected");
+            _targetSelectionMenu.Setup(GetAliveCharacters(enemyCharacterList));
             
-            //REPLACE LATER: 
-            //Select random enemy in list and attack them
-            ActiveCharacterAttackRandom(enemyCharacterList);
+            _targetSelectionMenu.OpenMenu();
         }
+    }
+
+    public void AttackTargetCharacterBattle(CharacterBattle targetCharacterBattle)
+    {
+        activeCharacterBattle.BasicAttack(targetCharacterBattle, delegate
+        { 
+            //After attack finished
+            Debug.Log(activeCharacterBattle.name+" attack finished");
+            ChooseNextActiveCharacter();
+        });
     }
 
     private void SetActiveCharacter(CharacterBattle characterBattle)
@@ -236,8 +300,7 @@ public class BattleHandler : MonoBehaviour
             _battleActionsMenu.OpenMenu(); //Open battle actions menu again
         }
     }
-
-
+    
     public void Attack(CharacterBattle targetCharacterBattle)
     {
         activeCharacterBattle.BasicAttack(targetCharacterBattle, delegate
@@ -261,12 +324,7 @@ public class BattleHandler : MonoBehaviour
         Debug.Log(randomInt);
         CharacterBattle targetCharacterBattle = aliveCharacters[randomInt]; //Note: max value is exclusive
                 
-        activeCharacterBattle.BasicAttack(targetCharacterBattle, delegate
-        { 
-            //After attack finished
-            Debug.Log(activeCharacterBattle.name+" attack finished");
-            ChooseNextActiveCharacter();
-        });
+        AttackTargetCharacterBattle(targetCharacterBattle);
     }
 
     private bool TestBattleOver()
@@ -376,5 +434,15 @@ public class BattleHandler : MonoBehaviour
     private List<CharacterBattle> GetAliveCharacters(List<CharacterBattle> characterBattles)
     {
         return characterBattles.Where(character => !character.IsDefeated()).ToList();
+    }
+
+    public void ShowSelectionCircle(CharacterBattle characterBattle)
+    {
+        characterBattle.ShowSelectionCircle();
+    }
+
+    public void HideSelectionCircle(CharacterBattle characterBattle)
+    {
+        characterBattle.HideSelectionCircle();
     }
 }

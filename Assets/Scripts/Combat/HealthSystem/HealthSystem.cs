@@ -15,10 +15,10 @@ public class HealthSystem
 
     public static event Defeat OnDefeat;
 
-    public HealthSystem(int maxHealth)
+    public HealthSystem(int maxHealth, int currentHealth)
     {
         this.maxHealth = maxHealth;
-        health = maxHealth;
+        health = currentHealth;
     }
 
     public int GetHealth()
@@ -62,5 +62,20 @@ public class HealthSystem
 
 
         OnHealthChanged?.Invoke();
+    }
+    
+    public void SetHealth(int amount)
+    {
+        health = amount;
+        if (health > maxHealth) health = maxHealth;
+        if (health < 0) health = 0;
+        
+        OnHealthChanged?.Invoke();
+        
+        if (health <= 0)
+        {
+            //health = 0;
+            OnDefeat?.Invoke();
+        }
     }
 }

@@ -144,5 +144,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   characterManager: {fileID: 0}
-  enemyEncounterPrefab: {fileID: 2548542937393244177, guid: 02fa2da4b1aeef54891ce74e727be759, type: 3}
-  collider: {fileID: 815446718271344799}
+  enemyEncounterPrefab: {fileID: 1596060444033587595, guid: 2c1d247a3b820ac4a9985b24c8fac1ee, type: 3}
+  triggerCollider: {fileID: 815446718271344799}

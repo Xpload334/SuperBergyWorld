@@ -17,6 +17,7 @@ public class SpawnEnemy : MonoBehaviour
         
         characterManager = FindObjectOfType<PartyCharacterManager>();
     }
+    
     private void OnSceneLoaded (Scene scene, LoadSceneMode mode) 
     {
         if(scene.name == Scenes.BattleScene) 
@@ -29,6 +30,7 @@ public class SpawnEnemy : MonoBehaviour
             Destroy(this.gameObject);
         }
     }
+    
     void OnTriggerEnter (Collider other) 
     {
         if(other.TryGetComponent(out PlayerStateMachine player) == characterManager.currentCharacter) 

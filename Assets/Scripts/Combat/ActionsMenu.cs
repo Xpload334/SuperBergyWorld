@@ -8,11 +8,15 @@ using UnityEngine.UI;
 
 public class ActionsMenu : MonoBehaviour
 {
-    public bool IsOpen;
-    private BattleHandler _battleHandler;
+    public bool isOpen;
+    public bool waitForCloseBeforeRemovingButtons = true;
+    public Animator animator;
+    public BattleHandler battleHandler;
 
     public GameObject layout;
     public List<GameObject> buttonObjects;
+    
+    private static readonly int Open = Animator.StringToHash("IsOpen");
     private void Awake()
     {
         CloseMenu();
@@ -20,18 +24,45 @@ public class ActionsMenu : MonoBehaviour
 
     public void OpenMenu()
     {
-        layout.SetActive(true);
+        //layout.SetActive(true);
         //On open menu, make current selected object the first
-        EventSystem.current.SetSelectedGameObject(null);
+        SetCurrentSelectionNull();
         //Set new selected object
         EventSystem.current.SetSelectedGameObject(buttonObjects[0]);
 
-        IsOpen = true;
+        if (animator != null)
+        {
+            animator.SetBool(Open, true);
+        }
+        
+        isOpen = true;
     }
 
     public void CloseMenu()
     {
-        layout.SetActive(false);
-        IsOpen = false;
+        if (animator != null)
+        {
+            animator.SetBool(Open, false);
+        }
+        //layout.SetActive(false);
+        isOpen = false;
+    }
+    
+    protected void ClearLayout()
+    {
+        foreach (Transform child in layout.transform)
+        {
+            GameObject.Destroy(child.gameObject);
+        }
+    }
+
+    protected void ClearButtonsList()
+    {
+        buttonObjects.Clear();
+    }
+
+    protected void SetCurrentSelectionNull()
+    {
+        EventSystem.current.SetSelectedGameObject(null);
     }
 }

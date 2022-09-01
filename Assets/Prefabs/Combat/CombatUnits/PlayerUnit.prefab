@@ -45,11 +45,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9758347011f77e64390977d3e20bda3e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isPlayerTeam: 0
+  basicAttack: {fileID: 51779261716048894, guid: 9ebc2355bf183e447ad269a792454ce7, type: 3}
+  specialAttacks: []
+  attackPatterns: []
   animator: {fileID: 0}
-  damageTextPrefab: {fileID: 0}
-  damageTextPosition: {x: 0, y: 0, z: 0}
   unitName: Tobias
-  maxHealth: 0
+  maxHealth: 30
   health: 30
   level: 1
   experience: 0

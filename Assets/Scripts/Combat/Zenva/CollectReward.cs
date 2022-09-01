@@ -11,8 +11,6 @@ public class CollectReward : MonoBehaviour
     private float experience; //experience reward
     public void Start () 
     {
-        TurnSystem turnSystem = FindObjectOfType<TurnSystem>();
-        turnSystem.enemyEncounter = this.gameObject;
         Debug.Log("Enemy encounter set");
     }
     
@@ -22,7 +20,7 @@ public class CollectReward : MonoBehaviour
     public void collectReward () 
     {
         GameObject[] livingPlayerUnits = GameObject.FindGameObjectsWithTag("PlayerUnit");
-        float experiencePerUnit = this.experience / (float)livingPlayerUnits.Length;
+        int experiencePerUnit = (int)(this.experience / (float)livingPlayerUnits.Length);
         
         foreach(GameObject playerUnit in livingPlayerUnits) 
         {

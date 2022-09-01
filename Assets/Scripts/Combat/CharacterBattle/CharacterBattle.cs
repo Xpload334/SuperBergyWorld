@@ -5,8 +5,6 @@ using UnityEngine;
 
 public class CharacterBattle : MonoBehaviour
 {
-    [Header("Stats")] 
-    public UnitStats UnitStats;
     public bool isPlayerTeam;
     
     [Header("State")]
@@ -14,7 +12,7 @@ public class CharacterBattle : MonoBehaviour
     
     [Header("Animations")]
     private CharacterBattleAnimations _characterBattleAnimations;
-    public SpriteRenderer _characterSpriteRenderer;
+    public SpriteRenderer characterSpriteRenderer;
     public GameObject selectionCircle;
     
     private Action _onMoveComplete;
@@ -29,7 +27,8 @@ public class CharacterBattle : MonoBehaviour
     }
     
     //Unit stats?
-    [Header("Stats")]
+    [Header("Stats")] 
+    public UnitStats unitStats;
     private HealthSystem _healthSystem;
     public GameObject healthBarGameObject;
     private HealthBar _healthBar;
@@ -49,7 +48,6 @@ public class CharacterBattle : MonoBehaviour
                 break;
             case State.Moving:
                 //Note: add a check here to make enemies not slide towards players
-                
                 
                 //Move towards target position
                 float moveSpeed = 4f;
@@ -76,7 +74,7 @@ public class CharacterBattle : MonoBehaviour
         return transform.position;
     }
 
-    public void Setup(bool isPlayerTeam)
+    public void Setup(bool isPlayerTeam, UnitStats unitStats)
     {
         //Make a reference to an animator too
         this.isPlayerTeam = isPlayerTeam;
@@ -85,20 +83,22 @@ public class CharacterBattle : MonoBehaviour
         {
             //Testing: set sprite
             //Later set the animator for this component
-            _characterSpriteRenderer.sprite = BattleHandler.GetInstance().playerSpriteTest;
+            characterSpriteRenderer.sprite = BattleHandler.GetInstance().playerSpriteTest;
         }
         else
         {
-            _characterSpriteRenderer.sprite = BattleHandler.GetInstance().enemySpriteTest;
+            characterSpriteRenderer.sprite = BattleHandler.GetInstance().enemySpriteTest;
         }
         
         //Unit stats
-        _healthSystem = new HealthSystem(30); //test
+        this.unitStats = unitStats;
+        
+        //Health
+        _healthSystem = new HealthSystem(unitStats.maxHealth, unitStats.health); //test
+        
         //Healthbar retrieved from prefab
         _healthBar = healthBarGameObject.GetComponent<HealthBar>();
-        _healthBar.Setup(_healthSystem);
-
-
+        _healthBar.Setup(_healthSystem); 
         //Animate facing left or right
         PlayAnimIdle();
     }
@@ -155,7 +155,9 @@ public class CharacterBattle : MonoBehaviour
             _characterBattleAnimations.PlayAnimAttack(attackDirection, () =>
             {
                 //Target hit
-                int damage = 10;
+                int damage = unitStats.basicAttack.GetComponent<AttackTarget>()
+                    .CalculateDamage(unitStats, targetCharacterBattle.unitStats);
+                
                 targetCharacterBattle.Damage(this, damage); //test
                 Debug.Log("Attacked for "+damage+" ("+targetCharacterBattle._healthSystem.GetHealth()+" HP)");
             }, () =>

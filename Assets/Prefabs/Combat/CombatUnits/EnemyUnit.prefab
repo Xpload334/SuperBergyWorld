@@ -94,8 +94,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2548542937393244176}
   - component: {fileID: 2548542937393244183}
-  - component: {fileID: 8356166761947126606}
-  - component: {fileID: 6991671571613345429}
   - component: {fileID: 3584154629683563260}
   m_Layer: 0
   m_Name: EnemyUnit
@@ -132,12 +130,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9758347011f77e64390977d3e20bda3e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isPlayerTeam: 0
+  basicAttack: {fileID: 51779261716048894, guid: 9ebc2355bf183e447ad269a792454ce7, type: 3}
+  specialAttacks: []
+  attackPatterns: []
   animator: {fileID: 0}
-  damageTextPrefab: {fileID: 0}
-  damageTextPosition: {x: 0, y: 0, z: 0}
   unitName: Avocadjaw
-  maxHealth: 0
-  health: 10
+  maxHealth: 30
+  health: 30
   level: 1
   experience: 0
   combatPoints: 0
@@ -145,34 +145,6 @@ MonoBehaviour:
   defence: 0
   speed: 5
   nextActTurn: 0
---- !u!114 &8356166761947126606
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2548542937393244177}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7a5916d0d0a90f1419ced468b701dee4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  targetEnemyUnitPrefab: {fileID: 803697693106540940, guid: 2fe31116c0b536a44942590d3055c97f, type: 3}
-  menuItemSprite: {fileID: -2105565191, guid: 609f372f389d32a428ed33f0de8bf901, type: 3}
-  killEnemyScript: {fileID: 6991671571613345429}
---- !u!114 &6991671571613345429
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2548542937393244177}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 10aece64bfaa8f9488d98a4b20a19146, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  menuItem: {fileID: 0}
 --- !u!114 &3584154629683563260
 MonoBehaviour:
   m_ObjectHideFlags: 0

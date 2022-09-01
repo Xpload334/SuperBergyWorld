@@ -13,6 +13,7 @@
             <SoundInterval>4</SoundInterval>
         </Typer>
 
+        <!-- Tobias: 1-19 -->
         <Typer id="1">
             <Name>TobiasBasic</Name>
             <Sprites>
@@ -35,6 +36,53 @@
             <SoundInterval>3</SoundInterval>
         </Typer>
 
+        <Typer id="3">
+            <Name>TobiasCurious</Name>
+            <Sprites>
+                <Sprite>Tobias\curious\closed</Sprite>
+                <Sprite>Tobias\curious\open</Sprite>
+            </Sprites>
+            <SoundID>1</SoundID>
+            <SpriteInterval>4</SpriteInterval>
+            <SoundInterval>3</SoundInterval>
+        </Typer>
+
+        <Typer id="4">
+            <Name>TobiasCuriousForward</Name>
+            <Sprites>
+                <Sprite>Tobias\curiousForward\closed</Sprite>
+                <Sprite>Tobias\curiousForward\open</Sprite>
+            </Sprites>
+            <SoundID>1</SoundID>
+            <SpriteInterval>4</SpriteInterval>
+            <SoundInterval>3</SoundInterval>
+        </Typer>
+
+        <Typer id="5">
+            <Name>TobiasScared</Name>
+            <Sprites>
+                <Sprite>Tobias\scared\closed</Sprite>
+                <Sprite>Tobias\scared\open</Sprite>
+            </Sprites>
+            <SoundID>1</SoundID>
+            <SpriteInterval>4</SpriteInterval>
+            <SoundInterval>3</SoundInterval>
+        </Typer>
+
+        <Typer id="3">
+            <Name>TobiasScaredEyebrow</Name>
+            <Sprites>
+                <Sprite>Tobias\scaredEyebrow\closed</Sprite>
+                <Sprite>Tobias\curious\open</Sprite>
+            </Sprites>
+            <SoundID>1</SoundID>
+            <SpriteInterval>4</SpriteInterval>
+            <SoundInterval>3</SoundInterval>
+        </Typer>
+
+        
+        
+        <!-- Xpload: 20-39-->
         <Typer id="20">
             <Name>XploadBasic</Name>
             <Sprites>

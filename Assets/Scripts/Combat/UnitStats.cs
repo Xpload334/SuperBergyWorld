@@ -21,18 +21,18 @@ public class UnitStats : MonoBehaviour, IComparable
     
     [Header("Stats")]
     //Health system here
-    public float maxHealth; //maximum health
-    public float health;
+    public int maxHealth; //maximum health
+    public int health;
     
-    public float level; //level determines attack damage
-    public float experience;
+    public int level; //level determines attack damage
+    public int experience;
     
     //Combat points system here
-    public float combatPoints;
-    public float maxCombatPoints; //maximum amount of combat points
+    public int combatPoints;
+    public int maxCombatPoints; //maximum amount of combat points
     
-    public float defence;
-    public float speed;
+    public int defence;
+    public int speed;
 
     public int nextActTurn;
     //private bool dead = false;
@@ -40,7 +40,9 @@ public class UnitStats : MonoBehaviour, IComparable
 
     public void calculateNextActTurn (int currentTurn)
     {
+        /*
         this.nextActTurn = currentTurn + (int)Math.Ceiling(100.0f / this.speed);
+        */
     }
     public int CompareTo (object otherStats)
     {
@@ -58,7 +60,7 @@ public class UnitStats : MonoBehaviour, IComparable
      *
      * (May remove everything except reducing health, as damage text and animations are handled by the CharacterBattle script)
      */
-    public void ReceiveDamage (float damage) 
+    public void ReceiveDamage (int damage) 
     {
         this.health -= damage;
         //animator.Play("Hit");
@@ -80,7 +82,7 @@ public class UnitStats : MonoBehaviour, IComparable
         */
     }
     
-    public void ReceiveExperience (float gainedExperience) 
+    public void ReceiveExperience (int gainedExperience) 
     {
         this.experience += gainedExperience;
     }

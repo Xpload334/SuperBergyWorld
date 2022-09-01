@@ -1,51 +1,45 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.Rendering;
+using UnityEngine.UI;
 
 public class CreateCharacterSelections : ActionsMenu
 {
     public GameObject buttonPrefab;
-    /*
-     * For each character battle
-     *
-     * Create button
-     * Set text to character name
-     *
-     * Add listener for on select (will use later)
-     * Add listener for on click, to send reference to character battle back to battle handler
-     *
-     * Add to buttonObjects list
-     */
-
 
     public void Setup(List<CharacterBattle> characterBattles)
     {
         //Clear layout
         ClearLayout();
+        //Clear button list
+        ClearButtonsList();
+        
         foreach (var character in characterBattles)
         {
-            //Create button prefab
-            
+            //Create button prefab, add to layout
+            GameObject button = Instantiate(buttonPrefab, layout.transform);
             //Set text to character name
-            
-            //Add listener for on select (will use later)
+            button.GetComponent<EnemySelectButton>().SetText(character.unitStats.unitName);
             
             //Add listener for on click, to send reference to character battle back to battle handler
-            
-            //Add to buttonObjects list
-            
-            //Add to layout
-        }
-    }
+            button.GetComponent<Button>().onClick.AddListener((() =>
+            {
+                character.HideSelectionCircle();
+                battleHandler.Attack(character);
+                SetCurrentSelectionNull(); //Set current selection to null, such that no other buttons can be pressed
+                CloseMenu(); //Close menu afterwards
+            }));
 
-    private void ClearLayout()
-    {
-        foreach (Transform child in layout.transform)
-        {
-            GameObject.Destroy(child.gameObject);
+            //Listener for OnSelect handled in prefab
+            //On select is handled by reference to a character
+            button.GetComponent<EnemySelectButton>().CharacterBattle = character;
+
+            //Add to buttonObjects list
+            buttonObjects.Add(button);
         }
     }
-    
-    
     
 }

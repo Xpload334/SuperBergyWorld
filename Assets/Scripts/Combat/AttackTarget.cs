@@ -8,14 +8,12 @@ public class AttackTarget : MonoBehaviour
     public GameObject owner;
     //private string attackAnimation;
     [SerializeField]
-    private bool specialAttack;
-    [SerializeField]
     private float manaCost;
     
     [SerializeField]
-    private float attackBaseDamage;
+    private float attackBaseDamage; //Minimum attack damage
     [SerializeField]
-    private float attackLevelMultiplier = 0.5f;
+    private float attackLevelMultiplier = 0.5f; //Extra damage multiplier based on level
     [SerializeField] 
     private float defenceMultiplier = 1;
   
@@ -39,14 +37,13 @@ public class AttackTarget : MonoBehaviour
         }
         */
     }
-
-
-    public float CalculateDamage(UnitStats ownerStats, UnitStats targetStats)
+    
+    public int CalculateDamage(UnitStats ownerStats, UnitStats targetStats)
     {
-        float damage = attackBaseDamage * (attackLevelMultiplier * ownerStats.level);
+        float damage = attackBaseDamage + (attackLevelMultiplier * (ownerStats.level - 1));
         
-        damage = Mathf.Max(0, damage - (this.defenceMultiplier * targetStats.defence));
+        int damageInt = Mathf.RoundToInt(Mathf.Max(0, damage - (this.defenceMultiplier * targetStats.defence)));
 
-        return damage;
+        return damageInt;
     }
 }

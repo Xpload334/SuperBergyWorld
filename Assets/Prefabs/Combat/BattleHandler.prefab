@@ -1,0 +1,66 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2565577385068005635
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2565577385068005633}
+  - component: {fileID: 2565577385068005632}
+  m_Layer: 0
+  m_Name: BattleHandler
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2565577385068005633
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2565577385068005635}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2565577385068005632
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2565577385068005635}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 97e9f1299d51ba046bf4cad25e1be0ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerStats: {fileID: 2901519178066559986, guid: 4c8c51e93a8c713478847a1050f1ea95, type: 3}
+  enemyStats: {fileID: 4815060442003268461, guid: 7f7a9518a86a7b04780b1b6c41d1bb35, type: 3}
+  combatUnit: {fileID: 1350180098717811028, guid: e9891c7c0bf73714b947d690db08e929, type: 3}
+  playerSpriteTest: {fileID: -8567037555142764720, guid: b0ad8b1d405d45d43bddfe0219b2eb40, type: 3}
+  enemySpriteTest: {fileID: -2105565191, guid: 609f372f389d32a428ed33f0de8bf901, type: 3}
+  playerPositions:
+  - {x: -6, y: 1, z: 3}
+  - {x: -5, y: 1, z: 0}
+  - {x: -6, y: 1, z: -3}
+  enemyPositions:
+  - {x: 6, y: 1, z: 3}
+  - {x: 5, y: 1, z: 0}
+  - {x: 6, y: 1, z: -3}
+  playerCharacterList: []
+  playerCharacterCanActList: []
+  enemyCharacterList: []
+  enemyCharacterCanActList: []
+  _battleActionsMenu: {fileID: 0}
+  attackSelectionMenu: {fileID: 0}
+  _targetSelectionMenu: {fileID: 0}
