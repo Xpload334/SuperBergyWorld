@@ -12,7 +12,7 @@ using UnityEngine;
 public class DialogueRoot
 {
     [XmlArray(ElementName = "DialogueObjects"), XmlArrayItem(ElementName = "DialogueObject")]
-    public List<DialogueObject> DialogueGroups;
+    public List<DialogueObject> dialogueGroups;
 }
 
 [Serializable]
@@ -46,7 +46,7 @@ public class DialogueObjectLoader : MonoBehaviour, IXMLLoader
     public string xmlFileUrl = Path.Combine("Resources", "dialogueTest_2022.xml");
 
     [Header("Result")] 
-    public DialogueRoot Root;
+    public DialogueRoot root;
 
     [ContextMenu(nameof(LoadFile))]
     public void LoadFile()
@@ -58,14 +58,14 @@ public class DialogueObjectLoader : MonoBehaviour, IXMLLoader
             var serializer = new XmlSerializer(typeof(DialogueRoot));
 
             // Deserialize the file according to your implemented Root class structure
-            Root = (DialogueRoot) serializer.Deserialize(stream);
+            root = (DialogueRoot) serializer.Deserialize(stream);
             Debug.Log("Loaded file "+xmlFileUrl);
         }
     }
 
     public DialogueObject GetDialogueObject(int dialogueID)
     {
-        foreach (var dialogueObject in Root.DialogueGroups.Where(dialogueObject => dialogueObject.dialogueID == dialogueID))
+        foreach (var dialogueObject in root.dialogueGroups.Where(dialogueObject => dialogueObject.dialogueID == dialogueID))
         {
             return dialogueObject;
         }

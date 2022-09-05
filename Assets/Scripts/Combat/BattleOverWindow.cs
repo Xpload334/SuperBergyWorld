@@ -5,14 +5,14 @@ using UnityEngine;
 
 public class BattleOverWindow : MonoBehaviour
 {
-    public static BattleOverWindow instance;
+    public static BattleOverWindow Instance;
 
     [SerializeField] private GameObject playerWinTextObject;
     [SerializeField] private GameObject playerLoseTextObject;
 
     private void Awake()
     {
-        instance = this;
+        Instance = this;
     }
 
     public void Hide()

@@ -5,46 +5,46 @@ using UnityEngine;
 
 public class CombatPointsSystem
 {
-    private int maxCombatPoints;
-    private int combatPoints;
+    private int _maxCombatPoints;
+    private int _combatPoints;
 
-    public delegate void CPChange();
-    public static event CPChange OnCPChanged;
+    public delegate void CpChange();
+    public static event CpChange OnCpChanged;
 
     public CombatPointsSystem(int maxCombatPoints)
     {
-        this.maxCombatPoints = maxCombatPoints;
-        combatPoints = maxCombatPoints;
+        this._maxCombatPoints = maxCombatPoints;
+        _combatPoints = maxCombatPoints;
     }
 
-    public int GetCP()
+    public int GetCp()
     {
-        return combatPoints;
+        return _combatPoints;
     }
 
-    public int GetMaxCP()
+    public int GetMaxCp()
     {
-        return maxCombatPoints;
+        return _maxCombatPoints;
     }
 
-    public float GetCPPercent()
+    public float GetCpPercent()
     {
-        return (float) combatPoints / maxCombatPoints;
+        return (float) _combatPoints / _maxCombatPoints;
     }
     
-    public void SpendCP(int amount)
+    public void SpendCp(int amount)
     {
-        combatPoints -= amount;
-        if (combatPoints < 0) combatPoints = 0;
+        _combatPoints -= amount;
+        if (_combatPoints < 0) _combatPoints = 0;
 
-        OnCPChanged?.Invoke();
+        OnCpChanged?.Invoke();
     }
 
-    public void GainCP(int amount)
+    public void GainCp(int amount)
     {
-        combatPoints += amount;
-        if (combatPoints > maxCombatPoints) combatPoints = maxCombatPoints;
+        _combatPoints += amount;
+        if (_combatPoints > _maxCombatPoints) _combatPoints = _maxCombatPoints;
 
-        OnCPChanged?.Invoke();
+        OnCpChanged?.Invoke();
     }
 }

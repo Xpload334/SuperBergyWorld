@@ -37,7 +37,7 @@ public class DialogueSoundLoader : MonoBehaviour
     public string soundsFolderPath;
 
     [Header("Result")] 
-    public SoundRoot Root;
+    public SoundRoot root;
 
     [ContextMenu(nameof(LoadFile))]
     public void LoadFile()
@@ -49,14 +49,14 @@ public class DialogueSoundLoader : MonoBehaviour
             var serializer = new XmlSerializer(typeof(SoundRoot));
 
             // Deserialize the file according to your implemented Root class structure
-            Root = (SoundRoot) serializer.Deserialize(stream);
+            root = (SoundRoot) serializer.Deserialize(stream);
             Debug.Log("Loaded file "+xmlFileUrl);
         }
     }
 
     public AudioClip GetSound(int soundID)
     {
-        foreach (var typerSound in Root.typerSounds)
+        foreach (var typerSound in root.typerSounds)
         {
             if (typerSound.soundID == soundID)
             {

@@ -16,8 +16,9 @@ public class CameraTarget : MonoBehaviour
     
     public void LockTo(Transform other)
     {
-        transform.parent = other;
-        transform.localPosition = Vector3.zero; //Set local position to (0,0,0)
+        var transform1 = transform;
+        transform1.parent = other;
+        transform1.localPosition = Vector3.zero; //Set local position to (0,0,0)
         Debug.Log("CameraTarget locked to "+other);
 
     }

@@ -6,8 +6,9 @@ using UnityEngine;
 
 public class PlayerInteractState : PlayerBaseState
 {
-    public PlayerInteractState(PlayerStateMachine currentContext, PlayerStateFactory playerStateFactory) : base (currentContext, playerStateFactory){
-        
+    public PlayerInteractState(PlayerStateMachine currentContext, PlayerStateFactory playerStateFactory) : base (currentContext, playerStateFactory)
+    {
+        IsRootState = true;
     }
 
     public override void EnterState()

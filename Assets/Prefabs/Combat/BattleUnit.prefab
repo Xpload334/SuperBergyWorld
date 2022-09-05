@@ -11,8 +11,9 @@ GameObject:
   - component: {fileID: 1350180098712760800}
   - component: {fileID: 1350180098712760802}
   - component: {fileID: 1350180098712760801}
+  - component: {fileID: 8761820051150919615}
   m_Layer: 0
-  m_Name: Sprite
+  m_Name: Animator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -107,6 +108,19 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &8761820051150919615
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1350180098712760815}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1da7f97ddb3c2344482653ffbc90b0da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  battleAnimations: {fileID: 8201069220316054713}
 --- !u!1 &1350180098717811027
 GameObject:
   m_ObjectHideFlags: 0
@@ -172,6 +186,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   runtimeAnimatorController: {fileID: 0}
   spriteObject: {fileID: 1350180098712760815}
+  shouldInvokeActions: 1
 --- !u!1 &2407042837201466675
 GameObject:
   m_ObjectHideFlags: 0

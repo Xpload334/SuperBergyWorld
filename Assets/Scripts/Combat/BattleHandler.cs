@@ -35,7 +35,7 @@ public class BattleHandler : MonoBehaviour
 
     [Header("Inputs")]
     private PlayerInput _playerInput;
-    private bool isAttackPressed;
+    private bool _isAttackPressed;
 
     [Header("Player Team")] 
     public List<CharacterBattle> playerCharacterList;
@@ -49,12 +49,12 @@ public class BattleHandler : MonoBehaviour
     private Transform _enemyEncounterTransform;
 
     
-    private CharacterBattle activeCharacterBattle; //Character active
+    private CharacterBattle _activeCharacterBattle; //Character active
 
     [Header("UI")]
-    [SerializeField] private ActionsMenu _battleActionsMenu; //Menu for battle actions
+    [SerializeField] private ActionsMenu battleActionsMenu; //Menu for battle actions
     [SerializeField] private ActionsMenu attackSelectionMenu; //Menu for selecting an attack
-    [SerializeField] private CreateCharacterSelections _targetSelectionMenu; //Menu for selecting a target
+    [SerializeField] private CreateCharacterSelections targetSelectionMenu; //Menu for selecting a target
     
     [Header("Battle State")]
     private BattleState _state;
@@ -149,22 +149,17 @@ public class BattleHandler : MonoBehaviour
         _state = BattleState.PlayerTurn;
         
         //Hide battle over window
-        BattleOverWindow.instance.Hide();
+        BattleOverWindow.Instance.Hide();
 
         //Open battle actions menu
-        _battleActionsMenu.battleHandler = this;
-        _battleActionsMenu.OpenMenu();
+        battleActionsMenu.battleHandler = this;
+        battleActionsMenu.OpenMenu();
         
         //Hide attack selection menu
         
         //Hide target selection menu
-        _targetSelectionMenu.battleHandler = this;
-        _targetSelectionMenu.CloseMenu();
-    }
-
-    private void Update()
-    {
-        
+        targetSelectionMenu.battleHandler = this;
+        targetSelectionMenu.CloseMenu();
     }
 
     private CharacterBattle SpawnCharacter(bool isPlayerTeam, int positionIndex, UnitStats unitStats)
@@ -196,33 +191,33 @@ public class BattleHandler : MonoBehaviour
     public void PlayerAttack()
     {
         //If it's the player's turn and player is able to act
-        if (_state == BattleState.PlayerTurn && playerCharacterCanActList.Contains(activeCharacterBattle))
+        if (_state == BattleState.PlayerTurn && playerCharacterCanActList.Contains(_activeCharacterBattle))
         {
             Debug.Log("Player Attack Selected");
-            _targetSelectionMenu.Setup(GetAliveCharacters(enemyCharacterList));
+            targetSelectionMenu.Setup(GetAliveCharacters(enemyCharacterList));
             
-            _targetSelectionMenu.OpenMenu();
+            targetSelectionMenu.OpenMenu();
         }
     }
 
     public void AttackTargetCharacterBattle(CharacterBattle targetCharacterBattle)
     {
-        activeCharacterBattle.BasicAttack(targetCharacterBattle, delegate
+        _activeCharacterBattle.BasicAttack(targetCharacterBattle, delegate
         { 
             //After attack finished
-            Debug.Log(activeCharacterBattle.name+" attack finished");
+            Debug.Log(_activeCharacterBattle.name+" attack finished");
             ChooseNextActiveCharacter();
         });
     }
 
     private void SetActiveCharacter(CharacterBattle characterBattle)
     {
-        if (activeCharacterBattle != null)
+        if (_activeCharacterBattle != null)
         {
-            activeCharacterBattle.HideSelectionCircle();
+            _activeCharacterBattle.HideSelectionCircle();
         }
-        activeCharacterBattle = characterBattle;
-        activeCharacterBattle.ShowSelectionCircle();
+        _activeCharacterBattle = characterBattle;
+        _activeCharacterBattle.ShowSelectionCircle();
     }
 
     private void ChooseNextActiveCharacter()
@@ -234,13 +229,13 @@ public class BattleHandler : MonoBehaviour
         }
         
         //If active character was in the player act list
-        if (playerCharacterCanActList.Contains(activeCharacterBattle))
+        if (playerCharacterCanActList.Contains(_activeCharacterBattle))
         {
             PlayerActiveLast();
         }
         
         //If active character was in the enemy list
-        else if(enemyCharacterList.Contains(activeCharacterBattle))
+        else if(enemyCharacterList.Contains(_activeCharacterBattle))
         {
             EnemyActiveLast();
         }
@@ -249,7 +244,7 @@ public class BattleHandler : MonoBehaviour
     private void PlayerActiveLast()
     {
         //Remove active character from player act list
-        playerCharacterCanActList.Remove(activeCharacterBattle);
+        playerCharacterCanActList.Remove(_activeCharacterBattle);
         //Check if players can still act
         if (IsPlayerTurn())
         {
@@ -257,7 +252,7 @@ public class BattleHandler : MonoBehaviour
             SetActiveCharacter(playerCharacterCanActList[0]);
                 
             _state = BattleState.PlayerTurn; //Set state back to player turn
-            _battleActionsMenu.OpenMenu(); //Open battle actions menu again
+            battleActionsMenu.OpenMenu(); //Open battle actions menu again
         }
         //Else, pass turn to enemies
         else
@@ -279,7 +274,7 @@ public class BattleHandler : MonoBehaviour
     private void EnemyActiveLast()
     {
         //Remove active character from enemy act list
-        enemyCharacterCanActList.Remove(activeCharacterBattle);
+        enemyCharacterCanActList.Remove(_activeCharacterBattle);
             
         //Check if enemies can still act
         if (IsEnemyTurn())
@@ -297,16 +292,16 @@ public class BattleHandler : MonoBehaviour
             SetActiveCharacter(playerCharacterCanActList[0]);
                 
             _state = BattleState.PlayerTurn; //Set state back to player turn
-            _battleActionsMenu.OpenMenu(); //Open battle actions menu again
+            battleActionsMenu.OpenMenu(); //Open battle actions menu again
         }
     }
     
     public void Attack(CharacterBattle targetCharacterBattle)
     {
-        activeCharacterBattle.BasicAttack(targetCharacterBattle, delegate
+        _activeCharacterBattle.BasicAttack(targetCharacterBattle, delegate
         { 
             //After attack finished
-            Debug.Log(activeCharacterBattle.name+" attack finished");
+            Debug.Log(_activeCharacterBattle.name+" attack finished");
             ChooseNextActiveCharacter();
         });
     }
@@ -352,7 +347,7 @@ public class BattleHandler : MonoBehaviour
         if (playerWin)
         {
             Debug.Log("Player wins");
-            BattleOverWindow.instance.Show(true);
+            BattleOverWindow.Instance.Show(true);
             
             //Set unit stats for player party
             //Reward exp
@@ -361,7 +356,7 @@ public class BattleHandler : MonoBehaviour
         else
         {
             Debug.Log("Enemy wins");
-            BattleOverWindow.instance.Show(false);
+            BattleOverWindow.Instance.Show(false);
         }
     }
 

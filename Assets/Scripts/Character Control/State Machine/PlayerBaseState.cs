@@ -81,7 +81,7 @@ public abstract class PlayerBaseState
         return _currentSubState != null;
     }
 
-    public String ToString()
+    public override String ToString()
     {
         return this.GetType().ToString();
     }

@@ -16,7 +16,7 @@ public class UnitStats : MonoBehaviour, IComparable
     public List<GameObject> attackPatterns;
     
     [Header("Effects")]
-    public Animator animator;
+    public RuntimeAnimatorController animator;
     public string unitName;
     
     [Header("Stats")]
@@ -63,23 +63,6 @@ public class UnitStats : MonoBehaviour, IComparable
     public void ReceiveDamage (int damage) 
     {
         this.health -= damage;
-        //animator.Play("Hit");
-        //GameObject HUDCanvas = GameObject.Find("HUDCanvas");
-        //GameObject damageText = Instantiate(this.damageTextPrefab, HUDCanvas.transform) as GameObject;
-        //damageText.GetComponent<Text>().text = "" + damage;
-        //damageText.transform.localPosition = this.damageTextPosition;
-        //damageText.transform.localScale = new Vector2(1.0f, 1.0f);
-        
-        //DamageText.Create(damageTextPosition, damage, false);
-        
-        /*
-        if(this.health <= 0)
-        {
-            this.dead = true;
-            this.gameObject.tag = "DeadUnit";
-            Destroy(this.gameObject);
-        }
-        */
     }
     
     public void ReceiveExperience (int gainedExperience) 

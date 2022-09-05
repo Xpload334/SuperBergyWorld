@@ -7,54 +7,65 @@ using System.Xml;
 //Class to read Dialogue Objects from a given name and distribute Queue<Dialogue> to the Dialogue Manager
 public class DialogueLoader : MonoBehaviour
 {
+    public static DialogueLoader Instance;
     [Header("Loaders")] 
-    public DialogueObjectLoader DialogueObjectLoader;
-    public DialogueTyperLoader DialogueTyperLoader;
-    public DialogueSoundLoader DialogueSoundLoader;
+    public DialogueObjectLoader dialogueObjectLoader;
+    public DialogueTyperLoader dialogueTyperLoader;
+    public DialogueSoundLoader dialogueSoundLoader;
     
-    [Header("Filepaths")]
+    [Header("File Paths")]
     public string spritesFolderPath = "DialogueSprites\\Faces";
     public string soundsFolderPath = "DialogueSounds";
     
     private void Awake()
     {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(this.gameObject);
+        }
+        else
+        {
+            Instance = this;
+            DontDestroyOnLoad(this.gameObject);
+        }
+        
         LoadAllFiles();
     }
 
     [ContextMenu(nameof(LoadAllFiles))]
     public void LoadAllFiles()
     {
-        DialogueSoundLoader = GetComponentInChildren<DialogueSoundLoader>();
-        DialogueTyperLoader = GetComponentInChildren<DialogueTyperLoader>();
-        DialogueObjectLoader = GetComponentInChildren<DialogueObjectLoader>();
+        dialogueSoundLoader = GetComponentInChildren<DialogueSoundLoader>();
+        dialogueTyperLoader = GetComponentInChildren<DialogueTyperLoader>();
+        dialogueObjectLoader = GetComponentInChildren<DialogueObjectLoader>();
 
-        DialogueSoundLoader.soundsFolderPath = soundsFolderPath;
-        DialogueTyperLoader.spriteFolderPath = spritesFolderPath;
+        dialogueSoundLoader.soundsFolderPath = soundsFolderPath;
+        dialogueTyperLoader.spriteFolderPath = spritesFolderPath;
         
-        DialogueSoundLoader.LoadFile();
-        DialogueTyperLoader.LoadFile();
-        DialogueObjectLoader.LoadFile();
+        dialogueSoundLoader.LoadFile();
+        dialogueTyperLoader.LoadFile();
+        dialogueObjectLoader.LoadFile();
     }
 
 
     public DialogueObject GetDialogueObject(int dialogueID)
     {
-        return DialogueObjectLoader.GetDialogueObject(dialogueID);
+        return dialogueObjectLoader.GetDialogueObject(dialogueID);
     }
 
     public Typer GetTyper(int typerID)
     {
-        return DialogueTyperLoader.GetTyper(typerID);
+        return dialogueTyperLoader.GetTyper(typerID);
     }
 
     public List<Sprite> GetTyperSprites(Typer typer)
     {
-        return DialogueTyperLoader.GetTyperSprites(typer);
+        return dialogueTyperLoader.GetTyperSprites(typer);
     }
 
     public AudioClip GetSound(int soundID)
     {
-        return DialogueSoundLoader.GetSound(soundID);
+        return dialogueSoundLoader.GetSound(soundID);
     }
 
 }

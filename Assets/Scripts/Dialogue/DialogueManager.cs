@@ -9,39 +9,39 @@ using UnityEngine.UI;
 public class DialogueManager : MonoBehaviour
 {
     [Header("UI")] 
-    public bool IsOpen;
+    public bool isOpen;
     public Animator dialogueBoxAnimator;
     public TMP_Text uiText;
     public Image spriteBox;
     [Header("Sound")] 
     public AudioSource dialogueSoundSource;
     [Header("Dialogue")]
-    public static DialogueManager instance;
+    public static DialogueManager Instance;
     public Queue<Dialogue> DialogueQueue = new Queue<Dialogue>();
     private Typewriter _typewriter;
     public float typeDelay = 0.1f;
     public float waitBeforeDialogueStart = 0.5f;
-    public bool DisableControlOnFinished;
+    public bool disableControlOnFinished;
     [Header("Player")]
     public PartyCharacterManager characterManager;
     private PlayerInput _playerInput;
     public bool shouldConfirm;
-    public bool _isConfirmPressed;
+    public bool isConfirmPressed;
     public bool shouldSkip;
-    public bool _isSkipPressed;
+    public bool isSkipPressed;
 
     public DialogueLoader dialogueLoader;
     private static readonly int Open = Animator.StringToHash("IsOpen");
 
     void Awake()
     {
-        if (instance != null && instance != this)
+        if (Instance != null && Instance != this)
         {
             Destroy(this.gameObject);
         }
         else
         {
-            instance = this;
+            Instance = this;
             DontDestroyOnLoad(this.gameObject);
         }
         
@@ -60,11 +60,6 @@ public class DialogueManager : MonoBehaviour
         ClearText();
     }
 
-    private void Update()
-    {
-        
-    }
-
     /*
      * On confirm pressed, move to next dialogue if typing is finished.
      */
@@ -72,7 +67,7 @@ public class DialogueManager : MonoBehaviour
     {
         if (shouldConfirm)
         {
-            _isConfirmPressed = ctx.ReadValueAsButton();
+            isConfirmPressed = ctx.ReadValueAsButton();
         }
     }
     
@@ -84,17 +79,17 @@ public class DialogueManager : MonoBehaviour
     {
         if (shouldSkip)
         {
-            _isSkipPressed = ctx.ReadValueAsButton();
+            isSkipPressed = ctx.ReadValueAsButton();
         }
     }
 
     public void PlayDialogue(int dialogueID)
     {
-        if (!IsOpen)
+        if (!isOpen)
         {
             dialogueBoxAnimator.SetBool(Open, true);
         }
-        IsOpen = true;
+        isOpen = true;
         Debug.Log("Starting dialogue with id="+dialogueID);
         
         ClearDialogueQueue();
@@ -104,7 +99,7 @@ public class DialogueManager : MonoBehaviour
         //If should resume control on end, make sure to set flag for later
         if (dialogueObject.disableControlOnFinish)
         {
-            DisableControlOnFinished = true;
+            disableControlOnFinished = true;
         }
 
         //If should disable control at start (default), disable player controls
@@ -146,7 +141,7 @@ public class DialogueManager : MonoBehaviour
             }
             else
             {
-                yield return new WaitUntil((() => _isConfirmPressed));
+                yield return new WaitUntil((() => isConfirmPressed));
             }
             //After auto skip or confirmed, move to next dialogue
         }
@@ -163,8 +158,8 @@ public class DialogueManager : MonoBehaviour
             yield return null;
             
             //Press X to skip dialogue
-            //Skip can only happen if dialogue doesn't autoskip
-            if (_isSkipPressed && !dialogue.ShouldAutoSkip)
+            //Skip can only happen if dialogue doesn't auto-skip
+            if (isSkipPressed && !dialogue.ShouldAutoSkip)
             {
                 _typewriter.Stop();
             }
@@ -177,22 +172,22 @@ public class DialogueManager : MonoBehaviour
      */
     public IEnumerator EndDialogue()
     {
-        if (IsOpen)
+        if (isOpen)
         {
             dialogueBoxAnimator.SetBool(Open, false);
         }
-        IsOpen = false;
+        isOpen = false;
         Debug.Log("End of dialogue");
         
         //If should resume control when dialogue is finished, do so
-        if (!DisableControlOnFinished)
+        if (!disableControlOnFinished)
         {
             //Re-enable player controls
             characterManager.currentCharacter.EnableControls();
             //Re-enable party controls
             characterManager.EnableControls();
             
-            DisableControlOnFinished = false;
+            disableControlOnFinished = false;
         }
         
         //Disable dialogue controls
@@ -212,13 +207,14 @@ public class DialogueManager : MonoBehaviour
          Queue<Dialogue> dialogueQueue = new Queue<Dialogue>();
          foreach (var line in dialogueObject.lines)
          {
-              Dialogue dialogue = new Dialogue();
-              dialogue.Text = line.text;
-              dialogue.Typer = ConstructTyperContents(line.typerID);
+              Dialogue dialogue = new Dialogue
+              {
+                  Text = line.text,
+                  Typer = ConstructTyperContents(line.typerID),
+                  ShouldAutoSkip = line.ShouldAutoSkip,
+                  AutoSkipWait = line.autoSkipSeconds
+              };
 
-              dialogue.ShouldAutoSkip = line.ShouldAutoSkip;
-              dialogue.AutoSkipWait = line.autoSkipSeconds;
-              
               dialogueQueue.Enqueue(dialogue);
          }
          
@@ -230,15 +226,16 @@ public class DialogueManager : MonoBehaviour
     {
         Typer typer = dialogueLoader.GetTyper(typerID);
 
-        TyperContents typerContents = new TyperContents();
-        typerContents.spriteList = dialogueLoader.GetTyperSprites(typer);
-        typerContents.SpriteInterval = typer.soundInterval;
+        TyperContents typerContents = new TyperContents
+        {
+            SpriteList = dialogueLoader.GetTyperSprites(typer),
+            SpriteInterval = typer.soundInterval,
+            //Debug.Log("Finding sound with ID="+typer.soundID);
+            Sound = dialogueLoader.GetSound(typer.soundID),
+            SoundInterval = typer.soundInterval,
+            TyperName = typer.typerName
+        };
 
-        //Debug.Log("Finding sound with ID="+typer.soundID);
-        typerContents.Sound = dialogueLoader.GetSound(typer.soundID);
-        typerContents.SoundInterval = typer.soundInterval;
-
-        typerContents.TyperName = typer.typerName;
         return typerContents;
     }
 

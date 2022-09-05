@@ -7,12 +7,9 @@ using UnityEngine.UI;
 public class TyperContents
 {
     public string TyperName;
-    private AudioClip _sound;
-    public List<Sprite> spriteList = new();
-    public AudioClip Sound {
-        get { return _sound; }
-        set { _sound = value; }
-    }
+    public List<Sprite> SpriteList = new();
+    public AudioClip Sound { get; set; }
+
     public int SpriteInterval;
     public int SoundInterval;
     
@@ -20,7 +17,7 @@ public class TyperContents
 
     public void AddImage(Sprite sprite)
     {
-        spriteList.Add(sprite);
+        SpriteList.Add(sprite);
     }
     
 }

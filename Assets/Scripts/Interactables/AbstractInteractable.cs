@@ -25,7 +25,7 @@ public abstract class AbstractInteractable: MonoBehaviour
         if(canInteract && !triggerActive && other.TryGetComponent(out PlayerStateMachine player) && player == partyManager.currentCharacter)
         {
             triggerActive = true;
-            player.Interactable = this;
+            player.interactable = this;
             EnterTrigger(player);
         }
     }
@@ -35,15 +35,15 @@ public abstract class AbstractInteractable: MonoBehaviour
         if(canInteract && triggerActive && other.TryGetComponent(out PlayerStateMachine player) && player == partyManager.currentCharacter)
         {
             triggerActive = false;
-            player.Interactable = null;
+            player.interactable = null;
             ExitTrigger(player);
         }
     }
     
     //Abstract method to handle when an interactable's trigger is entered
-    public abstract void EnterTrigger(PlayerStateMachine player);
+    protected abstract void EnterTrigger(PlayerStateMachine player);
     //Abstract method to handle when an interactable's trigger is exited
-    public abstract void ExitTrigger(PlayerStateMachine player);
+    protected abstract void ExitTrigger(PlayerStateMachine player);
 
 
     /*

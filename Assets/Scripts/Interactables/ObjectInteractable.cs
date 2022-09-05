@@ -6,7 +6,7 @@ public class ObjectInteractable : AbstractInteractable
 {
     public ITriggerFromInteract objectToTrigger;
 
-    public override void EnterTrigger(PlayerStateMachine player)
+    protected override void EnterTrigger(PlayerStateMachine player)
     {
         //throw new System.NotImplementedException();
         //If activates on trigger zone, interact upon entering trigger
@@ -16,7 +16,7 @@ public class ObjectInteractable : AbstractInteractable
         }
     }
 
-    public override void ExitTrigger(PlayerStateMachine player)
+    protected override void ExitTrigger(PlayerStateMachine player)
     {
         //throw new System.NotImplementedException();
     }

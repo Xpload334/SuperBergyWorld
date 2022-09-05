@@ -37,7 +37,7 @@ public class DialogueTyperLoader : MonoBehaviour
     public string spriteFolderPath;
 
     [Header("Result")] 
-    public TypersRoot Root;
+    public TypersRoot root;
 
     [ContextMenu(nameof(LoadFile))]
     public void LoadFile()
@@ -49,7 +49,7 @@ public class DialogueTyperLoader : MonoBehaviour
             var serializer = new XmlSerializer(typeof(TypersRoot));
 
             // Deserialize the file according to your implemented Root class structure
-            Root = (TypersRoot) serializer.Deserialize(stream);
+            root = (TypersRoot) serializer.Deserialize(stream);
             Debug.Log("Loaded file "+xmlFileUrl);
         }
     }
@@ -57,7 +57,7 @@ public class DialogueTyperLoader : MonoBehaviour
     //Return a typer from a given typer ID
     public Typer GetTyper(int typerID)
     {
-        foreach (var typer in Root.Typers.Where(typer => typer.typerID == typerID))
+        foreach (var typer in root.Typers.Where(typer => typer.typerID == typerID))
         {
             return typer;
         }

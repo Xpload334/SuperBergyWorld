@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class PlayerStateMachine : MonoBehaviour
 {
@@ -10,7 +9,7 @@ public class PlayerStateMachine : MonoBehaviour
     //Movement variables
     [Header("Movement Variables")]
     public bool shouldMove = true;
-    public bool _isMovementPressed;
+    public bool isMovementPressed;
     public float speed = 5.0f;
     
     //Gravity variables
@@ -23,8 +22,6 @@ public class PlayerStateMachine : MonoBehaviour
     [Header("Jumping")]
     public bool shouldJump = true;
     public bool shouldAdjustJump = true;
-    private bool _isJumping; //bool is true when airborne
-    bool _isJumpPressed;
     public float initialJumpVelocity;
     public float maxJumpHeight = 1.0f;
     public float maxJumpTime = 0.75f;
@@ -34,13 +31,13 @@ public class PlayerStateMachine : MonoBehaviour
     //Interaction variables
     [Header("Interactions")] 
     public bool shouldInteract = true;
-
-    public AbstractInteractable Interactable;
+    public AbstractInteractable interactable;
 
     //Action variables
-    [Header("Action")]
+    [Header("Action")] 
+    public CharacterAction characterAction;
     public bool shouldAction;
-    
+
     //Party variables
     [Header("Party and Swapping")] 
     public bool shouldFollow;
@@ -52,13 +49,7 @@ public class PlayerStateMachine : MonoBehaviour
     public Vector2 roundedMovement;
     public bool shouldAnimate = true;
     //Variables to store animation parameter IDs
-    private int _isMovingHash;
-    private int _isJumpingHash;
-    private bool _requireNewJumpPress;
-    private int _moveXHash;
-    private int _moveYHash;
-    private int _isFallingHash;
-    
+
     [Header("Components")] 
     private CharacterController _characterController;
     
@@ -69,8 +60,8 @@ public class PlayerStateMachine : MonoBehaviour
 
     //Storing player input values
     [Header("Input Vectors")]
-    public Vector2 _currentMovementInput; 
-    public Vector3 _currentMovement;
+    private Vector2 _currentMovementInput; 
+    private Vector3 _currentMovement;
     Vector3 _appliedMovement;
     Vector3 _lastMovement;
     
@@ -84,67 +75,65 @@ public class PlayerStateMachine : MonoBehaviour
     
     //Setters and getters
     public PlayerBaseState CurrentState {
-        get { return _currentState; }
-        set { _currentState = value;  }
+        get => _currentState;
+        set => _currentState = value;
     }
-    public Animator Animator { get { return animator; }
-    }
+    public Animator Animator => animator;
 
-    public CharacterController CharacterController { get { return _characterController; }
+    public CharacterController CharacterController => _characterController;
+    public int IsMovingHash { get; private set; }
+    public int IsJumpingHash { get; private set; }
+    public int MoveXHash { get; private set; }
+    public int MoveYHash { get; private set; }
+    public int IsFallingHash { get; private set; }
+    public bool RequireNewJumpPress { get; set; }
+    public bool IsJumping { get; set; }
+    public bool IsJumpPressed { get; set; }
+    public float Gravity => gravityValue;
+    public float MaxFallVelocity => maxFallVelocity;
+    public bool IsMovementPressed => isMovementPressed;
+    public float CurrentMovementX { get => _currentMovement.x;
+        set => _currentMovement.x = value;
     }
-    public int IsMovingHash { get { return _isMovingHash; }
+    public float CurrentMovementY { get => _currentMovement.y;
+        set => _currentMovement.y = value;
     }
-    public int IsJumpingHash { get { return _isJumpingHash; }
+    public float CurrentMovementZ { get => _currentMovement.z;
+        set => _currentMovement.z = value;
     }
-    public int MoveXHash { get { return _moveXHash; }
+    public float AppliedMovementX { get => _appliedMovement.x;
+        set => _appliedMovement.x = value;
     }
-    public int MoveYHash { get { return _moveYHash; }
+    public float AppliedMovementY { get => _appliedMovement.y;
+        set => _appliedMovement.y = value;
     }
-    public int IsFallingHash { get { return _isFallingHash; }
+    public float AppliedMovementZ { get => _appliedMovement.z;
+        set => _appliedMovement.z = value;
     }
-    public bool RequireNewJumpPress { get { return _requireNewJumpPress; } set { _requireNewJumpPress = value; }
+    public float LastMovementX { get => _lastMovement.x;
+        set => _lastMovement.x = value;
     }
-    public bool IsJumping { get { return _isJumping; } set { _isJumping = value; }
+    public float LastMovementY { get => _lastMovement.z;
+        set => _lastMovement.z = value;
     }
-    public bool IsJumpPressed { get { return _isJumpPressed; } set => _isJumpPressed = value;
-    }
-    public float Gravity { get { return gravityValue; }
-    }
-    public float MaxFallVelocity { get { return maxFallVelocity; }
-    }
-    public bool IsMovementPressed { get { return _isMovementPressed; }
-    }
-    public float CurrentMovementX { get { return _currentMovement.x;} set { _currentMovement.x = value; }
-    }
-    public float CurrentMovementY { get { return _currentMovement.y; } set { _currentMovement.y = value; }
-    }
-    public float CurrentMovementZ { get { return _currentMovement.z; } set { _currentMovement.z = value; }
-    }
-    public float AppliedMovementX { get { return _appliedMovement.x;} set { _appliedMovement.x = value; }
-    }
-    public float AppliedMovementY { get { return _appliedMovement.y; } set { _appliedMovement.y = value; }
-    }
-    public float AppliedMovementZ { get { return _appliedMovement.z; } set { _appliedMovement.z = value; }
-    }
-    public float LastMovementX { get { return _lastMovement.x;} set { _lastMovement.x = value; }
-    }
-    public float LastMovementY { get { return _lastMovement.z; } set { _lastMovement.z = value; }
-    }
-    public Vector3 CurrentMovement { get { return _currentMovement; } set { _currentMovement = value; }
+    public Vector3 CurrentMovement { get => _currentMovement;
+        set => _currentMovement = value;
     } 
-    public Vector3 AppliedMovement { get { return _appliedMovement; } set { _appliedMovement = value; }
+    public Vector3 AppliedMovement { get => _appliedMovement;
+        set => _appliedMovement = value;
     }
-    public Vector3 LastMovement { get { return _lastMovement; } set { _lastMovement = value; }
+    public Vector3 LastMovement { get => _lastMovement;
+        set => _lastMovement = value;
     }
-    public float GroundedGravity { get { return _groundedGravity; }
-    }
-    public float FallMultiplier { get { return _fallMultiplier; }
-    }
-    public float Speed { get { return speed; }
-    }
-    public Vector2 CurrentMovementInput { get { return _currentMovementInput; } set => _currentMovementInput = value;
-    }
+    public float GroundedGravity => _groundedGravity;
 
+    public float FallMultiplier => _fallMultiplier;
+
+    public float Speed => speed;
+    public Vector2 CurrentMovementInput { get => _currentMovementInput; set => _currentMovementInput = value; }
+    public bool IsActionPressed { get; set; }
+
+    public int IsPerformingActionHash { get; private set; }
     private void Awake()
     {
         //Animator
@@ -152,11 +141,12 @@ public class PlayerStateMachine : MonoBehaviour
         {
             animator = GetComponent<Animator>();
         }
-        _isMovingHash = Animator.StringToHash("IsMoving");
-        _isJumpingHash = Animator.StringToHash("IsJumping");
-        _moveXHash = Animator.StringToHash("MoveX");
-        _moveYHash = Animator.StringToHash("MoveY");
-        _isFallingHash = Animator.StringToHash("IsFalling");
+        IsMovingHash = Animator.StringToHash("IsMoving");
+        IsJumpingHash = Animator.StringToHash("IsJumping");
+        MoveXHash = Animator.StringToHash("MoveX");
+        MoveYHash = Animator.StringToHash("MoveY");
+        IsFallingHash = Animator.StringToHash("IsFalling");
+        IsPerformingActionHash = Animator.StringToHash("IsAttack");
         
         if (_characterController == null)
         {
@@ -169,14 +159,8 @@ public class PlayerStateMachine : MonoBehaviour
         _currentState.EnterState();
         
         _playerInput = new PlayerInput();
-        //Callback context for movement
-        _playerInput.CharacterControls.Movement.started += OnMovementInput;
-        _playerInput.CharacterControls.Movement.performed += OnMovementInput;
-        _playerInput.CharacterControls.Movement.canceled += OnMovementInput;
-        
-        //Callback context for jump/interact
-        _playerInput.CharacterControls.Jump.started += OnJump;
-        _playerInput.CharacterControls.Jump.canceled += OnJump;
+
+        //Input controlled by party manager
         
         SetupJumpVariables();
     }
@@ -197,48 +181,42 @@ public class PlayerStateMachine : MonoBehaviour
     void Update()
     {
         _currentState.UpdateStates();
-        updateStateName();
+        UpdateStateName();
         //If should move and not following
         //or
         //following and jumping
-        if ((shouldMove && !shouldFollow) || (shouldFollow && _isJumping))
+        if ((shouldMove && !shouldFollow) || (shouldFollow && IsJumping))
         {
             _characterController.Move(_appliedMovement * Time.deltaTime);
             //HandleMovement();
         }
     }
-    void OnMovementInput(InputAction.CallbackContext ctx)
+
+    public void OnMovement(Vector2 movementInput)
     {
-        //If not allowed to be controlled
-        if (shouldControl)
+        _currentMovementInput = movementInput;
+        _currentMovement.x = movementInput.x * speed;
+        _currentMovement.z = movementInput.y * speed;
+
+            //Store last non-zero movement
+        if (!movementInput.Equals(Vector2.zero))
         {
-            _currentMovementInput = ctx.ReadValue<Vector2>();
-            
-            _currentMovement.x = _currentMovementInput.x * speed;
-            _currentMovement.z = _currentMovementInput.y * speed;
-            
-        }
-        
-        //Store last non-zero movement
-        if (!_currentMovementInput.Equals(Vector2.zero))
-        {
-            _lastMovement.x = _currentMovementInput.x;
-            _lastMovement.z = _currentMovementInput.y;
+            _lastMovement.x = movementInput.x;
+            _lastMovement.z = movementInput.y;
             //_lastMovement = _currentMovementInput;
         }
         
-        _isMovementPressed = (_currentMovementInput.x != 0 || _currentMovementInput.y != 0); //Set true if x or y greater than 0
+        isMovementPressed = (movementInput.x != 0 || movementInput.y != 0); //Set true if x or y greater than 0
         
-        roundedMovement.x = Mathf.Round(_currentMovementInput.x);
-        roundedMovement.y = Mathf.Round(_currentMovementInput.y);
+        roundedMovement.x = Mathf.Round(movementInput.x);
+        roundedMovement.y = Mathf.Round(movementInput.y);
     }
 
-    void OnJump(InputAction.CallbackContext ctx)
+    public void OnAction()
     {
-        if (shouldControl)
+        if (IsActionPressed)
         {
-            _isJumpPressed = ctx.ReadValueAsButton();
-            _requireNewJumpPress = false;
+            characterAction.StartAction();
         }
     }
 
@@ -267,7 +245,7 @@ public class PlayerStateMachine : MonoBehaviour
     public void ResetMovement()
     {
         _currentMovementInput = Vector2.zero;
-        _isMovementPressed = false;
+        isMovementPressed = false;
         Debug.Log(name+" movement reset");
     }
     
@@ -292,16 +270,9 @@ public class PlayerStateMachine : MonoBehaviour
         _playerInput.CharacterControls.Disable();
     }
 
-    private void updateStateName()
+    private void UpdateStateName()
     {
         currentStateName = _currentState.ToString();
-        if (_currentState.HasSubState())
-        {
-            currentSubStateName = _currentState.CurrentSubState.ToString();
-        }
-        else
-        {
-            currentSubStateName = "None";
-        }
+        currentSubStateName = _currentState.HasSubState() ? _currentState.CurrentSubState.ToString() : "None";
     }
 }

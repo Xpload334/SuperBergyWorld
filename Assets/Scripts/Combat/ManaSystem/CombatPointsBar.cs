@@ -15,13 +15,13 @@ public class CombatPointsBar : MonoBehaviour
 
     public void ChangeCP()
     {
-        _slider.value = _combatPointsSystem.GetCP();
-        _slider.maxValue = _combatPointsSystem.GetCPPercent();
+        _slider.value = _combatPointsSystem.GetCp();
+        _slider.maxValue = _combatPointsSystem.GetCpPercent();
     }
 
     private void OnEnable()
     {
-        CombatPointsSystem.OnCPChanged += ChangeCP;
+        CombatPointsSystem.OnCpChanged += ChangeCP;
     }
 
     private void OnDisable()

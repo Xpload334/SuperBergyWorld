@@ -14,7 +14,7 @@ public class DialogueSpriteController : MonoBehaviour
     public List<Sprite> spritesList;
     [Header("Timing")]
     public int spriteChangeWaitTime; //time in frames to wait before a sprite can change
-    private int _spriteChangeWaitIndex = 0; //current index progress towards spriteChangeWaitTime
+    private int _spriteChangeWaitIndex; //current index progress towards spriteChangeWaitTime
     private int _spriteIndex; //current index of image to use
 
     // Start is called before the first frame update

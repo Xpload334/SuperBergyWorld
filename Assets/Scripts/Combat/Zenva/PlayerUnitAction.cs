@@ -27,7 +27,7 @@ public class PlayerUnitAction : MonoBehaviour
     //Attack target subclass with a list of multipliers for performance on the minigame
     public void act (GameObject target) 
     {
-        this.currentAttack.GetComponent<AttackTarget>().hit(target);
+        //this.currentAttack.GetComponent<AttackTarget>().Hit(target);
     }
     
     /*

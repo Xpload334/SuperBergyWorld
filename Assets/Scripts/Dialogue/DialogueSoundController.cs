@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class DialogueSoundController : MonoBehaviour
 {
-    public AudioSource AudioSource;
+    public AudioSource audioSource;
     public AudioClip neutral;
     [Header("Sounds")] 
     public AudioClip sound;
     [Header("Timing")]
     public int soundWaitTime; //time in frames to wait before a sound can play
-    public int _soundWaitIndex = 0; //current index progress towards soundWaitTime
+    public int soundWaitIndex; //current index progress towards soundWaitTime
 
     // Start is called before the first frame update
     void Start()
@@ -21,13 +21,13 @@ public class DialogueSoundController : MonoBehaviour
     //Reset the current wait index to 0
     public void ResetWaitTime()
     {
-        _soundWaitIndex = 0;
+        soundWaitIndex = 0;
     }
 
     //Set the current wait index to wait time
     public void SetToPlayNext()
     {
-        _soundWaitIndex = soundWaitTime;
+        soundWaitIndex = soundWaitTime;
     }
     
     //Main call for changing the face
@@ -35,9 +35,9 @@ public class DialogueSoundController : MonoBehaviour
     //If equal to the wait time, reset back to 0 and play sound
     public void PlaySound()
     {
-        _soundWaitIndex++; //Increment wait index
+        soundWaitIndex++; //Increment wait index
         //If index equal to wait time, play current sound
-        if(_soundWaitIndex >= soundWaitTime)
+        if(soundWaitIndex >= soundWaitTime)
         {
             PlayCurrentSound();
             ResetWaitTime(); //Reset wait index to 0
@@ -46,17 +46,17 @@ public class DialogueSoundController : MonoBehaviour
 
     void PlayCurrentSound()
     {
-        AudioSource.PlayOneShot(sound);
+        audioSource.PlayOneShot(sound);
     }
 
-    public void SetSound(AudioClip sound)
+    public void SetSound(AudioClip newSound)
     {
-        this.sound = sound;
+        this.sound = newSound;
     }
 
     public void SetAudioSource(AudioSource source)
     {
-        AudioSource = source;
+        audioSource = source;
     }
 
     public void SetNeutral()

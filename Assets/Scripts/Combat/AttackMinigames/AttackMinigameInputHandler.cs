@@ -27,9 +27,9 @@ public enum AttackStrengths
 
 public class AttackMinigameInputHandler : MonoBehaviour
 {
-    public bool IsWrongInput; //Input is incorrect
-    public bool IsGoodDamage; //Animation currently in good damage zone
-    public bool IsPerfectDamage; //Animation currently in perfect damage zone
+    public bool isWrongInput; //Input is incorrect
+    public bool isGoodDamage; //Animation currently in good damage zone
+    public bool isPerfectDamage; //Animation currently in perfect damage zone
     private PlayerInput _playerInput;
     public CombatInput currentCombatInput; //Input provided by the player
     public CombatInput inputToCheckFor; //Input to test for
@@ -61,13 +61,13 @@ public class AttackMinigameInputHandler : MonoBehaviour
         {
             //While currently testing input
             //If perfect zone and input correct
-            if (IsPerfectDamage && currentCombatInput == inputToCheckFor)
+            if (isPerfectDamage && currentCombatInput == inputToCheckFor)
             {
                 //Perfect hit
                 HitPerfect();
             }
             //if good zone and input correct
-            else if (IsGoodDamage && currentCombatInput == inputToCheckFor)
+            else if (isGoodDamage && currentCombatInput == inputToCheckFor)
             {
                 //Good hit
                 HitGood();
@@ -95,22 +95,22 @@ public class AttackMinigameInputHandler : MonoBehaviour
     
     public void EnableGood()
     {
-        IsGoodDamage = true;
+        isGoodDamage = true;
     }
 
     public void EnablePerfect()
     {
-        IsPerfectDamage = true;
+        isPerfectDamage = true;
     }
 
     public void DisablePerfect()
     {
-        IsPerfectDamage = false;
+        isPerfectDamage = false;
     }
 
     public void DisableGood()
     {
-        IsGoodDamage = false;
+        isGoodDamage = false;
     }
 
     public void DisableInputCheck()

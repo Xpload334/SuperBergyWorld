@@ -6,24 +6,24 @@ public class HealthBar : MonoBehaviour
 {
     private HealthSystem _healthSystem;
     [SerializeField]
-    private Slider _slider;
+    private Slider slider;
     [SerializeField]
-    private TMP_Text _tmpText;
+    private TMP_Text tmpText;
 
     public void Setup(HealthSystem healthSystem)
     {
         this._healthSystem = healthSystem;
         
-        _slider = GetComponent<Slider>();
+        slider = GetComponent<Slider>();
         ChangeHealth(); //Initialise health
     }
 
     public void ChangeHealth()
     {
-        _slider.value = _healthSystem.GetHealth();
-        _slider.maxValue = _healthSystem.GetMaxHealth();
+        slider.value = _healthSystem.GetHealth();
+        slider.maxValue = _healthSystem.GetMaxHealth();
 
-        _tmpText.text = _healthSystem.GetHealth().ToString();
+        tmpText.text = _healthSystem.GetHealth().ToString();
     }
 
     private void OnEnable()

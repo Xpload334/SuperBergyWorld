@@ -14,7 +14,7 @@ public class PartyCharacterManager : MonoBehaviour
 {
     public GameObject currentCharacterObject;
     public PlayerStateMachine currentCharacter;
-    private int currentCharacterIndex;
+    private int _currentCharacterIndex;
 
     public List<GameObject> characterObjectList;
     public List<PlayerStateMachine> characters; //Also add as children
@@ -26,8 +26,10 @@ public class PartyCharacterManager : MonoBehaviour
     
     //Instance of PlayerInput
     [Header("Player Input")] 
-    public bool ShouldSwap;
-    public PlayerInput _playerInput;
+    public bool shouldControl;
+    public bool shouldSwap;
+    private PlayerInput _playerInput;
+    
     private bool _isSwapPreviousPressed;
     private bool _requireNewSwapPreviousPressed;
     private bool _isSwapNextPressed;
@@ -53,25 +55,69 @@ public class PartyCharacterManager : MonoBehaviour
         
         _playerInput = new PlayerInput();
         
+        //Swap Previous
         _playerInput.CharacterControls.SwapPrevious.started += OnSwapPrevious;
         _playerInput.CharacterControls.SwapPrevious.canceled += OnSwapPrevious;
-        
+        //Swap Next
         _playerInput.CharacterControls.SwapNext.started += OnSwapNext;
         _playerInput.CharacterControls.SwapNext.canceled += OnSwapNext;
+        
+        //Callback context for movement
+        _playerInput.CharacterControls.Movement.started += OnMovementInput;
+        _playerInput.CharacterControls.Movement.performed += OnMovementInput;
+        _playerInput.CharacterControls.Movement.canceled += OnMovementInput;
+        
+        //Callback context for jump/interact
+        _playerInput.CharacterControls.Jump.started += OnJump;
+        _playerInput.CharacterControls.Jump.canceled += OnJump;
+        
+        //Callback context for action
+        _playerInput.CharacterControls.Action.started += OnAction;
+        _playerInput.CharacterControls.Action.canceled += OnAction;
 
 
         cameraTarget = FindObjectOfType<CameraTarget>();
     }
+    
+    /*
+     * Take inputs in the party character manager, and pass on to the current character
+     */
+    //Movement input
+    void OnMovementInput(InputAction.CallbackContext ctx)
+    {
+        if (shouldControl)
+        {
+            currentCharacter.OnMovement(ctx.ReadValue<Vector2>());
+        }
+    }
+
+    void OnJump(InputAction.CallbackContext ctx)
+    {
+        if (shouldControl)
+        {
+            currentCharacter.IsJumpPressed = ctx.ReadValueAsButton();
+            currentCharacter.RequireNewJumpPress = false;
+        }
+    }
+    
+    void OnAction(InputAction.CallbackContext ctx)
+    {
+        if (shouldControl)
+        {
+            currentCharacter.IsActionPressed = ctx.ReadValueAsButton();
+        }
+    }
+    
 
     // Start is called before the first frame update
     void Start()
     {
-        initialiseParty();
-        initialiseCharacterIndex();
-        setupCharacterControl();
+        InitialiseParty();
+        InitialiseCharacterIndex();
+        SetupCharacterControl();
     }
 
-    void initialiseParty()
+    void InitialiseParty()
     {
         //If object list doesn't contain current character
         if (!characterObjectList.Contains(currentCharacterObject))
@@ -89,7 +135,7 @@ public class PartyCharacterManager : MonoBehaviour
                 characters.Add(player);
                 Debug.Log(player.name+" added to party.");
 
-                if (player == currentCharacterObject)
+                if (currentCharacterObject == characterObject)
                 {
                     currentCharacter = player;
                 }
@@ -101,21 +147,21 @@ public class PartyCharacterManager : MonoBehaviour
         }
     }
 
-    void initialiseCharacterIndex()
+    void InitialiseCharacterIndex()
     {
         //If current not set up, set to 1st element of characters list
         if (currentCharacter == null)
         {
             currentCharacter = characters[0];
-            currentCharacterIndex = 0;
+            _currentCharacterIndex = 0;
         }
         else
         {
-            currentCharacterIndex = characters.IndexOf(currentCharacter);
+            _currentCharacterIndex = characters.IndexOf(currentCharacter);
         }
     }
 
-    void setupCharacterControl()
+    void SetupCharacterControl()
     {
         foreach (var character in characters)
         {
@@ -129,12 +175,6 @@ public class PartyCharacterManager : MonoBehaviour
             }
             
         }
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     public void ActivateCharacter(PlayerStateMachine character)
@@ -152,31 +192,31 @@ public class PartyCharacterManager : MonoBehaviour
     
     //Cycle between characters in the party
     //Q and E to do Previous and Next
-    void swapPrevious()
+    void SwapPrevious()
     {
-        DeactivateCharacter(characters[currentCharacterIndex]);
+        DeactivateCharacter(characters[_currentCharacterIndex]);
         
-        currentCharacterIndex--;
-        if (currentCharacterIndex < 0)
+        _currentCharacterIndex--;
+        if (_currentCharacterIndex < 0)
         {
-            currentCharacterIndex = characters.Count - 1;
+            _currentCharacterIndex = characters.Count - 1;
         }
         
-        ActivateCharacter(characters[currentCharacterIndex]);
-        Debug.Log("SwapPrevious, Party Index = "+currentCharacterIndex);
+        ActivateCharacter(characters[_currentCharacterIndex]);
+        Debug.Log("SwapPrevious, Party Index = "+_currentCharacterIndex);
     }
-    void swapNext()
+    void SwapNext()
     {
-        DeactivateCharacter(characters[currentCharacterIndex]);
+        DeactivateCharacter(characters[_currentCharacterIndex]);
         
-        currentCharacterIndex++;
-        if (currentCharacterIndex >= characters.Count)
+        _currentCharacterIndex++;
+        if (_currentCharacterIndex >= characters.Count)
         {
-            currentCharacterIndex = 0;
+            _currentCharacterIndex = 0;
         }
         
-        ActivateCharacter(characters[currentCharacterIndex]);
-        Debug.Log("SwapNext, Party Index = "+currentCharacterIndex);
+        ActivateCharacter(characters[_currentCharacterIndex]);
+        Debug.Log("SwapNext, Party Index = "+_currentCharacterIndex);
     }
     
     void OnSwapPrevious(InputAction.CallbackContext ctx)
@@ -185,7 +225,7 @@ public class PartyCharacterManager : MonoBehaviour
         //Don't press both swap keys at the same time
         if (_isSwapPreviousPressed && !_isSwapNextPressed)
         {
-            swapPrevious();
+            SwapPrevious();
         }
     }
     void OnSwapNext(InputAction.CallbackContext ctx)
@@ -194,7 +234,7 @@ public class PartyCharacterManager : MonoBehaviour
         //Don't press both swap keys at the same time
         if (_isSwapNextPressed && !_isSwapPreviousPressed)
         {
-            swapNext();
+            SwapNext();
         }
     }
     

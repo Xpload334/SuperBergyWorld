@@ -67,20 +67,20 @@ public class DamageText : MonoBehaviour
     private void Update()
     {
         transform.position += _moveVector * Time.deltaTime;
-        _moveVector -= _moveVector * 8f * Time.deltaTime;
+        _moveVector -= _moveVector * (8f * Time.deltaTime);
 
 
         if (_lifetime > FadetimeMax * 0.5f)
         {
             //1st half of the popup
             float increaseScale = 1f;
-            transform.localScale += Vector3.one * increaseScale * Time.deltaTime;
+            transform.localScale += Vector3.one * (increaseScale * Time.deltaTime);
         }
         else
         {
             //2nd half of the popup
             float decreaseScale = 1f;
-            transform.localScale -= Vector3.one * decreaseScale * Time.deltaTime;
+            transform.localScale -= Vector3.one * (decreaseScale * Time.deltaTime);
         }
         _lifetime -= Time.deltaTime;
         if (_lifetime < 0)

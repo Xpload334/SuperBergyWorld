@@ -8,7 +8,7 @@ public class SpawnEnemy : MonoBehaviour
     public PartyCharacterManager characterManager;
     [SerializeField]
     private GameObject enemyEncounterPrefab;
-    private bool _spawning = false;
+    private bool _spawning;
     public Collider triggerCollider;
     void Start () 
     {

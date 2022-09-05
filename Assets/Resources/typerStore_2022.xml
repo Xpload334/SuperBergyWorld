@@ -14,6 +14,7 @@
         </Typer>
 
         <!-- Tobias: 1-19 -->
+        <!-- Tobias Basic-->
         <Typer id="1">
             <Name>TobiasBasic</Name>
             <Sprites>
@@ -24,7 +25,7 @@
             <SpriteInterval>4</SpriteInterval>
             <SoundInterval>3</SoundInterval>
         </Typer>
-
+        <!-- Tobias Angry-->
         <Typer id="2">
             <Name>TobiasAngry</Name>
             <Sprites>
@@ -35,7 +36,7 @@
             <SpriteInterval>4</SpriteInterval>
             <SoundInterval>3</SoundInterval>
         </Typer>
-
+        <!-- Tobias Curious-->
         <Typer id="3">
             <Name>TobiasCurious</Name>
             <Sprites>
@@ -46,7 +47,7 @@
             <SpriteInterval>4</SpriteInterval>
             <SoundInterval>3</SoundInterval>
         </Typer>
-
+        <!-- Tobias Curious Forward-->
         <Typer id="4">
             <Name>TobiasCuriousForward</Name>
             <Sprites>
@@ -57,7 +58,7 @@
             <SpriteInterval>4</SpriteInterval>
             <SoundInterval>3</SoundInterval>
         </Typer>
-
+        <!-- Tobias Scared-->
         <Typer id="5">
             <Name>TobiasScared</Name>
             <Sprites>
@@ -68,26 +69,112 @@
             <SpriteInterval>4</SpriteInterval>
             <SoundInterval>3</SoundInterval>
         </Typer>
-
-        <Typer id="3">
+        <!-- Tobias Scared Eyebrow-->
+        <Typer id="6">
             <Name>TobiasScaredEyebrow</Name>
             <Sprites>
                 <Sprite>Tobias\scaredEyebrow\closed</Sprite>
-                <Sprite>Tobias\curious\open</Sprite>
+                <Sprite>Tobias\scaredEyebrow\open</Sprite>
             </Sprites>
             <SoundID>1</SoundID>
             <SpriteInterval>4</SpriteInterval>
             <SoundInterval>3</SoundInterval>
         </Typer>
-
-        
+        <!-- Tobias Stare-->
+        <Typer id="7">
+            <Name>TobiasStare</Name>
+            <Sprites>
+                <Sprite>Tobias\stare\closed</Sprite>
+                <Sprite>Tobias\stare\open</Sprite>
+            </Sprites>
+            <SoundID>1</SoundID>
+            <SpriteInterval>4</SpriteInterval>
+            <SoundInterval>3</SoundInterval>
+        </Typer>
+        <!-- Tobias Stare Forward-->
+        <Typer id="8">
+            <Name>TobiasStareForward</Name>
+            <Sprites>
+                <Sprite>Tobias\stareForward\closed</Sprite>
+                <Sprite>Tobias\stareForward\open</Sprite>
+            </Sprites>
+            <SoundID>1</SoundID>
+            <SpriteInterval>4</SpriteInterval>
+            <SoundInterval>3</SoundInterval>
+        </Typer>
+        <!-- Tobias Surprised-->
+        <Typer id="9">
+            <Name>TobiasSurprised</Name>
+            <Sprites>
+                <Sprite>Tobias\surprised\closed</Sprite>
+                <Sprite>Tobias\surprised\open</Sprite>
+            </Sprites>
+            <SoundID>1</SoundID>
+            <SpriteInterval>4</SpriteInterval>
+            <SoundInterval>3</SoundInterval>
+        </Typer>
+        <!-- Tobias Surprised Forward-->
+        <Typer id="10">
+            <Name>TobiasSurprisedForward</Name>
+            <Sprites>
+                <Sprite>Tobias\surprisedForward\closed</Sprite>
+                <Sprite>Tobias\surprisedForward\open</Sprite>
+            </Sprites>
+            <SoundID>1</SoundID>
+            <SpriteInterval>4</SpriteInterval>
+            <SoundInterval>3</SoundInterval>
+        </Typer>
+        <!-- Tobias Very Angry-->
+        <Typer id="11">
+            <Name>TobiasVeryAngry</Name>
+            <Sprites>
+                <Sprite>Tobias\veryAngry\closed</Sprite>
+                <Sprite>Tobias\veryAngry\open</Sprite>
+            </Sprites>
+            <SoundID>1</SoundID>
+            <SpriteInterval>4</SpriteInterval>
+            <SoundInterval>3</SoundInterval>
+        </Typer>
+        <!-- Tobias Very Surprised-->
+        <Typer id="12">
+            <Name>TobiasVerySurprised</Name>
+            <Sprites>
+                <Sprite>Tobias\verySurprised\closed</Sprite>
+                <Sprite>Tobias\verySurprised\open</Sprite>
+            </Sprites>
+            <SoundID>1</SoundID>
+            <SpriteInterval>4</SpriteInterval>
+            <SoundInterval>3</SoundInterval>
+        </Typer>
+        <!-- Tobias Wink-->
+        <Typer id="13">
+            <Name>TobiasWink</Name>
+            <Sprites>
+                <Sprite>Tobias\wink\closed</Sprite>
+                <Sprite>Tobias\wink\open</Sprite>
+            </Sprites>
+            <SoundID>1</SoundID>
+            <SpriteInterval>4</SpriteInterval>
+            <SoundInterval>3</SoundInterval>
+        </Typer>
         
         <!-- Xpload: 20-39-->
+        <!-- Xpload Basic-->
         <Typer id="20">
             <Name>XploadBasic</Name>
             <Sprites>
                 <Sprite>Xpload\basic\closed</Sprite>
                 <Sprite>Xpload\basic\open</Sprite>
+            </Sprites>
+            <SoundID>2</SoundID>
+            <SpriteInterval>1</SpriteInterval>
+            <SoundInterval>4</SoundInterval>
+        </Typer>
+        <!-- Xpload Awkward-->
+        <Typer id="21">
+            <Name>XploadAwkward</Name>
+            <Sprites>
+                <Sprite>Xpload\awkward\xploadAwkward</Sprite>
             </Sprites>
             <SoundID>2</SoundID>
             <SpriteInterval>1</SpriteInterval>

@@ -30,6 +30,6 @@ public class EnemyUnitAction : MonoBehaviour
     public void act () 
     {
         GameObject target = findRandomTarget();
-        this.attack.GetComponent<AttackTarget>().hit(target);
+        //this.attack.GetComponent<AttackTarget>().Hit(target);
     }
 }

@@ -5,8 +5,8 @@ using UnityEngine;
 
 public class HealthSystem
 {
-    private int maxHealth;
-    private int health;
+    private int _maxHealth;
+    private int _health;
 
     public delegate void HealthChange();
     public static event HealthChange OnHealthChanged;
@@ -17,38 +17,38 @@ public class HealthSystem
 
     public HealthSystem(int maxHealth, int currentHealth)
     {
-        this.maxHealth = maxHealth;
-        health = currentHealth;
+        this._maxHealth = maxHealth;
+        _health = currentHealth;
     }
 
     public int GetHealth()
     {
-        return health;
+        return _health;
     }
 
     public int GetMaxHealth()
     {
-        return maxHealth;
+        return _maxHealth;
     }
 
     public float GetHealthPercent()
     {
-        return (float) health / maxHealth;
+        return (float) _health / _maxHealth;
     }
 
     public bool IsDefeated()
     {
-        return health <= 0;
+        return _health <= 0;
     }
     
     public void Damage(int amount)
     {
-        health -= amount;
-        if (health < 0) health = 0;
+        _health -= amount;
+        if (_health < 0) _health = 0;
         
         OnHealthChanged?.Invoke();
         
-        if (health <= 0)
+        if (_health <= 0)
         {
             //health = 0;
             OnDefeat?.Invoke();
@@ -57,8 +57,8 @@ public class HealthSystem
 
     public void Heal(int amount)
     {
-        health += amount;
-        if (health > maxHealth) health = maxHealth;
+        _health += amount;
+        if (_health > _maxHealth) _health = _maxHealth;
 
 
         OnHealthChanged?.Invoke();
@@ -66,13 +66,13 @@ public class HealthSystem
     
     public void SetHealth(int amount)
     {
-        health = amount;
-        if (health > maxHealth) health = maxHealth;
-        if (health < 0) health = 0;
+        _health = amount;
+        if (_health > _maxHealth) _health = _maxHealth;
+        if (_health < 0) _health = 0;
         
         OnHealthChanged?.Invoke();
         
-        if (health <= 0)
+        if (_health <= 0)
         {
             //health = 0;
             OnDefeat?.Invoke();

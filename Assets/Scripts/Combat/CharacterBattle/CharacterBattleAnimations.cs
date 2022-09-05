@@ -7,16 +7,26 @@ public class CharacterBattleAnimations : MonoBehaviour
 {
     public RuntimeAnimatorController runtimeAnimatorController;
     public GameObject spriteObject;
+    private Animator _animator;
+    
+    private int _moveXHash;
+    private int _moveYHash;
+
+    private int _attackHash;
+
+    [Header("Actions")] 
+    public bool shouldInvokeActions = true;
+    private Action _onHitAction;
+    private Action _onFinishedAction;
     // Start is called before the first frame update
     void Start()
     {
         spriteObject.GetComponent<Animator>().runtimeAnimatorController = runtimeAnimatorController;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
+        _animator = spriteObject.GetComponent<Animator>();
         
+        _moveXHash = Animator.StringToHash("MoveX");
+        _moveYHash = Animator.StringToHash("MoveY");
+        _attackHash = Animator.StringToHash("Attack");
     }
 
     /*
@@ -25,19 +35,19 @@ public class CharacterBattleAnimations : MonoBehaviour
      *
      * Will be different for enemies
      */
-    public void PlayAnimAttack(Vector3 attackDirection, Action OnHit, Action OnFinished)
+    public void PlayAnimAttack(Vector3 attackDirection, Action onHit, Action onFinished)
     {
         //Startup
         Debug.Log("Attacking towards"+attackDirection);
+        _animator.SetFloat(_moveXHash, attackDirection.x);
+        _animator.SetFloat(_moveYHash, attackDirection.z);
         
         //Target hit
-        Debug.Log("Target hit");
-        OnHit.Invoke();
+        _animator.SetTrigger(_attackHash);
+        _onHitAction = onHit;
         
         //Attack finished
-        Debug.Log("Attack finished");
-        OnFinished.Invoke();
-        
+        _onFinishedAction = onFinished;
     }
 
     public void PlayAnimIdle(Vector3 attackDirection)
@@ -49,4 +59,28 @@ public class CharacterBattleAnimations : MonoBehaviour
     {
         
     }
+
+    /*
+     * Method called from Animation Events
+     */
+    public void InvokeOnHitAction()
+    {
+        if (shouldInvokeActions)
+        {
+            Debug.Log("Target hit");
+            _onHitAction.Invoke();
+        }
+    }
+
+    public void InvokeOnFinishedAction()
+    {
+        if (shouldInvokeActions)
+        {
+            Debug.Log("Attack finished");
+            _onFinishedAction.Invoke();
+        }
+    }
+    
+    
+    
 }

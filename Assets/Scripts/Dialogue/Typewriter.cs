@@ -46,16 +46,16 @@ public class Typewriter : MonoBehaviour
      * Increment index tracking image count (this makes the images cycle around)
      */
     
-    private Coroutine typingCoroutine;
+    private Coroutine _typingCoroutine;
 
     public void Run(string textToType, TMP_Text textLabel, TyperContents typer)
     {
-        typingCoroutine = StartCoroutine(TypeText(textToType, textLabel, typer));
+        _typingCoroutine = StartCoroutine(TypeText(textToType, textLabel, typer));
     }
 
     public void Stop()
     {
-        StopCoroutine(typingCoroutine);
+        StopCoroutine(_typingCoroutine);
         IsRunning = false;
         
         spriteController.SetToFirstSprite();
@@ -78,13 +78,13 @@ public class Typewriter : MonoBehaviour
         float t = 0;
         int charIndex = 0;
         spriteController.spriteChangeWaitTime = typer.SpriteInterval; //Set sprite interval
-        spriteController.spritesList = typer.spriteList; //Add all typer sprites
+        spriteController.spritesList = typer.SpriteList; //Add all typer sprites
         spriteController.faceImage = faceImage;
         spriteController.SetToFirstSprite();
         
         voiceBleepController.soundWaitTime = typer.SoundInterval; //Set sound interval
         voiceBleepController.SetSound(typer.Sound); //Set typer sound
-        voiceBleepController.AudioSource = audioSource;
+        voiceBleepController.audioSource = audioSource;
         voiceBleepController.SetToPlayNext();
 
 

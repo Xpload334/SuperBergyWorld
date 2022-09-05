@@ -7,31 +7,30 @@ using UnityEngine;
 
 public class RoomManager : MonoBehaviour
 {
-    public PartyCharacterManager PartyCharacterManager;
+    public PartyCharacterManager partyCharacterManager;
     
-    public GameObject camera;
-    public Collider collider;
+    public GameObject cameraObject;
+    public Collider thisCollider;
     public Transform cameraTarget;
 
     private void Awake()
     {
-        PartyCharacterManager = FindObjectOfType<PartyCharacterManager>();
+        partyCharacterManager = FindObjectOfType<PartyCharacterManager>();
         
         //Can I apply the camera to this object?
         //If set to null, camera is the first child of this object
-        if (camera == null)
+        if (cameraObject == null)
         {
-            camera = transform.GetChild(0).gameObject;
+            cameraObject = transform.GetChild(0).gameObject;
         }
-        cameraTarget = camera.GetComponent<CinemachineVirtualCamera>().m_Follow;
+        cameraTarget = cameraObject.GetComponent<CinemachineVirtualCamera>().m_Follow;
 
-        if (collider == null)
+        if (thisCollider == null)
         {
-            collider = GetComponent<Collider>();
+            thisCollider = GetComponent<Collider>();
         }
-        
-        
-        changeCameraTarget(FindObjectOfType<CameraTarget>().transform);
+
+        ChangeCameraTarget(FindObjectOfType<CameraTarget>().transform);
     }
 
     private void OnTriggerEnter(Collider other)
@@ -40,8 +39,8 @@ public class RoomManager : MonoBehaviour
         {
             //Later, add a check to see if this collider is attached to the active player
             //Class the manages the party will allocate control to the given player (or rather, player states)
-            camera.SetActive(true);
-            Debug.Log(camera.name+" is active.");
+            cameraObject.SetActive(true);
+            Debug.Log(cameraObject.name+" is active.");
         }
     }
 
@@ -49,21 +48,21 @@ public class RoomManager : MonoBehaviour
     {
         if (other.CompareTag("Player") && !other.isTrigger)
         {
-            camera.SetActive(false);
-            Debug.Log(camera.name+" is not active.");
+            cameraObject.SetActive(false);
+            Debug.Log(cameraObject.name+" is not active.");
         }
     }
 
     //Change camera target to another Transform
-    public void changeCameraTarget(Transform transform)
+    public void ChangeCameraTarget(Transform targetTransform)
     {
-        if (cameraTarget == transform)
+        if (cameraTarget == targetTransform)
         {
-            Debug.Log("Target of "+camera.name+" is already "+transform);
+            Debug.Log("Target of "+cameraObject.name+" is already "+targetTransform);
             return;
         }
 
-        camera.GetComponent<CinemachineVirtualCamera>().m_Follow = transform;
-        Debug.Log("Changed target of "+camera.name+" to "+transform);
+        cameraObject.GetComponent<CinemachineVirtualCamera>().m_Follow = targetTransform;
+        Debug.Log("Changed target of "+cameraObject.name+" to "+targetTransform);
     }
 }

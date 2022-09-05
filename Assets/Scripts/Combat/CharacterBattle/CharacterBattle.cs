@@ -74,12 +74,15 @@ public class CharacterBattle : MonoBehaviour
         return transform.position;
     }
 
-    public void Setup(bool isPlayerTeam, UnitStats unitStats)
+    public void Setup(bool playerTeam, UnitStats unitStats)
     {
         //Make a reference to an animator too
-        this.isPlayerTeam = isPlayerTeam;
+        this.isPlayerTeam = playerTeam;
         
-        if (isPlayerTeam)
+        //Unit stats
+        this.unitStats = unitStats;
+        
+        if (playerTeam)
         {
             //Testing: set sprite
             //Later set the animator for this component
@@ -89,10 +92,7 @@ public class CharacterBattle : MonoBehaviour
         {
             characterSpriteRenderer.sprite = BattleHandler.GetInstance().enemySpriteTest;
         }
-        
-        //Unit stats
-        this.unitStats = unitStats;
-        
+
         //Health
         _healthSystem = new HealthSystem(unitStats.maxHealth, unitStats.health); //test
         
