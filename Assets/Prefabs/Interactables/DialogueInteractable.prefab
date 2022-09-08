@@ -248,7 +248,7 @@ MonoBehaviour:
   triggerCollider: {fileID: 4165572113836209759}
   triggerActive: 0
   canInteract: 1
-  DialogueIDList: 02000000
+  dialogueIDList: 01000000
   dialogueManager: {fileID: 0}
   contextClue: {fileID: 4165572113099351470}
-  CanReplayDialogue: 1
+  canReplayDialogue: 1

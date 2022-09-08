@@ -42,17 +42,25 @@ public class PlayerWalkState : PlayerBaseState
     {
         Ctx.AppliedMovementX = Ctx.CurrentMovementInput.x * Ctx.speed;
         Ctx.AppliedMovementZ = Ctx.CurrentMovementInput.y * Ctx.speed;
-        
+
+        //Ctx.AppliedMovement = Ctx.CurrentMovement;
     }
 
     void HandleAnimations()
     {
-        Ctx.animator.SetFloat(Ctx.MoveXHash, Mathf.Round(Ctx.CurrentMovementInput.x));
-        Ctx.animator.SetFloat(Ctx.MoveYHash, Mathf.Round(Ctx.CurrentMovementInput.y));
-
-        /*
-        Ctx.animator.SetFloat(Ctx.MoveXHash, Ctx.CurrentMovementX);
-        Ctx.animator.SetFloat(Ctx.MoveYHash, Ctx.CurrentMovementZ);
-        */
+        if (Ctx.shouldUpdateMoveAnims)
+        {
+            Ctx.animator.SetFloat(Ctx.MoveXHash, Ctx.roundedMovement.x);
+            Ctx.animator.SetFloat(Ctx.MoveYHash, Ctx.roundedMovement.y);
+        }
+        
+        if (Ctx.roundedMovement != Vector2.zero)
+        {
+            Ctx.animator.SetBool(Ctx.IsMovingHash, true);
+        }
+        else
+        {
+            Ctx.animator.SetBool(Ctx.IsMovingHash, false);
+        }
     }
 }

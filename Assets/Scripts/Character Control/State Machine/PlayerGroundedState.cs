@@ -96,20 +96,15 @@ public class PlayerGroundedState : PlayerBaseState, IRootState
         {
             canPerform = true;
         }
-
-            
+        
         //If can perform
         if (canPerform)
         {
+            Ctx.characterAction.StartAction(); //Start action
             //If switches into action state, switch states and perform action
             if (Ctx.characterAction.switchesIntoActionState)
             {
-                Ctx.characterAction.StartAction(); //Start action
                 SwitchState(Factory.Action()); //Switch into action state
-            }
-            else
-            {
-                Ctx.characterAction.StartAction(); //Start action
             }
         }
     }

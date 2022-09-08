@@ -10,16 +10,18 @@ public class PlayerIdleState : PlayerBaseState
 
     public override void EnterState()
     {
-        Ctx.Animator.SetBool(Ctx.IsMovingHash, false);
-        
         Ctx.animator.SetFloat(Ctx.MoveXHash, Mathf.Round(Ctx.LastMovementX));
         Ctx.animator.SetFloat(Ctx.MoveYHash, Mathf.Round(Ctx.LastMovementY));
+        
         Ctx.AppliedMovementX = 0;
         Ctx.AppliedMovementZ = 0;
+        
+        Ctx.Animator.SetBool(Ctx.IsMovingHash, false);
     }
 
     public override void UpdateState()
     {
+        HandleAnimations();
         CheckSwitchStates();
     }
 
@@ -37,5 +39,10 @@ public class PlayerIdleState : PlayerBaseState
 
     public override void InitializeSubState()
     {
+        
+    }
+    void HandleAnimations()
+    {
+        Ctx.animator.SetBool(Ctx.IsMovingHash, false);
     }
 }

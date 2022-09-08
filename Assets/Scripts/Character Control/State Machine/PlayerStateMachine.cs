@@ -41,6 +41,7 @@ public class PlayerStateMachine : MonoBehaviour
     //Party variables
     [Header("Party and Swapping")] 
     public bool shouldFollow;
+    public FollowPlayer followPlayer;
     
     //Animator
     [Header("Animation")]
@@ -48,6 +49,7 @@ public class PlayerStateMachine : MonoBehaviour
 
     public Vector2 roundedMovement;
     public bool shouldAnimate = true;
+    public bool shouldUpdateMoveAnims = true;
     //Variables to store animation parameter IDs
 
     [Header("Components")] 
@@ -126,10 +128,7 @@ public class PlayerStateMachine : MonoBehaviour
         set => _lastMovement = value;
     }
     public float GroundedGravity => _groundedGravity;
-
     public float FallMultiplier => _fallMultiplier;
-
-    public float Speed => speed;
     public Vector2 CurrentMovementInput { get => _currentMovementInput; set => _currentMovementInput = value; }
     public bool IsActionPressed { get; set; }
 
@@ -159,8 +158,15 @@ public class PlayerStateMachine : MonoBehaviour
         _currentState.EnterState();
         
         _playerInput = new PlayerInput();
-
         //Input controlled by party manager
+
+        //AI navigation
+        followPlayer = GetComponent<FollowPlayer>();
+        if (followPlayer != null)
+        {
+            followPlayer.OnLinkStart += HandleLinkStart;
+            followPlayer.OnLinkEnd += HandleLinkEnd;
+        }
         
         SetupJumpVariables();
     }
@@ -174,82 +180,87 @@ public class PlayerStateMachine : MonoBehaviour
 
     void Start()
     {
-        _characterController.Move(_appliedMovement * Time.deltaTime);
+        UpdateMovement();
     }
+    
 
     // Update is called once per frame
     void Update()
     {
         _currentState.UpdateStates();
         UpdateStateName();
-        //If should move and not following
-        //or
-        //following and jumping
-        if ((shouldMove && !shouldFollow) || (shouldFollow && IsJumping))
+        
+        /*
+         * If should move and not following
+         */
+        if (shouldMove && !shouldFollow)
         {
-            _characterController.Move(_appliedMovement * Time.deltaTime);
-            //HandleMovement();
+            UpdateMovement();
         }
+    }
+    
+    public void UpdateMovement()
+    {
+        _characterController.Move(AppliedMovement * Time.deltaTime);
     }
 
     public void OnMovement(Vector2 movementInput)
     {
         _currentMovementInput = movementInput;
-        _currentMovement.x = movementInput.x * speed;
-        _currentMovement.z = movementInput.y * speed;
+        CurrentMovementX = movementInput.x * speed;
+        CurrentMovementZ = movementInput.y * speed;
 
-            //Store last non-zero movement
+        //Store last non-zero movement
         if (!movementInput.Equals(Vector2.zero))
         {
-            _lastMovement.x = movementInput.x;
-            _lastMovement.z = movementInput.y;
+            LastMovementX = movementInput.x;
+            LastMovementY = movementInput.y;
             //_lastMovement = _currentMovementInput;
         }
-        
-        isMovementPressed = (movementInput.x != 0 || movementInput.y != 0); //Set true if x or y greater than 0
-        
+
         roundedMovement.x = Mathf.Round(movementInput.x);
         roundedMovement.y = Mathf.Round(movementInput.y);
+        
+        isMovementPressed = (movementInput.x != 0 || movementInput.y != 0); //Set true if x or y greater than 0
     }
 
-    public void OnAction()
+    public void FreezeCurrentMovement()
     {
-        if (IsActionPressed)
-        {
-            characterAction.StartAction();
-        }
+        CurrentMovementX = 0;
+        CurrentMovementZ = 0;
     }
 
     //When this character is made active
     public void Activate()
     {
-        //EnableControls();
         shouldControl = true;
         shouldFollow = false;
-        
-        //ResetMovement();
     }
 
     //When this character is made inactive
     public void Deactivate()
     {
-        //DisableControls();
         shouldControl = false;
         shouldFollow = true;
-        
-        //Here, maybe do logic about following
-        ResetMovement();
-        
+
+        FreezeCurrentMovement();
     }
 
-    public void ResetMovement()
+    public void FollowTarget(Transform targetTransform)
     {
-        _currentMovementInput = Vector2.zero;
-        isMovementPressed = false;
-        Debug.Log(name+" movement reset");
+        if (followPlayer != null)
+        {
+            followPlayer.EnablePathfinding(targetTransform);
+        }
     }
-    
-    
+
+    public void DisablePathfinding()
+    {
+        if (followPlayer != null)
+        {
+            followPlayer.DisablePathfinding();
+        }
+    }
     private void OnEnable()
     {
         EnableControls();
@@ -274,5 +285,31 @@ public class PlayerStateMachine : MonoBehaviour
     {
         currentStateName = _currentState.ToString();
         currentSubStateName = _currentState.HasSubState() ? _currentState.CurrentSubState.ToString() : "None";
+    }
+
+    public void UpdateMoveAnims(Vector2 moveAnimsVector)
+    {
+        roundedMovement.x = Mathf.Round(moveAnimsVector.x);
+        roundedMovement.y = Mathf.Round(moveAnimsVector.y);
+        
+        //Store last non-zero movement
+        if (!roundedMovement.Equals(Vector2.zero))
+        {
+            LastMovementX = moveAnimsVector.x;
+            LastMovementY = moveAnimsVector.y;
+        }
+        
+        isMovementPressed = (moveAnimsVector.x != 0 || moveAnimsVector.y != 0); //Set true if x or y not equal to 0
+    }
+
+    private void HandleLinkStart()
+    {
+        IsJumpPressed = true;
+        RequireNewJumpPress = false;
+    }
+
+    private void HandleLinkEnd()
+    {
+        IsJumpPressed = false;
     }
 }

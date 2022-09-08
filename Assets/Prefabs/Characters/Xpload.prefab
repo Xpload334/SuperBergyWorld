@@ -50,25 +50,27 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shouldMove: 1
-  _isMovementPressed: 0
+  isMovementPressed: 0
   speed: 5
   hasGravity: 1
   gravityValue: -10
   shouldJump: 1
   shouldAdjustJump: 1
   initialJumpVelocity: 0
-  maxJumpHeight: 1
+  maxJumpHeight: 2
   maxJumpTime: 0.6
   maxFallVelocity: -20
   shouldInteract: 0
+  interactable: {fileID: 0}
+  characterAction: {fileID: 0}
   shouldAction: 0
   shouldFollow: 0
+  followPlayer: {fileID: 0}
   animator: {fileID: 3640151364929181607}
   roundedMovement: {x: 0, y: 0}
   shouldAnimate: 1
+  shouldUpdateMoveAnims: 1
   shouldControl: 0
-  _currentMovementInput: {x: 0, y: 0}
-  _currentMovement: {x: 0, y: 0, z: 0}
   currentStateName: 
   currentSubStateName: 
 --- !u!143 &3640151364366883105
@@ -97,20 +99,20 @@ NavMeshAgent:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3640151364366883106}
   m_Enabled: 1
-  m_AgentTypeID: 0
+  m_AgentTypeID: -334000983
   m_Radius: 0.45
   m_Speed: 5
-  m_Acceleration: 15
+  m_Acceleration: 20
   avoidancePriority: 50
   m_AngularSpeed: 0
-  m_StoppingDistance: 3
-  m_AutoTraverseOffMeshLink: 1
+  m_StoppingDistance: 2.5
+  m_AutoTraverseOffMeshLink: 0
   m_AutoBraking: 1
-  m_AutoRepath: 1
-  m_Height: 0.6
+  m_AutoRepath: 0
+  m_Height: 1
   m_BaseOffset: 0
-  m_WalkableMask: 4294967295
-  m_ObstacleAvoidanceType: 4
+  m_WalkableMask: 5
+  m_ObstacleAvoidanceType: 3
 --- !u!114 &3640151364011995380
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -124,12 +126,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
-  player: {fileID: 0}
-  logRecords: 0
   nav: {fileID: 3640151364011995376}
-  minVelocity: 0.1
-  stoppingDistance: 3
-  animationBufferDistance: 0.15
+  minVelocity: 0.05
+  stoppingDistance: 1.5
+  moveVelocity: {x: 0, y: 0, z: 0}
+  updateSpeed: 0.1
+  Method: 2
+  jumpHeight: 1
+  maxJumpHeight: 2
+  jumpDuration: 0.5
 --- !u!1 &3640151364929181609
 GameObject:
   m_ObjectHideFlags: 0
@@ -226,7 +231,7 @@ Animator:
   m_GameObject: {fileID: 3640151364929181609}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 22100000, guid: c915e91ab641b3042b408af82b9919fd, type: 2}
+  m_Controller: {fileID: 9100000, guid: 590cb897b1a94fa4cba5b5068e623f58, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

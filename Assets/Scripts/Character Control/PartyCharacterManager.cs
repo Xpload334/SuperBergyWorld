@@ -14,18 +14,22 @@ public class PartyCharacterManager : MonoBehaviour
 {
     public GameObject currentCharacterObject;
     public PlayerStateMachine currentCharacter;
-    private int _currentCharacterIndex;
+    //private int _currentCharacterIndex;
 
+    [Header("Characters")]
     public List<GameObject> characterObjectList;
     public List<PlayerStateMachine> characters; //Also add as children
-    //Change: maybe read in the child objects of this
+    public DoublyLinkedList<int> CharacterIndexDoublyLinkedList = new DoublyLinkedList<int>(); //Keep track of the active characters using this
+    //Head of the list is the current character
 
+    //Change: maybe read in the child objects of this
     public int partySize;
     [Header("Camera")] 
     public CameraTarget cameraTarget;
     
     //Instance of PlayerInput
     [Header("Player Input")] 
+    public Vector2 currentMovementInput;
     public bool shouldControl;
     public bool shouldSwap;
     private PlayerInput _playerInput;
@@ -87,6 +91,7 @@ public class PartyCharacterManager : MonoBehaviour
     {
         if (shouldControl)
         {
+            currentMovementInput = ctx.ReadValue<Vector2>();
             currentCharacter.OnMovement(ctx.ReadValue<Vector2>());
         }
     }
@@ -102,7 +107,7 @@ public class PartyCharacterManager : MonoBehaviour
     
     void OnAction(InputAction.CallbackContext ctx)
     {
-        if (shouldControl)
+        if (shouldControl && currentCharacter.characterAction != null)
         {
             currentCharacter.IsActionPressed = ctx.ReadValueAsButton();
         }
@@ -119,13 +124,16 @@ public class PartyCharacterManager : MonoBehaviour
 
     void InitialiseParty()
     {
+        /*
         //If object list doesn't contain current character
         if (!characterObjectList.Contains(currentCharacterObject))
         {
             characterObjectList.Add(currentCharacterObject);
             Debug.Log("Object list doesn't contain current character, added to list.");
         }
+        */
 
+        int i = 0;
         //Add each player in object list to player list
         foreach (GameObject characterObject in characterObjectList)
         {
@@ -133,12 +141,9 @@ public class PartyCharacterManager : MonoBehaviour
             if (characterObject.TryGetComponent(out PlayerStateMachine player).Equals(true))
             {
                 characters.Add(player);
+                CharacterIndexDoublyLinkedList.AddLast(i); //Add index to linked list
                 Debug.Log(player.name+" added to party.");
-
-                if (currentCharacterObject == characterObject)
-                {
-                    currentCharacter = player;
-                }
+                i++;
             }
             else
             {
@@ -150,30 +155,26 @@ public class PartyCharacterManager : MonoBehaviour
     void InitialiseCharacterIndex()
     {
         //If current not set up, set to 1st element of characters list
-        if (currentCharacter == null)
-        {
-            currentCharacter = characters[0];
-            _currentCharacterIndex = 0;
-        }
-        else
-        {
-            _currentCharacterIndex = characters.IndexOf(currentCharacter);
-        }
+        currentCharacter = characters[0];
     }
 
     void SetupCharacterControl()
     {
+        PlayerStateMachine lastCharacter = characters.Last();
         foreach (var character in characters)
         {
             if (character == currentCharacter)
             {
                 ActivateCharacter(character);
+                character.DisablePathfinding();
             }
             else
             {
                 DeactivateCharacter(character);
+                character.FollowTarget(lastCharacter.transform); //Follow the last character
             }
-            
+
+            lastCharacter = character;
         }
     }
 
@@ -187,36 +188,78 @@ public class PartyCharacterManager : MonoBehaviour
     public void DeactivateCharacter(PlayerStateMachine character)
     {
         character.Deactivate();
+        character.OnMovement(Vector2.zero);
         Debug.Log(character +" is now inactive");
+        
+        //Make character follow currently active character
     }
     
     //Cycle between characters in the party
     //Q and E to do Previous and Next
     void SwapPrevious()
     {
-        DeactivateCharacter(characters[_currentCharacterIndex]);
+        /*
+         * 1 <- 2 <- 3
+         * goes to
+         * 3 <- 1 <- 2
+         */
         
-        _currentCharacterIndex--;
-        if (_currentCharacterIndex < 0)
-        {
-            _currentCharacterIndex = characters.Count - 1;
-        }
+        int headIndex = CharacterIndexDoublyLinkedList.First.Value;
+        int previousIndex = CharacterIndexDoublyLinkedList.Last.Value; //Previous, in this case, being the last element of the list
         
-        ActivateCharacter(characters[_currentCharacterIndex]);
-        Debug.Log("SwapPrevious, Party Index = "+_currentCharacterIndex);
+        //Deactivate control of head character
+        DeactivateCharacter(characters[headIndex]);
+        //Activate control of last character
+        ActivateCharacter(characters[previousIndex]);
+        currentCharacter = characters[previousIndex];
+        currentCharacterObject = currentCharacter.gameObject;
+        //Disable pathfinding of last character
+        characters[previousIndex].DisablePathfinding();
+        
+        //Add last index to the front
+        CharacterIndexDoublyLinkedList.AddFirst(previousIndex);
+        //Remove last index
+        CharacterIndexDoublyLinkedList.RemoveLast();
+        
+        
+        //Previous head of list will now pathfind towards the new head
+        headIndex = CharacterIndexDoublyLinkedList.First.Value; //Head of the list
+        int oldHeadIndex = CharacterIndexDoublyLinkedList.First.Next.Value; //Original head of the list
+        characters[oldHeadIndex].FollowTarget(characters[headIndex].transform); //Follow next character in the line
+        
+        Debug.Log("SwapPrevious, Party Index = "+previousIndex);
     }
     void SwapNext()
     {
-        DeactivateCharacter(characters[_currentCharacterIndex]);
+        /*
+         * 1 <- 2 <- 3
+         * goes to
+         * 2 <- 3 <- 1
+         */
+
+        int headIndex = CharacterIndexDoublyLinkedList.First.Value;
+        int nextIndex = CharacterIndexDoublyLinkedList.First.Next.Value;
         
-        _currentCharacterIndex++;
-        if (_currentCharacterIndex >= characters.Count)
-        {
-            _currentCharacterIndex = 0;
-        }
+        //Deactivate control of head character
+        DeactivateCharacter(characters[headIndex]);
+        //Activate control of next character
+        ActivateCharacter(characters[nextIndex]);
+        currentCharacter = characters[nextIndex];
+        currentCharacterObject = currentCharacter.gameObject;
+        //Disable pathfinding of next character
+        characters[nextIndex].DisablePathfinding();
         
-        ActivateCharacter(characters[_currentCharacterIndex]);
-        Debug.Log("SwapNext, Party Index = "+_currentCharacterIndex);
+        //Add headIndex to end
+        CharacterIndexDoublyLinkedList.AddLast(headIndex);
+        //Remove headIndex
+        CharacterIndexDoublyLinkedList.RemoveFirst();
+        
+        //Last index will now pathfind towards their previous index in the linked list
+        int newTargetIndex = CharacterIndexDoublyLinkedList.Last.Previous.Value; //Next character in the line
+        int lastIndex = CharacterIndexDoublyLinkedList.Last.Value; //Index of last character (previous head)
+        characters[lastIndex].FollowTarget(characters[newTargetIndex].transform); //Follow next character in the line
+        
+        Debug.Log("SwapNext, Party Index = "+nextIndex);
     }
     
     void OnSwapPrevious(InputAction.CallbackContext ctx)

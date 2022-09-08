@@ -13,6 +13,8 @@ public class CharacterAction : MonoBehaviour
     public bool canPerformAction; //If the action key can be pressed again (in any state)
 
     [Header("Action Modifiers")] 
+    private float characterSpeed;
+    public float characterSpeedForAction = 0f;
     public bool switchesIntoActionState; //In the action state, cannot move, disable for state changing actions that do not disable movement
     public bool requiresGrounded; //Requires player to be grounded to perform
     public bool canMove;
@@ -27,34 +29,33 @@ public class CharacterAction : MonoBehaviour
     }
     public void StartAction()
     {
-        Debug.Log("Performing action");
-            
+        //Debug.Log("Performing action");
+
+        //Speed
+        characterSpeed = player.speed;
+        player.speed = characterSpeedForAction;
+        //Action bools
         actionIsRunning = true;
         canPerformAction = false;
         //Animator bool
         _playerAnimator.SetBool(_isAttackHash, true);
+        player.shouldUpdateMoveAnims = false;
     }
 
     
     //Replace with animation events
     public void EndAction()
     {
-        /*
-        //Check if action is running
-        if (actionIsRunning)
-        {
-            Debug.Log("End action");
-            actionIsRunning = false;
-            //Animator bool
-            _playerAnimator.SetBool(_isAttackHash, false);
-            StartCoroutine(Cooldown());
-        }
-        */
+        //Debug.Log("End action");
         
-        Debug.Log("End action");
+        //Character speed
+        player.speed = characterSpeed;
+        
         actionIsRunning = false;
         //Animator bool
         _playerAnimator.SetBool(_isAttackHash, false);
+        player.shouldUpdateMoveAnims = true;
+        //player.FreezeCurrentMovement();
         StartCoroutine(Cooldown());
         
     }
@@ -65,9 +66,9 @@ public class CharacterAction : MonoBehaviour
         canPerformAction = true;
     }
 
-    public void TriggerActionEffect()
+    public virtual void TriggerActionEffect()
     {
-        Debug.Log("Action trigger, whack");
+        //Debug.Log("Action trigger, whack");
     }
     
     

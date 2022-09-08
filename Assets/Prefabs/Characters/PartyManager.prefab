@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 787199761}
-  - component: {fileID: 787199762}
+  - component: {fileID: 571187019}
   m_Layer: 3
   m_Name: TobiasAction
   m_TagString: Untagged
@@ -32,7 +32,7 @@ Transform:
   m_Father: {fileID: 7148436382212461508}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &787199762
+--- !u!114 &571187019
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -41,16 +41,24 @@ MonoBehaviour:
   m_GameObject: {fileID: 787199760}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 117692d6bf5481349bcc473be529fa6f, type: 3}
+  m_Script: {fileID: 11500000, guid: 704e1b2accf7f3e499c4ebf2cd52a46f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 3890126193450678478}
   actionIsRunning: 0
   canPerformAction: 1
+  characterSpeedForAction: 0
   switchesIntoActionState: 1
   requiresGrounded: 1
   canMove: 0
-  CooldownTime: 0
+  cooldownTime: 0.2
+  worldLayer:
+    serializedVersion: 2
+    m_Bits: 64
+  objectLayer:
+    serializedVersion: 2
+    m_Bits: 128
+  attackRange: 1
 --- !u!1 &3890126195348506610
 GameObject:
   m_ObjectHideFlags: 0
@@ -105,6 +113,7 @@ MonoBehaviour:
   characters: []
   partySize: 0
   cameraTarget: {fileID: 0}
+  currentMovementInput: {x: 0, y: 0}
   shouldControl: 1
   shouldSwap: 0
 --- !u!1001 &538438853848513216
@@ -115,13 +124,49 @@ PrefabInstance:
     m_TransformParent: {fileID: 3890126195348506608}
     m_Modifications:
     - target: {fileID: 3640151364011995376, guid: 17cce8f9cf78cf84f9bae0e73eb4bedd, type: 3}
-      propertyPath: m_Acceleration
-      value: 7
+      propertyPath: m_AutoRepath
+      value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3640151364011995376, guid: 17cce8f9cf78cf84f9bae0e73eb4bedd, type: 3}
+      propertyPath: m_AgentTypeID
+      value: -334000983
+      objectReference: {fileID: 0}
+    - target: {fileID: 3640151364011995376, guid: 17cce8f9cf78cf84f9bae0e73eb4bedd, type: 3}
+      propertyPath: m_AutoBraking
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3640151364011995376, guid: 17cce8f9cf78cf84f9bae0e73eb4bedd, type: 3}
+      propertyPath: m_Acceleration
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 3640151364011995376, guid: 17cce8f9cf78cf84f9bae0e73eb4bedd, type: 3}
+      propertyPath: m_WalkableMask
+      value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 3640151364011995376, guid: 17cce8f9cf78cf84f9bae0e73eb4bedd, type: 3}
+      propertyPath: m_ObstacleAvoidanceType
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3640151364011995376, guid: 17cce8f9cf78cf84f9bae0e73eb4bedd, type: 3}
+      propertyPath: m_AutoTraverseOffMeshLink
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3640151364011995380, guid: 17cce8f9cf78cf84f9bae0e73eb4bedd, type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 4257843541419814258}
     - target: {fileID: 3640151364011995380, guid: 17cce8f9cf78cf84f9bae0e73eb4bedd, type: 3}
       propertyPath: target
       value: 
       objectReference: {fileID: 7148436382212461508}
+    - target: {fileID: 3640151364011995380, guid: 17cce8f9cf78cf84f9bae0e73eb4bedd, type: 3}
+      propertyPath: jumpHeight
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3640151364011995380, guid: 17cce8f9cf78cf84f9bae0e73eb4bedd, type: 3}
+      propertyPath: minVelocity
+      value: 0.05
+      objectReference: {fileID: 0}
     - target: {fileID: 3640151364011995380, guid: 17cce8f9cf78cf84f9bae0e73eb4bedd, type: 3}
       propertyPath: ignoreBuffer
       value: 1
@@ -140,15 +185,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3640151364366883135, guid: 17cce8f9cf78cf84f9bae0e73eb4bedd, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 10.639999
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 3640151364366883135, guid: 17cce8f9cf78cf84f9bae0e73eb4bedd, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 3.25
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3640151364366883135, guid: 17cce8f9cf78cf84f9bae0e73eb4bedd, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 26.5
+      value: 21.5
       objectReference: {fileID: 0}
     - target: {fileID: 3640151364366883135, guid: 17cce8f9cf78cf84f9bae0e73eb4bedd, type: 3}
       propertyPath: m_LocalRotation.w
@@ -178,6 +223,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3640151364929181607, guid: 17cce8f9cf78cf84f9bae0e73eb4bedd, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 590cb897b1a94fa4cba5b5068e623f58, type: 2}
+    - target: {fileID: 4354432650365917106, guid: 17cce8f9cf78cf84f9bae0e73eb4bedd, type: 3}
+      propertyPath: maxJumpHeight
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 17cce8f9cf78cf84f9bae0e73eb4bedd, type: 3}
 --- !u!1 &3890126194478506978 stripped
@@ -190,6 +243,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3640151364366883135, guid: 17cce8f9cf78cf84f9bae0e73eb4bedd, type: 3}
   m_PrefabInstance: {fileID: 538438853848513216}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &4257843541419814258 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4354432650365917106, guid: 17cce8f9cf78cf84f9bae0e73eb4bedd, type: 3}
+  m_PrefabInstance: {fileID: 538438853848513216}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3890126194478506978}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 182c10591e755f34b993aad45e17ae17, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &3890126193805575405
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -197,6 +261,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3890126195348506608}
     m_Modifications:
+    - target: {fileID: 489208867, guid: cb7478dea0a798a4ca511605b73f7fd1, type: 3}
+      propertyPath: speed
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 489208867, guid: cb7478dea0a798a4ca511605b73f7fd1, type: 3}
       propertyPath: shouldAction
       value: 1
@@ -208,7 +276,7 @@ PrefabInstance:
     - target: {fileID: 489208867, guid: cb7478dea0a798a4ca511605b73f7fd1, type: 3}
       propertyPath: characterAction
       value: 
-      objectReference: {fileID: 787199762}
+      objectReference: {fileID: 571187019}
     - target: {fileID: 489208867, guid: cb7478dea0a798a4ca511605b73f7fd1, type: 3}
       propertyPath: maxFallVelocity
       value: -10

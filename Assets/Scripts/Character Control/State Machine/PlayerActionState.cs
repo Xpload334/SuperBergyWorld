@@ -23,6 +23,8 @@ public class PlayerActionState : PlayerBaseState
         Ctx.CurrentMovementInput = Vector2.zero;
         */
         
+        //Ctx.DisableControls();
+        //Ctx.FreezeCurrentMovement();
         InitializeSubState();
     }
 
@@ -34,8 +36,7 @@ public class PlayerActionState : PlayerBaseState
     public override void ExitState()
     {
         Ctx.EnableControls();
-        //Ctx.CurrentMovementInput = _movementInputBackup;
-        //Ctx.RefreshMovement();
+        //Ctx.UpdateMovement();
     }
 
     public override void CheckSwitchStates()
